@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/gregbell/active_admin.git
-  revision: e812e07c9a1b244250fb9b6875a71acee1212f98
+  revision: 5a2b7b5bc683ae98a114958c3d1eb9c932234c56
   specs:
     activeadmin (1.0.0.pre1)
       arbre (~> 1.0, >= 1.0.2)
@@ -60,7 +60,7 @@ GEM
     arbre (1.0.3)
       activesupport (>= 3.0.0)
     arel (6.0.2)
-    autoprefixer-rails (5.2.1)
+    autoprefixer-rails (5.2.1.1)
       execjs
       json
     aws-sdk (1.64.0)
@@ -189,13 +189,12 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
-    passenger (5.0.13)
+    passenger (5.0.14)
       rack
       rake (>= 0.8.1)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
-    puma (2.11.3)
-      rack (>= 1.1, < 2.0)
+    puma (2.12.2)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)

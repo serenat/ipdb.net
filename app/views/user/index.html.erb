@@ -1,15 +1,23 @@
 <div class="container user">
-<!-- USERS -->
+  <!-- USERS -->
 
-		<% @users.each do |user| %>
-		<% if user.membership == 'Podcast Fan Plus' %>
-		<% else %>
-		<div class="col-md-2">
-			<h4><%= if user.first_name.nil? then user.id else user.first_name end  %>
-			<%= if user.last_name.nil? then else user.last_name end  %>
-			</h4>
-			<h4><%= link_to image_tag(user.profile_image, :class => "img-rounded img-user") ,"users/#{user.id}" %></h4>
-	  	</div>
-	  <% end %>
-	<% end %>
-	</div>
+  <% @users.each do |user| %>
+    <% if user.membership == 'Podcast Fan Plus' %>
+    <% else %>
+      <div class="col-md-2">
+        <h4><%= if user.first_name.nil? then user.id else user.first_name end  %>
+          <%= if user.last_name.nil? then else user.last_name end  %>
+          </h4>
+          <h4>
+            <%= link_to user_url(user) do %>
+              <% if user.profile_image.present? %>
+                <%=  image_tag(user.profile_image.url, :class => "img-rounded img-user") %>
+              <% else %>
+                <%=  image_tag("ipdb.png", :class => "img-rounded img-user") %>
+              <% end %>
+            <% end %>
+          </h4>
+      </div>
+    <% end %>
+  <% end %>
+</div>
