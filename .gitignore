@@ -30,9 +30,9 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
-config/secrets.yml
 .elasticbeanstalk/
 
 # Ignore application configuration
 /config/application.yml
 /config/aws.yml
+/config/secrets.yml
