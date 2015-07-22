@@ -1,400 +1,375 @@
-	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-		 	 
-		 	 <style>
-		 	 .body-overlay, .strip-highlight, .form-row input.btn, .form-row input.btn:hover, .form-row input.btn:focus, #header ul li.active a, .info a.btn, .pricing .blocks .inner ul li h2,#footer{
-		 	 background-color:#6D2F85;
-		 	}
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
-		 	h2.title span, .mega{
-		 		color:#6D2F85;
-		 	}
+<style>
+.body-overlay, .strip-highlight, .form-row input.btn, .form-row input.btn:hover, .form-row input.btn:focus, #header ul li.active a, .info a.btn, .pricing .blocks .inner ul li h2,#footer{
+  background-color:#6D2F85;
+}
 
-		 	a.btn{
-		 		background-color:#6D2F85;
-		 		color:#fff;
-		 	}
-		 	.mega{
-		 		background:transparent;
-		 	}
+      h2.title span, .mega{
+        color:#6D2F85;
+      }
 
-		 	.glyph-item.icon-check{
-		 		color:#000;
-		 	}
-		 	 </style>
-	<body class="loading"> 
-	
-		<a id="home"></a>
-		<div class="body-overlay"></div>
-		
-		<!-- Start Slider -->
-		    
-		<div class="flexslider">
-			<ul class="slides">
+      a.btn{
+        background-color:#6D2F85;
+        color:#fff;
+      }
+      .mega{
+        background:transparent;
+      }
 
-				<li style="background:url('<%= asset_path 'launchparty1.jpg'  %>') bottom center; background-size:100%;">
-					<div class="container">
-						<div class="row"> 	
-							
-							<div class="span6">
-								<div class="">
-									<div class="info info-padded">
-										<h1>We've officially launched! <br> Check out coverage from our IPDb® launch party</h1>
-										
-									</div>
-								</div>
-							</div>		
-							
-							<div class="span6">
-								<div class="inner align-right"> 
-								<iframe width="560" height="315" src="//www.youtube.com/embed/h2D2XSkaed8?rel=0" frameborder="0" allowfullscreen></iframe>
-								</div>		
-							</div>	
-							<div class="clearfix"></div>
-							
-						</div>
-					</div>
-					<div class="clearfix"></div>
-				</li>	
-				<!-- Slide 1 -->
-				<li style="background: url('<%= asset_path 'microphone-dark.jpg'  %>');">
-					<div class="container">
-					
-						<div class="row row-padded"> 
-						
-							<div class="span6 pullright">
-								<div class="inner">
-									<div class="info info-padded">
-										<h1>IPDb® Linking People Through Podcasts.</h1>
-										<p>The only comprehensive database that brings people together through the podcasts they create and share.</p>
-										<a href="/users/sign_up" class="btn btn-alt">See features</a>
-									</div>
-								</div>
-							</div>
-							
-							<div class="span2 form-box-special-graphic"> 
-								<%= image_tag('homepage/iphone5c.png') %>
-							</div>
-						
-							<div class="span4">
-								<div class="inner">
-				        			<div class="form-box form-box-special">
-				        				<div class="top">
-				        					<h2>Signup now!</h2>
-				        					<div class="clearfix"></div>
-				        				</div>
-				        				<div class="bottom">
-												<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-												<div class="form-row">							 
-													<%= f.text_field :username, :class => "text login_input", :placeholder => "Username" %>
-													<div class="clearfix"></div>
-												</div>
-												<div class="form-row">							 
-													<%= f.text_field :email, :class => "text login_input", :placeholder => "Email" %>
-													<div class="clearfix"></div>
-												</div>
-												<div class="form-row">			 													<%= f.password_field :password, :class => "text login_input", :placeholder => "Password" %>
-													<div class="clearfix"></div>
-												</div> 
-												<div class="form-row">			 
-													<div class="item">
-														<label><input type="checkbox" name="vehicle" value="Bike"> Agree to terms &amp; conditions</label>
-													</div>
-													<div class="clearfix"></div> 
-												</div> 						
-												<div class="form-row form-row-last">					
-													<input type="submit" name="register" value="Finished, sign me up!" class="btn" data-loading-text="Loading..." />
-													<div class="clearfix"></div>
-												</div> 
-											<% end %>
-											<div class="clearfix"></div>
-										</div>
-				        			</div>				
-								</div>		
-							</div>
-							<div class="clearfix"></div>
-							
-						</div>
-					</div>
-					<div class="clearfix"></div>
-				</li>
-				<!-- Slide 4 -->				
-				<li style="background:#000;">
-					<div class="container">
-						<div class="row"> 	
-							
-							<div class="span5 pullright">
-								<div class="">
-									<div class="info info-padded">
-										<h1>Power to the Podcaster!</h1>
-										<p>IPDb is a database and social media platform that connects people with podcasts they love and podcasters with the audience that loves them. Join today, see what you’ve been missing.</p>
-										<a href="/users/sign_up" class="btn btn-alt">See features</a>
-									</div>
-								</div>
-							</div>		
-							
-							<div class="span7">
-								<div class="inner align-right"> 
-									<%= image_tag('macbook.png') %>
-								</div>		
-							</div>	
-							<div class="clearfix"></div>
-							
-						</div>
-					</div>
-					<div class="clearfix"></div>
-				</li>			
-				<!-- Slide 5 -->				
-				<li style="background: url(<%= asset_path 'studio.jpg' %>);">
-					<div class="container">
-						<div class="row">
-						
-							<div class="span4">&nbsp;</div>
-							
-							<div class="span4">
-								<div class="inner">
-				        			<div class="form-box info-center">
-				        				<h1>Signup</h1>
-										<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-												<div class="form-row">							 
-													<%= f.text_field :username, :class => "text login_input", :placeholder => "Username" %>
-													<div class="clearfix"></div>
-												</div>
-												<div class="form-row">							 
-													<%= f.text_field :email, :class => "text login_input", :placeholder => "Email" %>
-													<div class="clearfix"></div>
-												</div>
-												<div class="form-row">			 													<%= f.password_field :password, :class => "text login_input", :placeholder => "Password" %>
-													<div class="clearfix"></div>
-												</div> 
-												<div class="form-row">			 
-													<div class="item">
-														<label><input type="checkbox" name="vehicle" value="Bike"> Agree to terms &amp; conditions</label>
-													</div>
-													<div class="clearfix"></div> 
-												</div> 						
-												<div class="form-row form-row-last">					
-													<input type="submit" name="register" value="Finished, sign me up!" class="btn" data-loading-text="Loading..." />
-													<div class="clearfix"></div>
-												</div> 
-											<% end %>
-										<div class="clearfix"></div>
-				        			</div>				
-								</div>		
-							</div> 
-							<div class="clearfix"></div>
-							
-						</div>
-					</div>
-				</li>			
-			</ul>
-			<div class="clearfix"></div>
-		</div>   
-		<div class="clearfix"></div>
-		<!-- End Slider -->
-		
-		<div class="strip strip-alt strip-highlight">
-			
-			<div class="container">
-			
-				<a id="overview"></a>
-			
-				<!-- Start strip 1 -->		
-			
-				<div class="row animatedParent animateOnce" data-appear-top-offset='-100'>
-					
-					<div class="span3">
-						<div class="inner align-center animated bounceInUp">
-							<span aria-hidden="true" class="glyph-item mega  icon-badge"></span>
-							<h2 class="label">
-							Create Own Profile</h2>Highlight your podcast, your other projects, and all the work that goes on behind the scenes. Or just login and listen to thousands of your favorite podcasts.
-							<div class="clearfix"></div>
-						</div>  
-					</div> 
-					
-					<div class="span3">
-						<div class="inner align-center animated bounceInUp">
-							<span aria-hidden="true" class="glyph-item mega icon-directions"></span>
-							<h2 class="label">Follow</h2>
-							You can follow your favorites and explore new podcasts. But the best part is they can follow you back.
-							<div class="clearfix"></div>
-						</div>  
-					</div> 
-					
-					<div class="span3">
-						<div class="inner align-center animated bounceInUp">
-							<span aria-hidden="true" class="glyph-item mega icon-cursor-move"></span>
-							<h2 class="label">Share</h2>
-								Invite your friends to view your profile, listen to a great podcast episode or see aninteresting podcast profile.
-							<div class="clearfix"></div>
-						</div>  
-					</div> 
-					
-					<div class="span3">
-						<div class="inner align-center animated bounceInUp">
-							<span aria-hidden="true" class="glyph-item mega icon-star"></span>
-							<h2 class="label">Rate & Review</h2>
-								Interact with other fans by posting your reviews and rate your favorites.
-							<div class="clearfix"></div>
-						</div>  
-					</div>   
-					
-					<div class="clearfix"></div>
-			
-				</div>	
-			
-				<!-- End strip 1 -->	
-			
-			</div>
-		
-		</div>
-		
+      .glyph-item.icon-check{
+        color:#000;
+      }
+</style>
+<body class="loading"> 
 
-		<div class="strip">
-			
-			<div class="container">		
-			
-				<a id="features"></a>		 			
-				
-				<!-- Start strip 3 -->									
-			
-				<div class="row feature-blocks animatedParent animateOnce"> 
-					
-					<div class="span12">
-				
-						<div class=" align-center"> 			
-							<h2 class="title">Submit your podcast to IPDB</span></h2>
-							 <%= link_to 'Join our podcast database', new_podcast_path, class: "btn btn-primary btn-lg" %>
-							<div class="divider"><span></span></div>							
-						</div>  
-						
-					</div>
-					
-					<div class="clearfix"></div>
-				
+  <a id="home"></a>
+  <div class="body-overlay"></div>
+
+  <!-- Start Slider -->
+
+  <div class="flexslider">
+    <ul class="slides">
+
+      <li style="background: url('<%= asset_path 'microphone-dark.jpg'  %>');">
+        <div class="container">
+
+          <div class="row row-padded"> 
+
+            <div class="span6 pullright">
+              <div class="inner">
+                <div class="info info-padded">
+                  <h1>IPDb® Linking People Through Podcasts.</h1>
+                  <p>The only comprehensive database that brings people together through the podcasts they create and share.</p>
+                  <a href="/users/sign_up" class="btn btn-alt">See features</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="span2 form-box-special-graphic"> 
+              <%= image_tag('homepage/iphone5c.png') %>
+            </div>
+
+            <div class="span4">
+              <div class="inner">
+                <div class="form-box form-box-special">
+                  <div class="top">
+                    <h2>Signup now!</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="bottom">
+                    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+                      <div class="form-row">							 
+                        <%= f.text_field :username, :class => "text login_input", :placeholder => "Username" %>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="form-row">							 
+                        <%= f.text_field :email, :class => "text login_input", :placeholder => "Email" %>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="form-row">			 													<%= f.password_field :password, :class => "text login_input", :placeholder => "Password" %>
+                      <div class="clearfix"></div>
+                      </div> 
+                      <div class="form-row">			 
+                        <div class="item">
+                          <label><input type="checkbox" name="vehicle" value="Bike"> Agree to terms &amp; conditions</label>
+                        </div>
+                        <div class="clearfix"></div> 
+                      </div> 						
+                      <div class="form-row form-row-last">					
+                        <input type="submit" name="register" value="Finished, sign me up!" class="btn" data-loading-text="Loading..." />
+                        <div class="clearfix"></div>
+                      </div> 
+                    <% end %>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>				
+              </div>		
+            </div>
+            <div class="clearfix"></div>
+
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </li>
+      <!-- Slide 4 -->				
+      <li style="background:#000;">
+        <div class="container">
+          <div class="row"> 	
+
+            <div class="span5 pullright">
+              <div class="">
+                <div class="info info-padded">
+                  <h1>Power to the Podcaster!</h1>
+                  <p>IPDb is a database and social media platform that connects people with podcasts they love and podcasters with the audience that loves them. Join today, see what you’ve been missing.</p>
+                  <a href="/users/sign_up" class="btn btn-alt">See features</a>
+                </div>
+              </div>
+            </div>		
+
+            <div class="span7">
+              <div class="inner align-right"> 
+                <%= image_tag('macbook.png') %>
+              </div>		
+            </div>	
+            <div class="clearfix"></div>
+
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </li>			
+      <!-- Slide 5 -->				
+      <li style="background: url(<%= asset_path 'studio.jpg' %>);">
+        <div class="container">
+          <div class="row">
+
+            <div class="span4">&nbsp;</div>
+
+            <div class="span4">
+              <div class="inner">
+                <div class="form-box info-center">
+                  <h1>Signup</h1>
+                  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+                    <div class="form-row">							 
+                      <%= f.text_field :username, :class => "text login_input", :placeholder => "Username" %>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="form-row">							 
+                      <%= f.text_field :email, :class => "text login_input", :placeholder => "Email" %>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="form-row">			 													<%= f.password_field :password, :class => "text login_input", :placeholder => "Password" %>
+                    <div class="clearfix"></div>
+                    </div> 
+                    <div class="form-row">			 
+                      <div class="item">
+                        <label><input type="checkbox" name="vehicle" value="Bike"> Agree to terms &amp; conditions</label>
+                      </div>
+                      <div class="clearfix"></div> 
+                    </div> 						
+                    <div class="form-row form-row-last">					
+                      <input type="submit" name="register" value="Finished, sign me up!" class="btn" data-loading-text="Loading..." />
+                      <div class="clearfix"></div>
+                    </div> 
+                  <% end %>
+                  <div class="clearfix"></div>
+                </div>				
+              </div>		
+            </div> 
+            <div class="clearfix"></div>
+
+          </div>
+        </div>
+      </li>			
+    </ul>
+    <div class="clearfix"></div>
+  </div>   
+  <div class="clearfix"></div>
+  <!-- End Slider -->
+
+  <div class="strip strip-alt strip-highlight">
+
+    <div class="container">
+
+      <a id="overview"></a>
+
+      <!-- Start strip 1 -->		
+
+      <div class="row animatedParent animateOnce" data-appear-top-offset='-100'>
+
+        <div class="span3">
+          <div class="inner align-center animated bounceInUp">
+            <span aria-hidden="true" class="glyph-item mega  icon-badge"></span>
+            <h2 class="label">
+              Create Own Profile</h2>Highlight your podcast, your other projects, and all the work that goes on behind the scenes. Or just login and listen to thousands of your favorite podcasts.
+            <div class="clearfix"></div>
+          </div>  
+        </div> 
+
+        <div class="span3">
+          <div class="inner align-center animated bounceInUp">
+            <span aria-hidden="true" class="glyph-item mega icon-directions"></span>
+            <h2 class="label">Follow</h2>
+            You can follow your favorites and explore new podcasts. But the best part is they can follow you back.
+            <div class="clearfix"></div>
+          </div>  
+        </div> 
+
+        <div class="span3">
+          <div class="inner align-center animated bounceInUp">
+            <span aria-hidden="true" class="glyph-item mega icon-cursor-move"></span>
+            <h2 class="label">Share</h2>
+            Invite your friends to view your profile, listen to a great podcast episode or see aninteresting podcast profile.
+            <div class="clearfix"></div>
+          </div>  
+        </div> 
+
+        <div class="span3">
+          <div class="inner align-center animated bounceInUp">
+            <span aria-hidden="true" class="glyph-item mega icon-star"></span>
+            <h2 class="label">Rate & Review</h2>
+            Interact with other fans by posting your reviews and rate your favorites.
+            <div class="clearfix"></div>
+          </div>  
+        </div>   
+
+        <div class="clearfix"></div>
+
+      </div>	
+
+      <!-- End strip 1 -->	
+
+    </div>
+
+  </div>
 
 
-					<div class="clearfix"></div>
-					
-				</div>	
-				
-				<!-- End strip 3 -->
-				
-			</div>
-		
-		</div>
+  <div class="strip">
+
+    <div class="container">		
+
+      <a id="features"></a>		 			
+
+      <!-- Start strip 3 -->									
+
+      <div class="row feature-blocks animatedParent animateOnce"> 
+
+        <div class="span12">
+
+          <div class=" align-center"> 			
+            <h2 class="title">Submit your podcast to IPDB</span></h2>
+            <%= link_to 'Join our podcast database', new_podcast_path, class: "btn btn-primary btn-lg" %>
+            <div class="divider"><span></span></div>							
+          </div>  
+
+        </div>
+
+        <div class="clearfix"></div>
 
 
-		
-		<div class="strip strip-alt pricing">
-			
-			<div class="container">		
-			
-				<a id="pricing"></a>							
-				 
-				<!-- Start Pricing -->					 	    
-					    
-					<div class="row blocks animatedParent animateOnce">
 
-						<div class="divider" style="width:10%; float:left;">
-						
-					    	<div class="inner secondary animated bounceInUp">		        	
-					    	
-					    	
-					    	</div>
-					    	
-					    </div>
+        <div class="clearfix"></div>
 
-							    	
-						<div class="span5">
-						
-					    	<div class="inner secondary animated bounceInUp">		        	
-					    	
-					    		<ul>
-									<li class="title"><h2>Podcast Listener</h2></li>
-									<li class="price"><h1><strong>FREE</strong></h1></li>
-									<li><span aria-hidden="true" class="glyph-item icon-check"></span> Free Signup</li>
-									<li><span aria-hidden="true" class="glyph-item icon-check"></span> Rate & review podcasts</li>
-									<li><span aria-hidden="true" class="glyph-item icon-check"></span> Track your favorites</li>
-									<li class="align-center"><a href="/users/sign_up" class="btn">Sign up Today</a></li>
-								</ul>
-								
-					    	</div>
-					    	
-					    </div>
-						
-						<div class="span5">
-						
-					    	<div class="inner secondary animated bounceInUp">		        	
-					    	
-					    		<ul>
-									<li class="title"><h2>Podcast Creator</h2></li>
-									<li class="price"><h1><strong>FREE</strong></h1></li>
-									<li><span aria-hidden="true" class="glyph-item icon-check"></span> Personal profile page</li>
-									<li><span aria-hidden="true" class="glyph-item icon-check"></span> Social media links</li>
-									<li><span aria-hidden="true" class="glyph-item icon-check"></span> Link podcast(s) to your profile</li>
-									<li><span aria-hidden="true" class="glyph-item icon-check"></span> Link co-host(s) to your podcast</li>
-									<li><span aria-hidden="true" class="glyph-item icon-check"></span> Link guest(s) to your podcast</li>
-									<li class="align-center"><a href="/users/sign_up" class="btn">Sign up Today</a></li>
-								</ul>
-					    	
-					    	</div>
-					    	
-					    </div>
-						
-						<!--<div class="span3">
-						
-					    	<div class="inner primary animated bounceInUp">		       	
-					    	
-					    		<ul>
-									<li class="title"><h2>PodcasterPro</h2></li>
-									<li class="price"><h1><span>$ </span><strong>9.99</strong><small> per month</small></h1></li>
-									<li><span aria-hidden="true" class="glyph-item icon-check"></span> Everything with PodcastBasic</li>
-									<li><span aria-hidden="true" class="glyph-item icon-check"></span> Enhanced personal profile page</li>
-									<li><span aria-hidden="true" class="glyph-item icon-check"></span> Industry insider forum</li>
-									<li class="align-center"><a href="/users/sign_up" class="btn">Sign up Today</a></li>
-								</ul> 
-					    	
-					    	</div>
-					    	
-					    </div>-->
-					    <div class="clearfix"></div>
-					
-				</div>
-				
-			</div> 
-	
-			<!-- End Pricing -->												
-				
-		<div class="clearfix"></div> 
-			
-	</div>
+      </div>	
 
-	
-			
-	<!-- Start footer -->
-		
-	<div id="footer" class="strip animatedParent ">
-	
-		<p> 
-			<a href="https://twitter.com/ipcdb" target="_blank"><span class="glyph-item mega icon-social-twitter animated rotateIn" aria-hidden="true"></span></a>
-			<a href="http://blog.ipdb.net/" target="_blank"><span class="glyph-item mega icon-social-tumblr animated rotateIn" aria-hidden="true"></span></a>
-			<a href="https://www.facebook.com/ipcdb" target="_blank"><span class="glyph-item mega icon-social-facebook animated rotateIn" aria-hidden="true"></span></a>
-		</p>
-	   	
-		Copyright &copy; 2014
-		<div class="clearfix"></div>
-	
-	</div>
+      <!-- End strip 3 -->
 
-	 
-		
-	</body>
-	<script src="http://masonry.desandro.com/masonry.pkgd.js"></script>
-	<script>
-	  $(function(){
-	    $('.facebook').masonry({
-	      itemSelector: '.fb'
-	    });
-	  });
-	</script>
+    </div>
+
+  </div>
+
+
+
+  <div class="strip strip-alt pricing">
+
+    <div class="container">		
+
+      <a id="pricing"></a>							
+
+      <!-- Start Pricing -->					 	    
+
+      <div class="row blocks animatedParent animateOnce">
+
+        <div class="divider" style="width:10%; float:left;">
+
+          <div class="inner secondary animated bounceInUp">		        	
+
+
+          </div>
+
+        </div>
+
+
+        <div class="span5">
+
+          <div class="inner secondary animated bounceInUp">		        	
+
+            <ul>
+              <li class="title"><h2>Podcast Listener</h2></li>
+              <li class="price"><h1><strong>FREE</strong></h1></li>
+              <li><span aria-hidden="true" class="glyph-item icon-check"></span> Free Signup</li>
+              <li><span aria-hidden="true" class="glyph-item icon-check"></span> Rate & review podcasts</li>
+              <li><span aria-hidden="true" class="glyph-item icon-check"></span> Track your favorites</li>
+              <li class="align-center"><a href="/users/sign_up" class="btn">Sign up Today</a></li>
+            </ul>
+
+          </div>
+
+        </div>
+
+        <div class="span5">
+
+          <div class="inner secondary animated bounceInUp">		        	
+
+            <ul>
+              <li class="title"><h2>Podcast Creator</h2></li>
+              <li class="price"><h1><strong>FREE</strong></h1></li>
+              <li><span aria-hidden="true" class="glyph-item icon-check"></span> Personal profile page</li>
+              <li><span aria-hidden="true" class="glyph-item icon-check"></span> Social media links</li>
+              <li><span aria-hidden="true" class="glyph-item icon-check"></span> Link podcast(s) to your profile</li>
+              <li><span aria-hidden="true" class="glyph-item icon-check"></span> Link co-host(s) to your podcast</li>
+              <li><span aria-hidden="true" class="glyph-item icon-check"></span> Link guest(s) to your podcast</li>
+              <li class="align-center"><a href="/users/sign_up" class="btn">Sign up Today</a></li>
+            </ul>
+
+          </div>
+
+        </div>
+
+        <!--<div class="span3">
+
+          <div class="inner primary animated bounceInUp">		       	
+
+          <ul>
+          <li class="title"><h2>PodcasterPro</h2></li>
+          <li class="price"><h1><span>$ </span><strong>9.99</strong><small> per month</small></h1></li>
+          <li><span aria-hidden="true" class="glyph-item icon-check"></span> Everything with PodcastBasic</li>
+          <li><span aria-hidden="true" class="glyph-item icon-check"></span> Enhanced personal profile page</li>
+          <li><span aria-hidden="true" class="glyph-item icon-check"></span> Industry insider forum</li>
+          <li class="align-center"><a href="/users/sign_up" class="btn">Sign up Today</a></li>
+          </ul> 
+
+          </div>
+
+          </div>-->
+          <div class="clearfix"></div>
+
+      </div>
+
+    </div> 
+
+    <!-- End Pricing -->												
+
+    <div class="clearfix"></div> 
+
+  </div>
+
+
+
+  <!-- Start footer -->
+
+  <div id="footer" class="strip animatedParent ">
+
+    <p> 
+    <a href="https://twitter.com/ipcdb" target="_blank"><span class="glyph-item mega icon-social-twitter animated rotateIn" aria-hidden="true"></span></a>
+    <a href="http://blog.ipdb.net/" target="_blank"><span class="glyph-item mega icon-social-tumblr animated rotateIn" aria-hidden="true"></span></a>
+    <a href="https://www.facebook.com/ipcdb" target="_blank"><span class="glyph-item mega icon-social-facebook animated rotateIn" aria-hidden="true"></span></a>
+    </p>
+
+    Copyright &copy; 2014
+    <div class="clearfix"></div>
+
+  </div>
+
+
+
+</body>
+<script src="http://masonry.desandro.com/masonry.pkgd.js"></script>
+<script>
+$(function(){
+  $('.facebook').masonry({
+    itemSelector: '.fb'
+  });
+});
+</script>
 </html>
