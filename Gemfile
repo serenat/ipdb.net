@@ -28,7 +28,7 @@ gem 'mysql2'
 gem 'newrelic_rpm'
 gem 'acts_as_follower'
 gem 'passenger'
-gem 'feedjira'
+gem 'feedjira', '1.3.0'
 gem 'httparty'
 gem 'rails4-autocomplete'
 

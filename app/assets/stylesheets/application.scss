@@ -49,3 +49,7 @@ body{
 .container{
   margin-top:60px;
 }
+
+.btn:hover, .btn:focus, .btn.focus {
+  color: gold;
+}
