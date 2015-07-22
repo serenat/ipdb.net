@@ -1,0 +1,12 @@
+<div class="container">
+	 <%= current_user.all_following %>
+	<div class="col-md-8">
+		<h2>My Feed</h2>
+		<% current_user.all_following.each do |follow| %>
+		<li class="well">
+			<img src="<%= follow.image_url %>">
+			<%= follow.name %>
+		</li>
+		<% end %>
+	</div>
+</div>

@@ -1,0 +1,115 @@
+<div class="home">
+	<div class="container">
+		<div class="jumbotron center" style="margin-top:60px;">
+		     <h1>Welcome to IPDb&trade;!</h1>
+		     <p>
+				 <%= link_to "Log in", new_user_session_path, class: "btn btn-default btn-lg" %>
+				 <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary btn-lg" %>
+		  </p>    
+		</div>
+	</div>
+</div>
+<hr />
+	<div class="row">
+			<div class="col-md-6" class="text" >
+			<h1>What it is.</h1> 
+			<h4>IPDb&trade; is a comprehensive online searcable podcast database. Not only do we provide an easy way to search podcasts, we allow podcasters to link their valuable content to their personal celebrity profile. We've also incorporated some fun icons to help you spot award-winning podcasts. Think of IPDb&trade; as your personal podcast library.			</h4>
+			</div>
+			<div class="col-md-6">
+			<ul>
+<% @podcasts.first(6).each do |podcast| %>
+
+      <li class="well col-xs-5 col-md-3 home-pods">
+      	<%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast, :class => "podcast-img" %><br>
+        <h5><%= podcast.name %></h5>
+        <%= rating_for podcast %>
+      </li>
+    <% end %>
+    </ul>
+			</div>
+	</div>
+	<br class="clear" />
+	<hr />
+
+	<div class="row">
+			<div class="col-md-6">
+				<img class="hideme" src="//ipdb.net/ipdb-hiw.png">
+			</div>
+			<div class="col-md-6" style="padding-right:60px;">
+			<h1>How it Works</h1> 
+			<h4>After completing your topic or person-specific search, select the podcast that interests you. It's easy to rate a podcast by clicking on the star rating. our web minions then average the starscores of all the podcast fans. Other ways to support your favorite podcasts are to:
+			<hr />
+			<ul>
+				<li>Write a review</li>
+				<li>Follow</li>
+				<li>Share</li>
+			</ul>
+		</h4>
+			</div>
+	</div>
+	<hr />
+	<div class="row" style="height:500px;">
+			<div class="col-md-6" style="padding-left:60px;" >
+			<h1>Your Own Profile</h1> 
+			<h4>The way we see it - if you have a podcast following then you are a podcasting celebrity. Your IPDb&trade; profile is an effective way to connect your podcast(s) and your fan base in a fun, easy to use format. So don't be shy... Sign up today for a PodcasterPRO account today.
+			</h4>
+			</div>
+			<div class="col-md-6">
+				<img class="hideme" src="//ipdb.net/ipdb-profile.png">
+			</div>
+	</div>
+	<hr />
+	<div class="row">
+		<div class="container">
+		<h1 style="text-align:center;">IPDb Memberships</h1>
+		<br>
+		<div class="memberships">
+			 <div class="col-md-4 col-md-offset-2">
+			 	<div class="well">
+        <i class="fa fa-bullhorn fa-5x"></i>
+        <h2>Podcast Fan Plus</h2><hr>
+          <ul>
+            <li>Free sign-up</li>
+            <li>Rate &amp; review podcasts</li>
+            <li>Search podcasts and celebrities</li>
+            <li>Listen to podcasts</li>
+            <li>Easily identify award-winning podcasts</li>
+          </ul>
+          
+
+          <%= link_to "$0 Free For Life", new_user_registration_path, class: "btn btn-block btn-success" %>
+        </div>
+			</div>
+			<div class="col-md-4">
+				<div class="well">
+        <i class="fa fa-microphone fa-5x"></i>
+        <h2>PodcasterPRO</h2><hr>
+          <ul>
+	          <li>Everything with Podcast Fan Plus</li>
+	          <li>Enhance your profile page</li>
+	          <li>Link your podcast(s) to your profile page</li>
+	          <li>See your ranking in the podcast world</li>
+	          <li>Industry insider forum</li>
+          </ul>
+
+          <%= link_to "$9.99/mo", new_user_registration_path, class: "btn btn-block btn-primary" %>
+        </div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<hr />
+	<a href="http://blog.ipdb.net"><h1 style="text-align:center;">IPDb News</h1></a>
+	
+	<footer>
+		<div class="row">
+			<div class="container">
+				<p>2014 © IPDb 
+				<span class="pull-right"><%= link_to "Privacy Policy" ,privacy_path %> | <%= link_to "Terms and Conditions" ,terms_path %>	</p>
+			</div>
+		</div>
+	</footer>
+	
+	<script src="http://janpaepke.github.io/ScrollMagic/js/jquery.scrollmagic.min.js"></script>
+
+	

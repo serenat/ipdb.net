@@ -1,0 +1,8 @@
+<h1>Editing User</h1>
+<% if user == current_user %>
+<%= render 'form' %>
+<% else %>
+<h4>You cannot edit this User</h4>
+<% end %>
+<%= link_to 'Show', user %> |
+<%= link_to 'Back', podcasts_path %>

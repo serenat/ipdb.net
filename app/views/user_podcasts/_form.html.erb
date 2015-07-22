@@ -1,0 +1,34 @@
+<%= form_for @host do |f| %>
+  <% if @host.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@host.errors.count, "error") %> prohibited this podcast from being saved:</h2>
+
+      <ul>
+      <% @host.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-4">
+      <h4><%= f.label :user_id %></h4>
+      <%= f.autocomplete_field :user_id, autocomplete_user_username_user_index_path, :update_elements => {}, :id_element => '#user_podcast_user_id',  class: "form-control" %>
+      </div>
+      <div class="col-md-4">
+      <h4><%= f.label :podcast_id %></h4>
+      <%= f.autocomplete_field :podcast_id, autocomplete_podcast_name_podcasts_path, :update_elements => {:id => 'input#user_podcast_podcast_id'},  class: "form-control" %>
+      </div>
+      <div class="col-md-4">
+      <h4><%= f.label :position %></h4>
+      <%= f.select(:position, options_for_select([['Host'], ['Co-host'], ['Guest'], ['Artwork'], ['Music'], ['Sound Engineer'], ['Performer']]), {}, {class: "form-control"}) %>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Add Connections" ,class: "btn btn-primary pull-right" %>
+  </div>
+
+<% end %>

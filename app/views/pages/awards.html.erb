@@ -1,0 +1,63 @@
+<div class="container award">
+	<h1>Award Winning Podcasts</h1>
+	<div class="legend">
+		<div class="row well">
+			<div class="col-md-2">
+				<%= fa_icon "trophy 2x"%>Podcast Awards Nominee<br>
+				<%= fa_icon "trophy 2x", class: "gold" %> Podcast Awards Winner<br>
+			</div>
+			<div class="col-md-2">
+				<%= fa_icon "sliders 2x", class: "purple" %> Stitcher Nominee<br>
+				<%= fa_icon "sliders 2x", class: "gold" %> Stitcher Winner<br>
+			</div>
+			<div class="col-md-2">
+				<%= fa_icon "star 2x", class: "purple" %> Parsec Nominee<br>
+				<%= fa_icon "star 2x", class: "gold" %> Parsec Winner<br>
+			</div>
+			<div class="col-md-2">
+				<%= fa_icon "microphone 2x", class: "purple" %> European Podcast Awards Nominee<br>
+				<%= fa_icon "microphone 2x", class: "gold" %> European Podcast Awards Winner<br>
+			</div>
+			<div class="col-md-2">
+				<%= fa_icon "headphones 2x", class: "purple" %> IPDb Nominee<br>			
+				<%= fa_icon "headphones 2x", class: "gold" %> IPDb Winner<br>
+			</div>
+	</div>
+	<div class="podcast">
+	    <% @awards.each do |podcast| %>
+	       <div class="well col-xs-5 col-md-2">
+	          <%= rating_for podcast %>
+	      			<br>
+	          <h5><%= truncate(podcast.name, length: 20) %></h5>
+				       <% if podcast.awards == 'Podcast Award Winner' %>
+	      					<%= fa_icon "trophy 15x", class: "gold" %><br>
+	                  <% elsif podcast.awards == 'Podcast Award Nominee' %>
+											<%= fa_icon "trophy 15x"%><br>
+	                  <% elsif podcast.awards == 'Stitcher Award Nominee' %>
+	                    <%= fa_icon "sliders 15x", class: "purple" %><br>
+	                  <% elsif podcast.awards == 'Stitcher Award Winner' %>
+	                    <%= fa_icon "sliders 15x", class: "gold" %><br>
+	                  <% elsif podcast.awards == 'Parsec Nominee' %>
+	                    <%= fa_icon "star 15x", class: "purple" %><br>
+	                  <% elsif podcast.awards == 'Parsec Winner' %>
+	                    <%= fa_icon "star 15x",class: "gold" %><br>
+	                  <% elsif podcast.awards == 'IPDb Nominee' %>
+	                    <%= fa_icon "headphones 15x",class: "purple" %><br>
+	                  <% elsif podcast.awards == 'IPDb Winner' %>
+	                     <%= fa_icon "headphones 15x",class: "gold" %><br>
+	                  <% elsif podcast.awards == 'European Podcast Awards Nominee' %>
+	                    <%= fa_icon "microphone 15x",class: "purple" %><br>
+	                  <% else podcast.awards == 'European Podcast Awards Winner' %>
+	                    <%= fa_icon "microphone 15x",class: "gold" %><br>
+	                  <% end %>
+	       <% if podcast.category.nil? then else podcast.category %>
+	        <%= '<span class="label label-success">'.html_safe + podcast.category.html_safe + '</span>'.html_safe %>
+	       <% end %>
+	       <% if podcast.explicit == true %>
+	        <%= '<span class="label label-danger">explict</span>'.html_safe %>
+	       <% end %>
+	       <br>
+	       </div>
+	    <% end %>
+	   </div>
+   </div>

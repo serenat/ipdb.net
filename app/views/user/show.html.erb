@@ -1,0 +1,246 @@
+<div class="container">
+<div class="row">
+<div class="col-md-3">
+<h2 class="username"><%= if @user.first_name.nil? then ''  else @user.first_name end  + ' ' + if @user.last_name.nil? then ' ' else @user.last_name end %></h2>
+<br>
+  <img src=" <%= @user.profile_image %>" class="img-circle">
+  <div class="social">
+    <%= link_to '<i class="fa fa-facebook-square fa-2x"></i>'.html_safe,  'http://facebook.com/' + @user.facebook if @user.facebook.present? %>
+    <%= link_to '<i class="fa fa-twitter-square fa-2x"></i>'.html_safe, 'http://twitter.com/' + @user.twitter if @user.twitter.present? %>
+    <%= link_to '<i class="fa fa-pinterest-square fa-2x"></i>'.html_safe, 'http://pinterest.com/' + @user.pinterest if @user.pinterest.present? %>
+    <%= link_to '<i class="fa fa-instagram fa-2x"></i>'.html_safe, 'http://instagram.com/' + @user.instagram if @user.instagram.present? %>
+    <%= link_to '<i class="fa fa-linkedin-square fa-2x"></i>'.html_safe, 'http://linkedin.com/' + @user.linkedin if @user.linkedin.present? %>
+    <%= link_to '<i class="fa fa-square fa-2x"></i><img src="http://beta.ipdb.net/assets/imdb.png" style="position: absolute;margin-left: -23px;margin-top: 1px;width: 22px;">'.html_safe, '' + @user.imdb if @user.imdb.present? %>
+</div>
+  <br>
+    <p><%= @user.description %></p>
+    <div class="row">
+    </div>
+    <hr />
+    <div class="social">
+    </div>
+  </div>
+  <div class="col-md-8 col-md-offset-1">
+
+
+    <div class="row hosts">
+    <h2>Podography</h3>
+      <ul class="podcast-profile">
+
+      <% shown_title = false 
+         @user.user_podcasts.each do |p|
+         podcast = p.podcast_id  
+         podcast = Podcast.find(podcast)
+      %> 
+      <% if p.position == 'Host' %>
+       <% unless shown_title %>
+          <h3>Hosts</h3>
+          <% if p.position == 'Host' then shown_title = true else end %>
+        <% end %>
+        <li class="well col-md-12"> 
+            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast %><br>
+              <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
+                <% if podcast.users == current_user %>
+                <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
+                <%= link_to 'Delete', podcast, class: 'btn btn-danger' ,method: :delete, data: { confirm: 'Are you sure?' } %>
+                <% end %>
+            </li>  
+          <% end %>
+      <% end %>
+      </ul>  
+    </div>
+
+
+    <div class="row co-hosts">
+      <ul class="podcast-profile">
+      <% shown_title = false 
+         @user.user_podcasts.each do |p|
+         podcast = p.podcast_id  
+         podcast = Podcast.find(podcast)
+      %>
+      
+      <% if p.position == 'Co-Host' %>
+        <% unless shown_title %>
+          <h3>Co-Hosts</h3>
+          <% shown_title = true %>
+        <% end %>
+        <li class="well col-md-12"> 
+            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast %><br>
+              <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
+                <% if podcast.users == current_user %>
+                <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
+                <%= link_to 'Delete', podcast, class: 'btn btn-danger' ,method: :delete, data: { confirm: 'Are you sure?' } %>
+                <% end %>
+            </li>  
+          <% end %>
+      <% end %>
+      </ul>  
+    </div>
+
+    <div class="row guest">
+      <ul class="podcast-profile">
+
+    
+      <% shown_title = false 
+         @user.user_podcasts.each do |p|
+         podcast = p.podcast_id  
+         podcast = Podcast.find(podcast)
+      %>
+
+      <% if p.position == 'Guest' %> 
+        <% unless shown_title %>
+          <h3>Guest</h3>
+        <% shown_title = true %>
+        <% end %>
+        <li class="well col-md-12"> 
+            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast %><br>
+              <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
+                <% if podcast.users == current_user %>
+                <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
+                <%= link_to 'Delete', podcast, class: 'btn btn-danger' ,method: :delete, data: { confirm: 'Are you sure?' } %>
+                <% end %>
+            </li>  
+          <% end %>
+      <% end %>
+      </ul>  
+    </div>
+
+    <div class="row art-work">
+      <ul class="podcast-profile">
+
+    
+      <% shown_title = false 
+         @user.user_podcasts.each do |p|
+         podcast = p.podcast_id  
+         podcast = Podcast.find(podcast)
+      %>
+
+      <% if p.position == 'Art Work' %> 
+        <% unless shown_title %>
+          <h3>Art Work</h3>
+        <% shown_title = true %>
+        <% end %>
+        <li class="well col-md-12"> 
+            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast %><br>
+              <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
+                <% if podcast.users == current_user %>
+                <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
+                <%= link_to 'Delete', podcast, class: 'btn btn-danger' ,method: :delete, data: { confirm: 'Are you sure?' } %>
+                <% end %>
+            </li>  
+          <% end %>
+      <% end %>
+      </ul>  
+    </div>
+
+    <div class="row music">
+      <ul class="podcast-profile">
+
+    
+      <% shown_title = false 
+         @user.user_podcasts.each do |p|
+         podcast = p.podcast_id  
+         podcast = Podcast.find(podcast)
+      %>
+
+      <% if p.position == 'Music' %> 
+        <% unless shown_title %>
+          <h3>Music</h3>
+        <% shown_title = true %>
+        <% end %>
+        <li class="well col-md-12"> 
+            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast %><br>
+              <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
+                <% if podcast.users == current_user %>
+                <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
+                <%= link_to 'Delete', podcast, class: 'btn btn-danger' ,method: :delete, data: { confirm: 'Are you sure?' } %>
+                <% end %>
+            </li>  
+          <% end %>
+      <% end %>
+      </ul>  
+    </div>
+
+    <div class="row sound">
+      <ul class="podcast-profile">
+
+    
+      <% shown_title = false 
+         @user.user_podcasts.each do |p|
+         podcast = p.podcast_id  
+         podcast = Podcast.find(podcast)
+      %>
+
+      <% if p.position == 'Sound Engineer' %> 
+        <% unless shown_title %>
+          <h3>Sound Engineer</h3>
+        <% shown_title = true %>
+        <% end %>
+        <li class="well col-md-12"> 
+            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast %><br>
+              <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
+                <% if podcast.users == current_user %>
+                <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
+                <%= link_to 'Delete', podcast, class: 'btn btn-danger' ,method: :delete, data: { confirm: 'Are you sure?' } %>
+                <% end %>
+            </li>  
+          <% end %>
+      <% end %>
+      </ul>  
+    </div>
+
+    <div class="row art-work">
+      <ul class="podcast-profile">
+
+    
+      <% shown_title = false 
+         @user.user_podcasts.each do |p|
+         podcast = p.podcast_id  
+         podcast = Podcast.find(podcast)
+      %>
+
+      <% if p.position == 'Performer' %> 
+        <% unless shown_title %>
+          <h3>Performer</h3>
+        <% shown_title = true %>
+        <% end %>
+        <li class="well col-md-12"> 
+            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast %><br>
+              <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
+                <% if podcast.users == current_user %>
+                <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
+                <%= link_to 'Delete', podcast, class: 'btn btn-danger' ,method: :delete, data: { confirm: 'Are you sure?' } %>
+                <% end %>
+            </li>  
+          <% end %>
+      <% end %>
+      </ul>  
+    </div>
+
+
+    </ul>
+    <hr style="clear:both;" />      
+    <div class="tab-info">
+    <ul id="tabs" class="nav nav-tabs">
+      <li class="active"><a href="#home" data-toggle="tab">About</a></li>
+      <li><a href="#profile" data-toggle="tab">Education</a></li>
+      <li><a href="#work" id="tab" data-toggle="tab" >Work</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <div class="tab-pane fade in active" id="home">
+        <p><%= @user.about %></p>
+      </div>
+      <div class="tab-pane fade" id="profile">
+        <p><%= @user.education %></p>
+      </div>
+      <div class="tab-pane fade" id="work">
+        <p><%= @user.work %></p>
+      </div>
+    </div>
+    </div>
+</div>
+</div>
+<br>
+</div>
+
+
