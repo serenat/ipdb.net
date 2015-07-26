@@ -13,7 +13,11 @@ $screen-sm-min: 768px;
 @import 'bootstrap';
 
 a, a:visited{
-  color:#fff;
+  color: #3E454A;
+}
+
+a.btn {
+  color: #FFFFFF;
 }
 
 a.navbar-brand img{
