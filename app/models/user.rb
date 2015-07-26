@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :database_authenticatable
+    :recoverable, :rememberable, :trackable, :validatable, :database_authenticatable
   has_many :user_podcasts
   has_many :podcasts, :through => :user_podcasts
   has_attached_file :profile_image, :default_url => "/images/ipdb.png", :styles => { :medium => "300x300>", :thumb => "100x100>" }
@@ -11,17 +11,17 @@ class User < ActiveRecord::Base
   acts_as_commontator
   acts_as_follower
   acts_as_voter
-  
+
 
   def self.search(search)
-	  if search
-	    find(:all, :conditions => ["concat(first_name,' ',last_name) like?", "%#{search}%"])
-	  else
-	    find(:all)
-	  end
-	end
+    if search
+      where("concat(first_name,' ',last_name) like ?", "%#{search}%")
+    else
+      all
+    end
+  end
 
-	def email_required?
+  def email_required?
     false
   end
 

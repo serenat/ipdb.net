@@ -52,7 +52,7 @@
 
             <% podcast.user_podcasts.each do |user| %>
               <% u = User.find(user.user_id) %>
-              <% if user.position = 'Host' || user.position = 'Co-Host' %>
+              <% if user.position == 'Host' || user.position == 'Co-Host' %>
                 By: <%= link_to (u.username) ,"users/#{user.user_id}" %><br>
               <% end %>
             <% end %>

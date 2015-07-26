@@ -11,9 +11,9 @@ class Podcast < ActiveRecord::Base
 
   def self.search(search)
     if search
-      find(:all, :conditions => ['name LIKE ? or category LIKE?', "%#{search}%", "%#{search}%"  ])
+      where('name LIKE ?', "%#{search}%")
     else
-      find(:all)
+      all
     end
   end
 end
