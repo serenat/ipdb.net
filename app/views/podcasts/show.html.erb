@@ -205,13 +205,8 @@
                   By: <%= link_to (u.username) ,"users/#{user.user_id}" %><br>
                 <% end %>
               <% end %>
-              <% if podcast.users == current_user %>
-                <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
-                <%= link_to 'Delete', podcast, class: "btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %>
-              <% else %>
-              <% end %>
-            <% end %>
             </li>
+
           <% end %>
         <% end %>
       </div>
