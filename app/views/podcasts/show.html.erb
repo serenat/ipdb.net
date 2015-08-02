@@ -166,6 +166,7 @@
       <div class="row">
         <% if session[:recently_viewed_podcasts] %>
           <% session[:recently_viewed_podcasts].each do |id| %>
+            <h3>Recently Viewed</h3>
             <% podcast = Podcast.find(id) %>
             <li class="well col-xs-5 col-md-2">
               <% if podcast.user_approved? %>
