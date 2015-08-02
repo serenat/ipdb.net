@@ -38,7 +38,7 @@ class PodcastsController < ApplicationController
   def add_to_recently_viewed_podcasts(id)
     session[:recently_viewed_podcasts] ||= []
     session[:recently_viewed_podcasts].unshift(id) unless session[:recently_viewed_podcasts].include?(id)
-    session[:recently_viewed_podcasts][0, 4]
+    session[:recently_viewed_podcasts] = session[:recently_viewed_podcasts][0, 4]
   end
 
   def new
