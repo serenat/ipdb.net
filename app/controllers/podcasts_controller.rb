@@ -8,16 +8,16 @@ class PodcastsController < ApplicationController
 
   def index
     if params[:search].present?
-        @podcasts = Podcast.search(params[:search])
-        @usersearch = User.search(params[:search])
-        @paginate = Kaminari.paginate_array(@podcasts).page(params[:page])
-      else
-        @podcasts = Podcast.all.order('created_at DESC').page(params[:page]).per(25)
-        @paginate = Podcast.all.order('created_at DESC').page(params[:page]).per(25)
-        @usersearch = User.none
-      end
-      @users= User.all
-      @comments = Comment.all
+      @podcasts = Podcast.search(params[:search])
+      @usersearch = User.search(params[:search])
+      @paginate = Kaminari.paginate_array(@podcasts).page(params[:page])
+    else
+      @podcasts = Podcast.all.order('created_at DESC').page(params[:page]).per(25)
+      @paginate = Podcast.all.order('created_at DESC').page(params[:page]).per(25)
+      @usersearch = User.none
+    end
+    @users= User.all
+    @comments = Comment.all
   end
 
   def show
@@ -32,6 +32,12 @@ class PodcastsController < ApplicationController
     @data = Rate.all
     @response = HTTParty.get('http://itunes.apple.com/rss/customerreviews/id=' + @podcast.itunes_id.to_s + '/json') 
     @id = JSON.parse(@response)
+    add_to_recently_viewed_podcast @podcast.id
+  end
+
+  def add_to_recently_viewed_podcast(id)
+    session[:recently_viewed_podcast] ||= []
+    session[:recently_viewed_podcast].unshift(id) unless session[:recently_viewed_podcast].include?(id)
   end
 
   def new
@@ -57,7 +63,7 @@ class PodcastsController < ApplicationController
         if current_user.nil?
         else
           PodcastMailer.processing_email(current_user, @podcast).deliver
-      end
+        end
       else
         format.html { render action: 'new' }
         format.json { render json: @podcast.errors, status: :unprocessable_entity }
@@ -85,7 +91,7 @@ class PodcastsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def follow
     @podcast = Podcast.find(params[:id])
     current_user.follow(@podcast)
@@ -97,13 +103,13 @@ class PodcastsController < ApplicationController
     current_user.stop_following(@podcast)
     redirect_to :back
   end
-  
+
   def ppff
     @podcast = Podcast.find(params[:id])
     @podcast.increment!(:ppff)
     redirect_to :back
   end
-  
+
   def upvote
     @podcast = Podcast.find(params[:id])
     @podcast.liked_by current_user
@@ -113,14 +119,14 @@ class PodcastsController < ApplicationController
   def host
     @podcast = Podcast.find(params[:id])
   end
-  
+
 
   private
-    def set_podcast
-      @podcast = Podcast.find(params[:id])
-    end
+  def set_podcast
+    @podcast = Podcast.find(params[:id])
+  end
 
-    def podcast_params
-      params.require(:podcast).permit(:description, :episodes_url, :name, :image, :video)
-    end
+  def podcast_params
+    params.require(:podcast).permit(:description, :episodes_url, :name, :image, :video)
+  end
 end
