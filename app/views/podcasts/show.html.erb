@@ -281,12 +281,62 @@ $('.thread a:first').addClass('btn btn-primary btn-block');
       </div>
     </div>
     </div>
+    <div class="row">
+      <% session[:recently_viewed_podcasts].each do |podcast| %>
+          <li class="well col-xs-5 col-md-2">
+            <% if podcast.user_approved? %>
+              <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast, :class => "podcast-img" %><br>
+            <% else %>
+              <%= link_to image_tag('ipdb.png') + '', podcast, :class => "podcast-img" %><br>
+            <% end %>
+            <h4><%= link_to podcast.name, podcast %></h4>
+
+            <%= rating_for podcast %>
+
+            <br>
+            <% if podcast.pcaward == true %>
+              <%= fa_icon "trophy 15x" %>
+            <% end %>
+            <% if podcast.pcaward2 == true %>
+              <%= fa_icon "microphone 15x" %>
+            <% end %>
+            <% if podcast.pcaward3 == true %>
+              <%= fa_icon "headphones 15x" %>
+            <% end %>
+            <br>
+            <% if podcast.category.nil? then else podcast.category %>
+              <%= '<span class="label label-success">'.html_safe + podcast.category.html_safe + '</span>'.html_safe %>
+            <% end %>
+            <% if podcast.explicit == true %>
+              <%= '<span class="label label-danger">explict</span>'.html_safe %><br>
+            <% end %>
+            <% if podcast.video == true %>
+              <%= '<span class="label label-info">video</span>'.html_safe %>
+            <% end %>
+            <br>
+
+            <% podcast.user_podcasts.each do |user| %>
+              <% u = User.find(user.user_id) %>
+              <% if user.position == 'Host' || user.position == 'Co-Host' %>
+                By: <%= link_to (u.username) ,"users/#{user.user_id}" %><br>
+              <% end %>
+            <% end %>
+            <% if podcast.users == current_user %>
+              <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
+              <%= link_to 'Delete', podcast, class: "btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% else %>
+            <% end %>
+          <% end %>
+
+          <br />
+
+          </li>
+
+      <% end %>
+    </div>
 
     <script>
 $('span.thread_new_comment_link a').addClass('btn  btn-primary');
 $('.thread a:first').addClass('btn btn-primary btn-block');
     </script>
-  <% end %>
-
-  <%= session[:recently_viewed_podcast] %>
   </div>
