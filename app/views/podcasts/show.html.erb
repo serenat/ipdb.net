@@ -165,7 +165,8 @@
       </div>
       <div class="row">
         <% if session[:recently_viewed_podcasts] %>
-          <% session[:recently_viewed_podcasts].each do |podcast| %>
+          <% session[:recently_viewed_podcasts].each do |id| %>
+            <% podcast = Podcast.find(id) %>
             <li class="well col-xs-5 col-md-2">
               <% if podcast.user_approved? %>
                 <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast, :class => "podcast-img" %><br>
