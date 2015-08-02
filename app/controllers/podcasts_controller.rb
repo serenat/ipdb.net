@@ -32,13 +32,13 @@ class PodcastsController < ApplicationController
     @data = Rate.all
     @response = HTTParty.get('http://itunes.apple.com/rss/customerreviews/id=' + @podcast.itunes_id.to_s + '/json') 
     @id = JSON.parse(@response)
-    add_to_recently_viewed_podcast @podcast.id
+    add_to_recently_viewed_podcasts @podcast.id
   end
 
-  def add_to_recently_viewed_podcast(id)
-    session[:recently_viewed_podcast] ||= []
-    session[:recently_viewed_podcast].unshift(id) unless session[:recently_viewed_podcast].include?(id)
-    session[:recently_viewed_podcast][0, 4]
+  def add_to_recently_viewed_podcasts(id)
+    session[:recently_viewed_podcasts] ||= []
+    session[:recently_viewed_podcasts].unshift(id) unless session[:recently_viewed_podcasts].include?(id)
+    session[:recently_viewed_podcasts][0, 4]
   end
 
   def new
