@@ -227,7 +227,7 @@ $('.thread a:first').addClass('btn btn-primary btn-block');
     <div class="row">
       <div class="col-md-3">
         <h3><%= if defined? @title then @title else @podcast.name end %></h3>
-          <img src="/images/ipdb.png" style="width:100%;">
+          <%= image_tag("ipdb.png") %>
           <%= rating_for @podcast %><br>
           <div class="titles">
             <% @podcast.user_podcasts.each do |u| %>
