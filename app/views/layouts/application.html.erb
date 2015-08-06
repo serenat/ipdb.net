@@ -23,10 +23,6 @@ _gaq.push(['_trackPageview']);
   </head>
   <body>
     <%= render "layouts/navi" %>
-
-
-
-
     <% flash.each do |name, msg| %>
       <%= content_tag(:div, msg, class: "alert alert-info") %>
     <% end %>
