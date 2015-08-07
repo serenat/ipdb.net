@@ -152,10 +152,14 @@
         <div class="col-md-3">
           <hr />
           <%= commontator_thread(@podcast) %>
-          <hr />
+          <!-- <hr /> -->
           <!--<%= link_to(image_tag('http://podcastanswerman.com/wp-content/uploads/2011/10/AtoZRegister.jpg'), 'http://podcastanswerman.com/atoz/', target: '_blank') %> -->
-          <hr />
+          <!-- <hr /> -->
           <!-- <%= link_to(image_tag('http://podcastdata.com/images/Hosting300x250.png'), 'http://create.blubrry.com/resources/podcast-media-hosting/?code=IPDb2014', target: '_blank') %> -->
+          <hr />
+          <h3>Find us on Facebook</h3>
+          <div class="fb-page" data-href="https://www.facebook.com/ipcdb" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/ipcdb"><a href="https://www.facebook.com/ipcdb">IPDB</a></blockquote></div></div>
+          <hr />
 
           <% if @podcast.users.each{ |u| u.id }.include?(current_user) == true %>
             <%= link_to 'Edit', edit_podcast_path(@podcast) %> |
@@ -165,7 +169,7 @@
       </div>
       <div class="row">
         <% if session[:recently_viewed_podcasts] %>
-            <h3>Recently Viewed</h3>
+          <h3>Recently Viewed</h3>
           <% session[:recently_viewed_podcasts].each do |id| %>
             <% podcast = Podcast.find(id) %>
             <li class="well col-xs-5 col-md-2">
@@ -335,4 +339,4 @@ $('span.thread_new_comment_link a').addClass('btn  btn-primary');
 $('.thread a:first').addClass('btn btn-primary btn-block');
     </script>
   <% end %>
-    </div>
+  </div>
