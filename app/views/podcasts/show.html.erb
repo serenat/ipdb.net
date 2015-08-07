@@ -324,10 +324,14 @@ $('.thread a:first').addClass('btn btn-primary btn-block');
         <%= link_to(image_tag('ad-2.jpg'), 'http://www.eventbrite.com/e/ipdb-web-site-launch-party-tickets-13913853711') %>
         <hr />
         <%= link_to(image_tag('ad-1.jpg'), new_user_registration_path) %>
+        <hr />
+        <h3>Find us on Facebook</h3>
+        <div class="fb-page" data-href="https://www.facebook.com/ipcdb" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/ipcdb"><a href="https://www.facebook.com/ipcdb">IPDB</a></blockquote></div></div>
 
         <!-- <%= link_to(image_tag('http://podcastdata.com/images/Hosting300x250.png'), 'http://create.blubrry.com/resources/podcast-media-hosting/?code=IPDb2014', target: '_blank') %> -->
 
         <% if @podcast.users.each{ |u| u.id }.include?(current_user) == true %>
+          <hr />
           <%= link_to 'Edit', edit_podcast_path(@podcast) %> |
           <%= link_to 'Back', podcasts_path %>
         <% end %>
