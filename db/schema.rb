@@ -156,7 +156,6 @@ ActiveRecord::Schema.define(version: 20141120181316) do
     t.integer  "cohost_id",          limit: 4
     t.integer  "ppff",               limit: 4
     t.boolean  "approved",                         default: false
-    t.boolean  "hideplayer",                       default: false
     t.string   "awards",             limit: 255
     t.integer  "itunes_id",          limit: 4
     t.boolean  "video"
