@@ -20,10 +20,28 @@ a.btn {
   color: #FFFFFF;
 }
 
-a.navbar-brand img{
-  width: 8%;
+.navbar-header {
+  width: 100%;
+}
+
+#logo{
+  display:inline-block;
+  width:8%;
+  margin:-8px 15px 0px 15px;
+  float: left;
+}
+
+.social-btns{
+  display:inline-block;
+  float: left;
   position: absolute;
-  top: -8px;
+  bottom: -1px;
+  margin-left: 5px;
+  font-size: 1.7em;
+}
+
+.social-btns a .glyph-item {
+  margin: 0 .2em;
 }
 
 .awards .podcast .col-md-2{
@@ -289,8 +307,20 @@ i.fa.white{
     height: 350px;
   }
 
-  a.navbar-brand img {
+  #logo {
     width: 21%;
+  }
+
+  .social-btns{
+    position: relative;
+    bottom: 0px;
+    margin-top: 5px;
+    font-size: 1.6em;
+    margin-left: 0px;
+  }
+
+  .social-btns a .glyph-item {
+    margin: 0em;
   }
 
   .col-md-6 h1{
