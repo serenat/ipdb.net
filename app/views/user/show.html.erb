@@ -3,14 +3,14 @@
     <div class="col-md-3">
       <h2 class="username"><%= if @user.first_name.nil? then ''  else @user.first_name end  + ' ' + if @user.last_name.nil? then ' ' else @user.last_name end %></h2>
         <br>
-        <img src=" <%= @user.profile_image %>" class="img-circle">
+        <%= image_tag @user.profile_image, class: "img-circle" %>
         <div class="social">
-          <%= link_to '<i class="fa fa-facebook-square fa-2x"></i>'.html_safe,  'http://facebook.com/' + @user.facebook if @user.facebook.present? %>
-          <%= link_to '<i class="fa fa-twitter-square fa-2x"></i>'.html_safe, 'http://twitter.com/' + @user.twitter if @user.twitter.present? %>
-          <%= link_to '<i class="fa fa-pinterest-square fa-2x"></i>'.html_safe, 'http://pinterest.com/' + @user.pinterest if @user.pinterest.present? %>
-          <%= link_to '<i class="fa fa-instagram fa-2x"></i>'.html_safe, 'http://instagram.com/' + @user.instagram if @user.instagram.present? %>
-          <%= link_to '<i class="fa fa-linkedin-square fa-2x"></i>'.html_safe, 'http://linkedin.com/' + @user.linkedin if @user.linkedin.present? %>
-          <%= link_to '<i class="fa fa-square fa-2x"></i><img src="http://www.ipdb.net/assets/imdb.png" style="position: absolute; margin-left: -23px; margin-top: 3px; width: 21px;">'.html_safe, '' + @user.imdb if @user.imdb.present? %>
+          <%= link_to '<i class="fa fa-facebook-square fa-2x"></i>'.html_safe,  'http://facebook.com/' + @user.facebook, target: '_blank' if @user.facebook.present? %>
+          <%= link_to '<i class="fa fa-twitter-square fa-2x"></i>'.html_safe, 'http://twitter.com/' + @user.twitter, target: '_blank' if @user.twitter.present? %>
+          <%= link_to '<i class="fa fa-pinterest-square fa-2x"></i>'.html_safe, 'http://pinterest.com/' + @user.pinterest, target: '_blank' if @user.pinterest.present? %>
+          <%= link_to '<i class="fa fa-instagram fa-2x"></i>'.html_safe, 'http://instagram.com/' + @user.instagram, target: '_blank' if @user.instagram.present? %>
+          <%= link_to '<i class="fa fa-linkedin-square fa-2x"></i>'.html_safe, 'http://linkedin.com/' + @user.linkedin, target: '_blank' if @user.linkedin.present? %>
+          <%= link_to '<i class="fa fa-square fa-2x"></i><img src="http://www.ipdb.net/assets/imdb.png" style="position: absolute; margin-left: -23px; margin-top: 3px; width: 21px;">'.html_safe, '' + @user.imdb, target: '_blank' if @user.imdb.present? %>
         </div>
         <br>
         <p><%= @user.description %></p>

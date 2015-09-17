@@ -9,6 +9,10 @@ class Podcast < ActiveRecord::Base
   letsrate_rateable
   acts_as_followable
 
+  def hideplayer
+    self[:hideplayer] || false
+  end
+
   def self.search(search)
     if search
       where('name LIKE ?', "%#{search}%")
