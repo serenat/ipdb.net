@@ -48,6 +48,11 @@ a.btn {
   height:210px;
 }
 
+#awards li.well {
+  min-height: 320px;
+  font-size: 1.5em;
+}
+
 .row.actions{
   margin-top:15px;
 }
@@ -350,4 +355,9 @@ li.well.col-md-12 img {
   width: 10%;
   float: left;
   margin-right: 13px;
+}
+
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
 }

@@ -1,68 +1,55 @@
 <div class="container">
   <% if @podcast.user_approved? %>
-    <% @itunesdata.each do | itunes | %>
-      <% @title = itunes.css(".left h1").text %>
-      <% description = itunes.css('.product-review p').text %>
-      <% @img = itunes.css(".lockup.product.podcast img.artwork").map { |link| link['src'] }.first %>
-      <p id="notice"><%= notice %></p>
-      <div class="row">
+    <div class="row">
+      <% @itunesdata.each do | itunes | %>
+        <% @title = itunes.css(".left h1").text %>
+        <% description = itunes.css('.product-review p').text %>
+        <% @img = itunes.css(".lockup.product.podcast img.artwork").map { |link| link['src'] }.first %>
+        <p id="notice"><%= notice %></p>
+
         <div class="col-md-3">
-          <h3><%= if defined? @title then @title else @podcast.name end %></h3>
-            <img src="<%= if @podcast.image_url.blank? then @podcast.image else @podcast.image_url end %>" style="width:100%;">
-              <%= rating_for @podcast %><br>
-              <div class="titles">
-                <% @podcast.user_podcasts.each do |u| %>
-                  <% user = u.user_id 	
-                  @user = User.find(user)
-                %>
-              <% if u.approved? %> 
-                <% if u.position == 'Host' %>
-                  <li><span class="label label-success"><%= u.position %></span> <%= link_to (@user.username) ,"../users/#{user}" %> </li>
-                <% elsif %>
-                  <% u.position == 'Co-Host' %>
-                  <li><span class="label label-warning"><%= u.position %></span> <%= link_to (@user.username) ,"../users/#{user}" %> </li>
-                <% elsif %>
-                  <% u.position == 'Art Work' %>
-                  <li><span class="label label-primary"><%= u.position %></span> <%= link_to (@user.username) ,"../users/#{user}" %> </li>
-                <% elsif %>
-                  <% u.position == 'Music' %>
-                  <li><span class="label label-default"><%= u.position %></span> <%= link_to (@user.username) ,"../users/#{user}" %> </li>
-                <% elsif %>
-                  <% u.position == 'Sound Engineer' %>
-                  <li><span class="label label-danger"><%= u.position %></span> <%= link_to (@user.username) ,"../users/#{user}" %> </li>
-                <% elsif %>
-                  <% u.position == 'Performer' %>
-                  <li><span class="label label-default"><%= u.position %></span> <%= link_to (@user.username) ,"../users/#{user}" %> </li>
-                <% else %>
-                  <% u.position == 'Guest' %>
-                  <li><span class="label label-info"><%= u.position %></span>	<%= link_to (@user.username) ,"../users/#{user}" %> </li>
-                <% end %>
+          <h3><%= @title || @podcast.name %></h3>
+          <img src="<%= if @podcast.image_url.blank? then @podcast.image else @podcast.image_url end %>" style="width:100%;">
+
+          <%= rating_for @podcast %><br>
+          <div class="titles">
+            <% @podcast.user_podcasts.each do |user_podcast| %>
+              <% if user_podcast.approved? %> 
+                <li>
+                  <%= position_to_label user_podcast.position %>
+                  <%= link_to user_podcast.user.username, user_podcast.user %>
+                </li>
               <% end %>
             <% end %>
-              </div>
+          </div>
 
-              <h4>Number of Episodes : <%= if @episodesdata.empty? then @feed.entries.count else @episodesdata.count end %></h4>
-                <p><%= @podcast.description %></p>
-                <p><%= description %></p>
-                <% if user_signed_in? && current_user.following?(@podcast) == true  %>
-                  <%= link_to "<span class='fa fa-minus'></span> Unfollow".html_safe, unfollow_podcast_path(@podcast), :class => "btn btn-primary"%>
-                <% else %>
-                  <%= link_to "<span class='fa fa-plus'></span> Follow".html_safe, follow_podcast_path(@podcast), :class => "btn btn-primary"%>
-                <% end %>		
-                <br><br><h4> Followers : <%= @podcast.followers_count %></h4>
-                <div class="row">
-                  <% @podcast.followers.each do |followers| %>
-                    <div class="col-sm-4">
-                      <%= followers.first_name %>
-                      <%= image_tag(followers.profile_image.url, height: '60', width: '60') %>
-                    </div>
-                  <% end %>
-                </div><br>
-                <%= link_to "Edit Connections", new_user_podcast_path, :class => "btn btn-primary" %>
+          <h4>Number of Episodes : <%= if @episodesdata.empty? then @feed.entries.count else @episodesdata.count end %></h4>
+          <p><%= @podcast.description %></p>
+          <p><%= description %></p>
+
+          <% if user_signed_in? && current_user.following?(@podcast) %>
+            <%= link_to "<span class='fa fa-minus'> Unfollow</span>".html_safe, unfollow_podcast_path(@podcast), :class => "btn btn-primary"%>
+          <% else %>
+            <%= link_to "<span class='fa fa-plus'>Follow</span>".html_safe, follow_podcast_path(@podcast), :class => "btn btn-primary"%>
+          <% end %>		
+
+          <br><br>
+          <h4> Followers : <%= @podcast.followers_count %></h4>
+
+          <div class="row">
+            <% @podcast.followers.each do |followers| %>
+              <div class="col-sm-4">
+                <%= followers.first_name %>
+                <%= image_tag(followers.profile_image.url, height: '60', width: '60') %>
+              </div>
+            <% end %>
+          </div>
+          <br>
+          <%= link_to "Edit Connections", new_user_podcast_path, :class => "btn btn-primary" %>
         </div>
       <% end %>
-      <% if @podcast.hideplayer == true %>
-      <% else %>
+
+      <% unless @podcast.hideplayer == true %>
         <div class="col-md-6">
           <ul class="nav nav-tabs" role="tablist">
             <li class="active"><a href="#episodes" role="tab" data-toggle="tab">Episodes</a></li>
@@ -74,7 +61,6 @@
           <div class="tab-content">
             <div class="tab-pane active" id="episodes">
               <br>
-
 
               <!-- itunes feed -->
               <% if @episodesdata.empty? then else @episodesdata.first( if @episodesdata.count > 15 then 15 else @episodesdata.count end).each do |episode| %>
@@ -145,7 +131,16 @@
                 <% end %>
               <% end %>
             </div>
-            <div class="tab-pane" id="reviews"></div>
+            <div class="tab-pane" id="awards">
+              <br>
+              <li class="well" style="list-style:none;">
+                <% @podcast.awards.each do |award| %>
+                  <%= award_icon award.name %>
+                  <span><%= award.name %></span>
+                  <br>
+                <% end %>
+              </li>
+            </div>
             <!-- <div class="tab-pane" id="messages">...</div> -->
             <!-- <div class="tab-pane" id="settings">...</div> -->
           </div>
@@ -243,7 +238,7 @@ $('.thread a:first').addClass('btn btn-primary btn-block');
               <% user = u.user_id 	
               @user = User.find(user)
             %>
-          <% if u.approved? %> 
+          <% if u.approved? %>
             <% if u.position == 'Host' %>
               <li><span class="label label-success"><%= u.position %></span> <%= link_to (@user.username) ,"../users/#{user}" %> </li>
             <% elsif %>
@@ -276,7 +271,7 @@ $('.thread a:first').addClass('btn btn-primary btn-block');
               <%= link_to "<span class='fa fa-minus'></span> Unfollow".html_safe, unfollow_podcast_path(@podcast), :class => "btn btn-primary"%>
             <% else %>
               <%= link_to "<span class='fa fa-plus'></span> Follow".html_safe, follow_podcast_path(@podcast), :class => "btn btn-primary"%>
-            <% end %>		
+            <% end %>
             <br><br><h4> Followers : <%= @podcast.followers_count %></h4>
             <div class="row">
               <% @podcast.followers.each do |followers| %>
@@ -321,7 +316,16 @@ $('.thread a:first').addClass('btn btn-primary btn-block');
               <% end %>
             <% end %>
           </div>
-          <div class="tab-pane" id="reviews"></div>
+          <div class="tab-pane" id="awards">
+            <br>
+            <li class="well" style="list-style:none;">
+              <% @podcast.awards.each do |award| %>
+                <%= award_icon award.name %>
+                <span><%= award.name %></span>
+                <br>
+              <% end %>
+            </li>
+          </div>
           <!-- <div class="tab-pane" id="messages">...</div> -->
           <!-- <div class="tab-pane" id="settings">...</div> -->
         </div>

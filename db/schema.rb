@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141120181316) do
+ActiveRecord::Schema.define(version: 20150919111349) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -45,6 +45,18 @@ ActiveRecord::Schema.define(version: 20141120181316) do
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "awards", force: :cascade do |t|
+    t.string "name", limit: 255
+  end
+
+  create_table "awards_podcasts", id: false, force: :cascade do |t|
+    t.integer "award_id",   limit: 4
+    t.integer "podcast_id", limit: 4
+  end
+
+  add_index "awards_podcasts", ["award_id"], name: "index_awards_podcasts_on_award_id", using: :btree
+  add_index "awards_podcasts", ["podcast_id"], name: "index_awards_podcasts_on_podcast_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "content",          limit: 65535
@@ -156,7 +168,8 @@ ActiveRecord::Schema.define(version: 20141120181316) do
     t.integer  "cohost_id",          limit: 4
     t.integer  "ppff",               limit: 4
     t.boolean  "approved",                         default: false
-    t.string   "awards",             limit: 255
+    t.boolean  "hideplayer",                       default: false
+    t.string   "__awards",           limit: 255
     t.integer  "itunes_id",          limit: 4
     t.boolean  "video"
     t.boolean  "user_approved",                    default: false

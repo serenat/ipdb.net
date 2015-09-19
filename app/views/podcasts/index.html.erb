@@ -1,78 +1,69 @@
 <div class="container">
   <div class="row">
     <% @usersearch.each do |user| %>
-      <% if user.membership == 'Podcast Fan Plus' %>
-      <% else %>
+      <% unless user.membership == 'Podcast Fan Plus' %>
         <div class="col-md-2">
-          <h4><%= link_to (if defined? user.first_name then user.first_name else end  + ' ' + if defined? user.last_name then user.last_name else end) ,"users/#{user.id}" %></h4>
-          <img src=" <%= "#{user.profile_image}" %>" class="img-circle" style="width:150px; height:150px;">
+          <h4><%= link_to user.full_name, user %></h4>
+          <%= image_tag user.profile_image, class: "img-circle", style: 'width:150px; height:150px;' %>
         </div>
       <% end %>
     <% end %>
   </div>
+
   <div class="podcast">
     <%= link_to 'Add New Podcast', new_podcast_path, class: "btn btn-primary btn-lg pull-right" %>
 
     <h1>Listing podcasts</h1>
-    <%= if defined? @paginate then paginate @paginate else end %>
-      <hr />
-      <% @podcasts.each do |podcast| %>
-        <% if podcast.approved == true %>
-          <li class="well col-xs-5 col-md-2">
-            <% if podcast.user_approved? %>
-              <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast, :class => "podcast-img" %><br>
-            <% else %>
-              <%= link_to image_tag('ipdb.png') + '', podcast, :class => "podcast-img" %><br>
-            <% end %>
-            <h4><%= link_to podcast.name, podcast %></h4>
+    <%= paginate @paginate %>
+    <hr />
+    <% @podcasts.each do |podcast| %>
+      <!--Should be moved in scope @podcasts = Podcast.approved -->
+      <% if podcast.approved %>
+        <li class="well col-xs-5 col-md-2">
+          <% if podcast.user_approved? %>
+            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast, :class => "podcast-img" %><br>
+          <% else %>
+            <%= link_to image_tag('ipdb.png') + '', podcast, :class => "podcast-img" %><br>
+          <% end %>
 
-            <%= rating_for podcast %>
+          <h4><%= link_to podcast.name, podcast %></h4>
+          <%= rating_for podcast %>
 
-            <br>
-            <% if podcast.pcaward == true %>
-              <%= fa_icon "trophy 15x" %>
-            <% end %>
-            <% if podcast.pcaward2 == true %>
-              <%= fa_icon "microphone 15x" %>
-            <% end %>
-            <% if podcast.pcaward3 == true %>
-              <%= fa_icon "headphones 15x" %>
-            <% end %>
-            <br>
-            <% if podcast.category.nil? then else podcast.category %>
-              <%= '<span class="label label-success">'.html_safe + podcast.category.html_safe + '</span>'.html_safe %>
-            <% end %>
-            <% if podcast.explicit == true %>
-              <%= '<span class="label label-danger">explict</span>'.html_safe %><br>
-            <% end %>
-            <% if podcast.video == true %>
-              <%= '<span class="label label-info">video</span>'.html_safe %>
-            <% end %>
-            <br>
+          <br>
+          <% podcast.awards.each do |award| %>
+            <%= award_icon award.name %>
+          <% end %>
 
-            <% podcast.user_podcasts.each do |user| %>
-              <% u = User.find(user.user_id) %>
-              <% if user.position == 'Host' || user.position == 'Co-Host' %>
-                By: <%= link_to (u.username) ,"users/#{user.user_id}" %><br>
-              <% end %>
-            <% end %>
-            <% if podcast.users == current_user %>
-              <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
-              <%= link_to 'Delete', podcast, class: "btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %>
-            <% else %>
+          <br>
+          <% if podcast.category %>
+            <span class="label label-success"><%= podcast.category.html_safe %></span>
+          <% end %>
+          <% if podcast.explicit %>
+            <span class="label label-danger">explict</span>
+            <br>
+          <% end %>
+          <% if podcast.video %>
+            <span class="label label-info">video</span>
+          <% end %>
+          <br>
+
+          <% podcast.user_podcasts.each do |user_podcast| %>
+            <% if user_podcast.position == 'Host' || user_podcast.position == 'Co-Host' %>
+              By: <%= link_to user_podcast.user.username, user_podcast.user %>
+              <br>
             <% end %>
           <% end %>
 
-          <br />
-
-          </li>
-        <% end %>
-
-
-
+          <% if podcast.users == current_user %>
+            <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
+            <%= link_to 'Delete', podcast, class: "btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+          <br>
+        </li>
+      <% end %>
+    <% end %>
   </div>
-  <%= if defined? @paginate then paginate @paginate else end %>
-
-
-
+  <div class="row nopadding">
+      <%= paginate @paginate %>
   </div>
+</div>
