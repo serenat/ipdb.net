@@ -12,8 +12,8 @@ class PodcastsController < ApplicationController
       @usersearch = User.search(params[:search])
       @paginate = Kaminari.paginate_array(@podcasts).page(params[:page])
     else
-      @podcasts = Podcast.all.order('created_at DESC').page(params[:page]).per(25)
-      @paginate = Podcast.all.order('created_at DESC').page(params[:page]).per(25)
+      @podcasts = Podcast.with_awards.order('created_at DESC').page(params[:page]).per(25)
+      @paginate = @podcasts
       @usersearch = User.none
     end
     @users= User.all

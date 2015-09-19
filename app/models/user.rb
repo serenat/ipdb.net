@@ -28,4 +28,8 @@ class User < ActiveRecord::Base
   def email_changed?
     false
   end
+
+  def full_name
+    "#{first_name} #{last_name}".strip
+  end
 end

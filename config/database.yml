@@ -5,7 +5,7 @@ default:
   port: 3306
 development:
   adapter: mysql2
-  database: ipdb_development
+  database: ipdb_development_seeded
   username: root
 production:
   adapter: mysql2
