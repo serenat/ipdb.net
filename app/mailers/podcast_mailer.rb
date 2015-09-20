@@ -3,7 +3,7 @@ class PodcastMailer < ActionMailer::Base
 
   def approval_email(podcast)
     @podcast = podcast
-    mail(to: [['serena@ipdb.net'],['brooke@ipdb.net'],['josiah@ipdb.net']], subject: 'Podcast needs approval')
+    mail(to: [['serena@ipdb.net'],['brooke@ipdb.net']], subject: 'Podcast needs approval')
   end
 
   def processing_email(user, podcast)

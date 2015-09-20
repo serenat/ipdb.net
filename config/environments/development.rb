@@ -33,13 +33,14 @@ Ipdb::Application.configure do
   config.action_mailer.default_options = {from: 'info@ipdb.net'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
+    user_name:            Rails.application.secrets.smtp['username'],
+    password:             Rails.application.secrets.smtp['password'],
+    domain:               'mandrillapp.com',
+    address:              'smtp.mandrillapp.com',
     port:                 587,
-    domain:               'zerosixmedia.com',
-    user_name:            'info@zerosixmedia.com',
-    password:             'B1g.marketing',
     authentication:       'plain',
-    enable_starttls_auto: true  }
+    enable_starttls_auto: true
+  }
 
   config.paperclip_defaults = {
     :storage => :s3,
