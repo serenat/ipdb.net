@@ -136,7 +136,11 @@
               <li class="well" style="list-style:none;">
                 <% @podcast.awards.each do |award| %>
                   <%= award_icon award.name %>
-                  <span><%= award.name %></span>
+                  <% if (nominations = award.nominations_list(@podcast.id)).presence %>
+                    <span><%= "#{award.name}: #{nominations}" %></span>
+                  <% else %>
+                    <span><%= award.name %></span>
+                  <% end %>
                   <br>
                 <% end %>
               </li>
@@ -321,7 +325,11 @@ $('.thread a:first').addClass('btn btn-primary btn-block');
             <li class="well" style="list-style:none;">
               <% @podcast.awards.each do |award| %>
                 <%= award_icon award.name %>
-                <span><%= award.name %></span>
+                <% if (nominations = award.nominations_list(@podcast.id)).presence %>
+                  <span><%= "#{award.name}: #{nominations}" %></span>
+                <% else %>
+                  <span><%= award.name %></span>
+                <% end %>
                 <br>
               <% end %>
             </li>

@@ -1,9 +1,9 @@
 ActiveAdmin.register Podcast do
-	filter :name 
+	filter :name
   filter :awards
   permit_params :description, :name, :image_file_name,:image_url, :episodes_url,
     :user_id, :explicit, :category, :approved,:user_approved, :itunes_id, :video,
-    award_ids: []
+    nominations_attributes: [:id, :award_id, :name, :year, :_destroy]
 
   active_admin_importable
   
@@ -55,12 +55,20 @@ ActiveAdmin.register Podcast do
       f.input :image_file_name
       f.input :image_url
       f.input :category, :as => :select, :collection =>[["arts"], ["business"], ["comedy"],["education"], ["games & hobbies"], ["government & organizations"],["health"], ["kids & family"],["music"], ["news & politics"], ["religion & spirituality"],["science & medicine"], ["society & culture"],["sports & recreation"], ["technology"],["tv & film"]]
-      f.input :awards, :as => :check_boxes
       f.input :approved
       f.input :user_approved
       f.input :video
 
     end
+
+    f.inputs do
+      f.has_many :nominations, heading: 'Nominations', allow_destroy: true, new_record: true do |a|
+        a.input :award
+        a.input :name
+        a.input :year
+      end
+    end
+
     f.actions
   end  
 

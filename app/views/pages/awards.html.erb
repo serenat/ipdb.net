@@ -32,14 +32,14 @@
         <h5><%= truncate(podcast.name, length: 20) %></h5>
         <% podcast.awards.each do |award| %>
           <%= award_icon award.name %>
-          <br>
+        <% end %>
+        <br>
 
-          <% if podcast.category.nil? then else podcast.category %>
-            <%= '<span class="label label-success">'.html_safe + podcast.category.html_safe + '</span>'.html_safe %>
-          <% end %>
-          <% if podcast.explicit == true %>
-            <%= '<span class="label label-danger">explict</span>'.html_safe %>
-          <% end %>
+        <% if podcast.category.nil? then else podcast.category %>
+          <%= '<span class="label label-success">'.html_safe + podcast.category.html_safe + '</span>'.html_safe %>
+        <% end %>
+        <% if podcast.explicit == true %>
+          <%= '<span class="label label-danger">explict</span>'.html_safe %>
         <% end %>
         <br>
       </div>
