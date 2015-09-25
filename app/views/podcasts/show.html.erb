@@ -17,7 +17,7 @@
               <% if user_podcast.approved? %> 
                 <li>
                   <%= position_to_label user_podcast.position %>
-                  <%= link_to user_podcast.user.username, user_podcast.user %>
+                  <%= link_to user_podcast.user.any_name, user_podcast.user %>
                 </li>
               <% end %>
             <% end %>
@@ -211,7 +211,7 @@
               <% podcast.user_podcasts.each do |user| %>
                 <% u = User.find(user.user_id) %>
                 <% if user.position == 'Host' || user.position == 'Co-Host' %>
-                  By: <%= link_to (u.username) ,"users/#{user.user_id}" %><br>
+                  By: <%= link_to (u.any_name) ,"users/#{user.user_id}" %><br>
                 <% end %>
               <% end %>
             </li>
@@ -244,25 +244,25 @@ $('.thread a:first').addClass('btn btn-primary btn-block');
             %>
           <% if u.approved? %>
             <% if u.position == 'Host' %>
-              <li><span class="label label-success"><%= u.position %></span> <%= link_to (@user.username) ,"../users/#{user}" %> </li>
+              <li><span class="label label-success"><%= u.position %></span> <%= link_to (@user.any_name) ,"../users/#{user}" %> </li>
             <% elsif %>
               <% u.position == 'Co-Host' %>
-              <li><span class="label label-warning"><%= u.position %></span> <%= link_to (@user.username) ,"../users/#{user}" %> </li>
+              <li><span class="label label-warning"><%= u.position %></span> <%= link_to (@user.any_name) ,"../users/#{user}" %> </li>
             <% elsif %>
               <% u.position == 'Art Work' %>
-              <li><span class="label label-primary"><%= u.position %></span> <%= link_to (@user.username) ,"../users/#{user}" %> </li>
+              <li><span class="label label-primary"><%= u.position %></span> <%= link_to (@user.any_name) ,"../users/#{user}" %> </li>
             <% elsif %>
               <% u.position == 'Music' %>
-              <li><span class="label label-default"><%= u.position %></span> <%= link_to (@user.username) ,"../users/#{user}" %> </li>
+              <li><span class="label label-default"><%= u.position %></span> <%= link_to (@user.any_name) ,"../users/#{user}" %> </li>
             <% elsif %>
               <% u.position == 'Sound Engineer' %>
-              <li><span class="label label-danger"><%= u.position %></span> <%= link_to (@user.username) ,"../users/#{user}" %> </li>
+              <li><span class="label label-danger"><%= u.position %></span> <%= link_to (@user.any_name) ,"../users/#{user}" %> </li>
             <% elsif %>
               <% u.position == 'Performer' %>
-              <li><span class="label label-default"><%= u.position %></span> <%= link_to (@user.username) ,"../users/#{user}" %> </li>
+              <li><span class="label label-default"><%= u.position %></span> <%= link_to (@user.any_name) ,"../users/#{user}" %> </li>
             <% else %>
               <% u.position == 'Guest' %>
-              <li><span class="label label-info"><%= u.position %></span>	<%= link_to (@user.username) ,"../users/#{user}" %> </li>
+              <li><span class="label label-info"><%= u.position %></span>	<%= link_to (@user.any_name) ,"../users/#{user}" %> </li>
             <% end %>
           <% end %>
         <% end %>

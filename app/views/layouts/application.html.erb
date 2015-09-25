@@ -35,7 +35,7 @@ fjs.parentNode.insertBefore(js, fjs);
 
     <%= render "layouts/navi" %>
     <% flash.each do |name, msg| %>
-      <%= content_tag(:div, msg, class: "alert alert-info") %>
+      <%= content_tag(:div, msg, class: "alert alert-info flash-msg") %>
     <% end %>
     <%= yield %>
   </body>

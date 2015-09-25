@@ -2,8 +2,11 @@ Ipdb::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   post '/rate' => 'rater#create', :as => 'rate'
-  devise_for :users
+
+  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
+
   mount Commontator::Engine => '/commontator'
+
   root "pages#home"
   get "dashboard" => "pages#dashboard"
   get "about" => "pages#about"

@@ -3,7 +3,7 @@
     <% @usersearch.each do |user| %>
       <% unless user.membership == 'Podcast Fan Plus' %>
         <div class="col-md-2">
-          <h4><%= link_to user.full_name, user %></h4>
+          <h4><%= link_to user.name, user %></h4>
           <%= image_tag user.profile_image, class: "img-circle", style: 'width:150px; height:150px;' %>
         </div>
       <% end %>
@@ -49,7 +49,7 @@
 
           <% podcast.user_podcasts.each do |user_podcast| %>
             <% if user_podcast.position == 'Host' || user_podcast.position == 'Co-Host' %>
-              By: <%= link_to user_podcast.user.username, user_podcast.user %>
+              By: <%= link_to user_podcast.user.any_name, user_podcast.user %>
               <br>
             <% end %>
           <% end %>

@@ -45,7 +45,7 @@ Ipdb::Application.configure do
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
-      :bucket => 'ipdbdevelopment',
+      :bucket => 'ipdbdevelopment'
     }
   }
 

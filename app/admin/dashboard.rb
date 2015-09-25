@@ -21,7 +21,7 @@ ActiveAdmin.register_page "Dashboard" do
                 if u.nil?
                   link_to user.id, admin_connection_path(user)
                 else
-                  link_to u.username, admin_connection_path(user)
+                  link_to u.any_name, admin_connection_path(user)
                 end
             end
 
