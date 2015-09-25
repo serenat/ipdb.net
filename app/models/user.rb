@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
       user = User.find_or_initialize_by(email: auth.info.email)
 
       user.name = auth.info.name if user.name.blank?
-      user.profile_image = open(auth.info.image) if user.profile_image_file_name.blank?
+      user.profile_image = open(auth.info.image) if !user.profile_image.exists? && !auth.extra.raw_info.picture.data.is_silhouette
       user.facebook = auth.uid if user.facebook.blank?
 
       identity.user = user
