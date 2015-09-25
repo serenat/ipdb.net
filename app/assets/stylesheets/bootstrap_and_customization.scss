@@ -41,7 +41,38 @@ a.btn {
 }
 
 .social-btns a .glyph-item {
-  margin: 0 .2em;
+  margin: 0 .12em;
+}
+
+a.btn-social.btn-facebook {
+  color: #FFFFFF;
+  background-color: #3B5998;
+  text-shadow: none;
+}
+
+a.btn-social.btn-facebook:hover {
+  color: #FFFFFF;
+  background-color: #2D4373;
+  text-shadow: none;
+}
+
+a.btn-social i.fa:hover {
+  color: #FFFFFF;
+}
+
+a.btn-social.btn-facebook.btn-connect {
+  padding-left: 10px;
+  text-align: center;
+}
+
+.navbar-nav .btn-facebook {
+  float: inherit;
+  width: 110px;
+  margin: 3px 0px 0px 6px;
+}
+
+.navbar-nav .btn-facebook span {
+  font-size: 1.2em;
 }
 
 .awards .podcast .col-md-2{
@@ -50,6 +81,10 @@ a.btn {
 
 #awards li.well {
   min-height: 320px;
+}
+
+.flash-msg {
+  margin-bottom: 0px;
 }
 
 .row.actions{

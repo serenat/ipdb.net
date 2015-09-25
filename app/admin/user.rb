@@ -12,7 +12,7 @@ ActiveAdmin.register User  do
     end
   end
 
-    index do
+  index do
     column :username 
     column :first_name
     column :last_name
@@ -20,8 +20,7 @@ ActiveAdmin.register User  do
     actions
   end
 
-
-   form do |f|
+  form do |f|
     f.inputs "Details" do
       f.input :email
       f.input :username
@@ -34,12 +33,6 @@ ActiveAdmin.register User  do
     end
     f.actions
   end
-
-
-
-
-
-
 
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

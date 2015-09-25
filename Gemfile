@@ -32,6 +32,8 @@ gem 'feedjira', '1.3.0'
 gem 'httparty'
 gem 'rails4-autocomplete'
 
+gem 'omniauth-facebook'
+
 gem 'puma'
 gem 'figaro'
 
