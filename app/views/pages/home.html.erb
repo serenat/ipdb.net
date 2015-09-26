@@ -60,6 +60,14 @@
                   <div class="bottom">
                     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
                       <div class="form-row">
+                        <%= link_to user_omniauth_authorize_path(provider: :facebook), class: 'btn btn-block btn-social btn-facebook btn-connect' do %>
+                          <i class="fa fa-facebook"></i>Connect with Facebook
+                        <% end %>
+                      </div>
+                      <div class="form-row" style="text-align:center;">
+                        <span>or</span>
+                      </div>
+                      <div class="form-row">
                         <%= f.text_field :name, :class => "text login_input", :placeholder => "Name", :required => true %>
                         <div class="clearfix"></div>
                       </div>
@@ -75,14 +83,9 @@
                         <label><input type="checkbox" name="vehicle" value="Bike" required> Agree to terms &amp; conditions</label>
                         <div class="clearfix"></div> 
                       </div>
-                      <div class="form-row">
+                      <div class="form-row form-row-last">
                         <input type="submit" name="register" value="Finished, sign me up!" class="btn" data-loading-text="Loading..." />
                         <div class="clearfix"></div>
-                      </div>
-                      <div class="form-row form-row-last">
-                        <%= link_to user_omniauth_authorize_path(provider: :facebook), class: 'btn btn-block btn-social btn-facebook btn-connect' do %>
-                          <i class="fa fa-facebook"></i>Connect with Facebook
-                        <% end %>
                       </div>
                     <% end %>
                     <div class="clearfix"></div>
