@@ -17,6 +17,7 @@ Ipdb::Application.routes.draw do
   get "terms" => "pages#terms"
   get "ppff" => "pages#ppff"
   get "faq" => "pages#faq"
+
   resources :user, :path => "users" do
     get :autocomplete_user_username, :on => :collection
   end

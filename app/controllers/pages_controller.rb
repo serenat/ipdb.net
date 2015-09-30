@@ -1,8 +1,9 @@
 class PagesController < ApplicationController
 
   def home
-    @podcasts = Podcast.all.order('created_at DESC').page(params[:page])
-    @users= User.all
+    #@podcasts = Podcast.all.order('created_at DESC').page(params[:page])
+    #@users= User.all
+    @share = params[:shared] == 'false'
   end
 
   def dashboard
