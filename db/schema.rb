@@ -127,11 +127,13 @@ ActiveRecord::Schema.define(version: 20150923134031) do
   add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
 
   create_table "identities", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.string   "provider",   limit: 255
-    t.string   "uid",        limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "user_id",     limit: 4
+    t.string   "provider",    limit: 255
+    t.string   "uid",         limit: 255
+    t.string   "oauth_token", limit: 255
+    t.boolean  "shared",                  default: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree

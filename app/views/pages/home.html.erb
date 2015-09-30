@@ -23,6 +23,8 @@
 </style>
 <body class="loading"> 
 
+<%= render 'share_modal' if @share %>
+
   <a id="home"></a>
   <div class="body-overlay"></div>
 
@@ -60,7 +62,7 @@
                   <div class="bottom">
                     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
                       <div class="form-row">
-                        <%= link_to user_omniauth_authorize_path(provider: :facebook), class: 'btn btn-block btn-social btn-facebook btn-connect' do %>
+                        <%= link_to user_omniauth_authorize_path(provider: :facebook), class: 'btn btn-block btn-social btn-facebook btn-connect btn-lg' do %>
                           <i class="fa fa-facebook"></i>Connect with Facebook
                         <% end %>
                       </div>

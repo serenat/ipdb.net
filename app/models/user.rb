@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :user_podcasts
   has_many :podcasts, :through => :user_podcasts
-  has_one :identity
+  has_one :identity, dependent: :destroy
   has_attached_file :profile_image, :default_url => "ipdb.png", :styles => { :medium => "300x300>", :thumb => "100x100>" }
   validates_attachment_content_type :profile_image, :content_type => %w(image/jpeg image/jpg image/png)
   validates :email, presence: true, uniqueness: true
