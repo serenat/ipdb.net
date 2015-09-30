@@ -4,8 +4,7 @@ class CreateIdentities < ActiveRecord::Migration
       t.references :user, index: true, foreign_key: true
       t.string :provider
       t.string :uid
-      t.string :oauth_token
-      t.boolean :shared, default: false
+
       t.timestamps null: false
     end
   end

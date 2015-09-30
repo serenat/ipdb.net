@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150923134031) do
+ActiveRecord::Schema.define(version: 20150930143331) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -130,10 +130,10 @@ ActiveRecord::Schema.define(version: 20150923134031) do
     t.integer  "user_id",     limit: 4
     t.string   "provider",    limit: 255
     t.string   "uid",         limit: 255
-    t.string   "oauth_token", limit: 255
-    t.boolean  "shared",                  default: false
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
+    t.string   "oauth_token", limit: 255
+    t.boolean  "shared",                  default: false
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
