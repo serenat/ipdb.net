@@ -1,296 +1,52 @@
 <div class="container">
-  <% if @podcast.user_approved? %>
-    <div class="row">
-      <% @itunesdata.each do | itunes | %>
-        <% @title = itunes.css(".left h1").text %>
-        <% description = itunes.css('.product-review p').text %>
-        <% @img = itunes.css(".lockup.product.podcast img.artwork").map { |link| link['src'] }.first %>
-        <p id="notice"><%= notice %></p>
+  <div class="row">
+    <div class="col-md-3">
+      <h3><%= @itunes.css(".left h1").text || @podcast.name %></h3>
+      <img src=<%= @podcast.image_url.blank? ? @podcast.image : @podcast.image_url %> style="width:100%;">
 
-        <div class="col-md-3">
-          <h3><%= @title || @podcast.name %></h3>
-          <img src="<%= if @podcast.image_url.blank? then @podcast.image else @podcast.image_url end %>" style="width:100%;">
+      <%= rating_for @podcast %><br>
+      <div class="titles">
+        <% @podcast.user_podcasts.each do |user_podcast| %>
+          <% if user_podcast.approved? %>
+            <li>
+              <%= position_to_label user_podcast.position %>
+              <%= link_to user_podcast.user.any_name, user_podcast.user %>
+            </li>
+          <% end %>
+        <% end %>
+      </div>
 
-          <%= rating_for @podcast %><br>
-          <div class="titles">
-            <% @podcast.user_podcasts.each do |user_podcast| %>
-              <% if user_podcast.approved? %> 
-                <li>
-                  <%= position_to_label user_podcast.position %>
-                  <%= link_to user_podcast.user.any_name, user_podcast.user %>
-                </li>
-              <% end %>
-            <% end %>
-          </div>
+      <h4>Number of Episodes : <%= @episodesdata.empty? ? @feed.entries.count : @episodesdata.count %></h4>
+      <p><%= @podcast.description %></p>
+      <p><%= @itunes.css('.product-review p').text %></p>
 
-          <h4>Number of Episodes : <%= if @episodesdata.empty? then @feed.entries.count else @episodesdata.count end %></h4>
-          <p><%= @podcast.description %></p>
-          <p><%= description %></p>
-
-          <% if user_signed_in? && current_user.following?(@podcast) %>
-            <%= link_to "<span class='fa fa-minus'> Unfollow</span>".html_safe, unfollow_podcast_path(@podcast), :class => "btn btn-primary"%>
-          <% else %>
-            <%= link_to "<span class='fa fa-plus'>Follow</span>".html_safe, follow_podcast_path(@podcast), :class => "btn btn-primary"%>
-          <% end %>		
-
-          <br><br>
-          <h4> Followers : <%= @podcast.followers_count %></h4>
-
-          <div class="row">
-            <% @podcast.followers.each do |followers| %>
-              <div class="col-sm-4">
-                <%= followers.first_name %>
-                <%= image_tag(followers.profile_image.url, height: '60', width: '60') %>
-              </div>
-            <% end %>
-          </div>
-          <br>
-          <%= link_to "Edit Connections", new_user_podcast_path, :class => "btn btn-primary" %>
-        </div>
+      <% if user_signed_in? && current_user.following?(@podcast) %>
+        <%= link_to unfollow_podcast_path(@podcast), class: 'btn btn-primary' do %>
+          <span class='fa fa-minus'> Unfollow</span>
+        <% end %>
+      <% else %>
+        <%= link_to follow_podcast_path(@podcast), class: 'btn btn-primary' do %>
+          <span class='fa fa-plus'>Follow</span>
+        <% end %>
       <% end %>
 
-      <% unless @podcast.hideplayer == true %>
-        <div class="col-md-6">
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="active"><a href="#episodes" role="tab" data-toggle="tab">Episodes</a></li>
-            <li><a href="#reviews" role="tab" data-toggle="tab">Reviews</a></li>
-            <li><a href="#awards" role="tab" data-toggle="tab">Awards</a></li>
-            <!--<li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
-              <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>-->
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane active" id="episodes">
-              <br>
+      <br><br>
+      <h4> Followers : <%= @podcast.followers_count %></h4>
 
-              <!-- itunes feed -->
-              <% if @episodesdata.empty? then else @episodesdata.first( if @episodesdata.count > 15 then 15 else @episodesdata.count end).each do |episode| %>
-                <% show = if defined? episode["audio-preview-url"] then episode["audio-preview-url"] else end %>
-                <% info = if defined? episode.css('.text').text then episode.css('.text').text else end %>
-                <li class="well"><p><%= info %></p>
-                  <audio controls>
-                    <source src="<%= show %>">
-                  </audio>
-                  <div class="row actions">
-                    <div class="col-md-4">
-                    </div>
-                    <div class="col-md-4">
-                    </div>
-                    <div class="col-md-4">
-                      <a href="<%= show %>" class="pull-right" download><%= fa_icon 'download' %> Download</a>
-                    </div>
-                  </div>
-                </li>
-              <% end %>
-            <% end %>
-
-            <!-- rss feeds -->
-            <% if defined? @feed.entries then @feed.entries.first(15).each do |t| %>
-              <li class="well">
-                <h4><%= link_to "#{t.title}", "#{t.url}" %></h4>
-
-                <%=t.author%>
-                <% if  @podcast.video == true %>
-                  <video width="100%" controls poster="/images/ipdb.png">
-                    <source src="<%= if defined? t.enclosure_url then t.enclosure_url else t.image end %>">
-                      Your browser does not support the audio element.
-                  </video>
-                  <p><%= sanitize t.summary.to_s %></p>
-                <% else %> 
-                  <p><%=sanitize t.summary %></p>
-                  <audio controls>
-                    <source src="<%= if defined? t.enclosure_url then t.enclosure_url else t.image end %>" type="audio/mpeg">
-                      Your browser does not support the audio element.
-                  </audio>
-                <% end %>
-                <div class="row actions">
-                  <div class="col-md-4">
-                  </div>
-                  <div class="col-md-4">
-                  </div>
-                  <div class="col-md-4">
-                    <a href="<%= if defined? t.enclosure_url then t.enclosure_url else t.image end  %>" class="pull-right" download><%= fa_icon 'download' %> Download</a>
-                    </div>
-                </div>
-              </li>
-            <% end %>
-          <% end %>
-            </div>
-            <div class="tab-pane" id="reviews">
-              <% unless @podcast.itunes_id.nil? %>
-                <% unless @id['feed']['entry'].nil? %>
-                  <% @id['feed']['entry'].drop(1).each do |review| %>
-                    <h3><%= review['author']['name']['label'] %></h3>
-                    <%= review['content']['label'] %><br>
-                    <% if review['im:rating']['label'] == '5' %>
-                      <%= fa_icon 'star 15x' %>
-                      <%= fa_icon 'star 15x' %>
-                      <%= fa_icon 'star 15x' %>
-                      <%= fa_icon 'star 15x' %>
-                    <% end %>
-                  <% end %>
-                <% end %>
-              <% end %>
-            </div>
-            <div class="tab-pane" id="awards">
-              <br>
-              <li class="well" style="list-style:none;">
-                <% @podcast.awards.each do |award| %>
-                  <%= award_icon award.name %>
-                  <% if (nominations = award.nominations_list(@podcast.id)).presence %>
-                    <span><%= "#{award.name}: #{nominations}" %></span>
-                  <% else %>
-                    <span><%= award.name %></span>
-                  <% end %>
-                  <br>
-                <% end %>
-              </li>
-            </div>
-            <!-- <div class="tab-pane" id="messages">...</div> -->
-            <!-- <div class="tab-pane" id="settings">...</div> -->
-          </div>
-        <% end %>
-        </div>
-        <div class="col-md-3">
-          <hr />
-          <%= commontator_thread(@podcast) %>
-          <!-- <hr /> -->
-          <!--<%= link_to(image_tag('http://podcastanswerman.com/wp-content/uploads/2011/10/AtoZRegister.jpg'), 'http://podcastanswerman.com/atoz/', target: '_blank') %> -->
-          <!-- <hr /> -->
-          <!-- <%= link_to(image_tag('http://podcastdata.com/images/Hosting300x250.png'), 'http://create.blubrry.com/resources/podcast-media-hosting/?code=IPDb2014', target: '_blank') %> -->
-          <hr />
-          <h3>Find us on Facebook</h3>
-          <div class="fb-page" data-href="https://www.facebook.com/ipcdb" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/ipcdb"><a href="https://www.facebook.com/ipcdb">IPDB</a></blockquote></div></div>
-          <hr />
-          <h3>Follow us on Twitter</h3>
-          <a class="twitter-timeline" href="https://twitter.com/ipdb" data-widget-id="630382616311566336">Tweets by @ipdb</a>
-          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-          <% if @podcast.users.each{ |u| u.id }.include?(current_user) == true %>
-            <hr />
-            <%= link_to 'Edit', edit_podcast_path(@podcast) %> |
-            <%= link_to 'Back', podcasts_path %>
-          <% end %>
-        </div>
-      </div>
       <div class="row">
-        <% if session[:recently_viewed_podcasts] %>
-          <h3>Recently Viewed</h3>
-          <% session[:recently_viewed_podcasts].each do |id| %>
-            <% podcast = Podcast.find(id) %>
-            <li class="well col-xs-5 col-md-2">
-              <% if podcast.user_approved? %>
-                <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast, :class => "podcast-img" %><br>
-              <% else %>
-                <%= link_to image_tag('ipdb.png') + '', podcast, :class => "podcast-img" %><br>
-              <% end %>
-              <h4><%= link_to podcast.name, podcast %></h4>
-
-              <%= rating_for podcast %>
-
-              <br>
-              <% if podcast.pcaward == true %>
-                <%= fa_icon "trophy 15x" %>
-              <% end %>
-              <% if podcast.pcaward2 == true %>
-                <%= fa_icon "microphone 15x" %>
-              <% end %>
-              <% if podcast.pcaward3 == true %>
-                <%= fa_icon "headphones 15x" %>
-              <% end %>
-              <br>
-              <% if podcast.category.nil? then else podcast.category %>
-                <%= '<span class="label label-success">'.html_safe + podcast.category.html_safe + '</span>'.html_safe %>
-              <% end %>
-              <% if podcast.explicit == true %>
-                <%= '<span class="label label-danger">explict</span>'.html_safe %><br>
-              <% end %>
-              <% if podcast.video == true %>
-                <%= '<span class="label label-info">video</span>'.html_safe %>
-              <% end %>
-              <br>
-
-              <% podcast.user_podcasts.each do |user| %>
-                <% u = User.find(user.user_id) %>
-                <% if user.position == 'Host' || user.position == 'Co-Host' %>
-                  By: <%= link_to (u.any_name) ,"users/#{user.user_id}" %><br>
-                <% end %>
-              <% end %>
-            </li>
-
-          <% end %>
-        <% end %>
-      </div>
-
-</div>
-
-<script>
-$('span.thread_new_comment_link a').addClass('btn  btn-primary');
-$('.thread a:first').addClass('btn btn-primary btn-block');
-</script>
-<% else %>
-  <% @itunesdata.each do | itunes | %>
-    <% @title = itunes.css(".left h1").text %>
-    <% description = itunes.css('.product-review p').text %>
-    <% @img = itunes.css(".lockup.product.podcast img.artwork").map { |link| link['src'] }.first %>
-    <p id="notice"><%= notice %></p>
-    <div class="row">
-      <div class="col-md-3">
-        <h3><%= if defined? @title then @title else @podcast.name end %></h3>
-          <%= image_tag("ipdb.png") %>
-          <%= rating_for @podcast %><br>
-          <div class="titles">
-            <% @podcast.user_podcasts.each do |u| %>
-              <% user = u.user_id 	
-              @user = User.find(user)
-            %>
-          <% if u.approved? %>
-            <% if u.position == 'Host' %>
-              <li><span class="label label-success"><%= u.position %></span> <%= link_to (@user.any_name) ,"../users/#{user}" %> </li>
-            <% elsif %>
-              <% u.position == 'Co-Host' %>
-              <li><span class="label label-warning"><%= u.position %></span> <%= link_to (@user.any_name) ,"../users/#{user}" %> </li>
-            <% elsif %>
-              <% u.position == 'Art Work' %>
-              <li><span class="label label-primary"><%= u.position %></span> <%= link_to (@user.any_name) ,"../users/#{user}" %> </li>
-            <% elsif %>
-              <% u.position == 'Music' %>
-              <li><span class="label label-default"><%= u.position %></span> <%= link_to (@user.any_name) ,"../users/#{user}" %> </li>
-            <% elsif %>
-              <% u.position == 'Sound Engineer' %>
-              <li><span class="label label-danger"><%= u.position %></span> <%= link_to (@user.any_name) ,"../users/#{user}" %> </li>
-            <% elsif %>
-              <% u.position == 'Performer' %>
-              <li><span class="label label-default"><%= u.position %></span> <%= link_to (@user.any_name) ,"../users/#{user}" %> </li>
-            <% else %>
-              <% u.position == 'Guest' %>
-              <li><span class="label label-info"><%= u.position %></span>	<%= link_to (@user.any_name) ,"../users/#{user}" %> </li>
-            <% end %>
-          <% end %>
-        <% end %>
+        <% @podcast.followers.each do |followers| %>
+          <div class="col-sm-4">
+            <%= followers.first_name %>
+            <%= image_tag(followers.profile_image.url, height: '60', width: '60') %>
           </div>
-
-          <h4>Number of Episodes : <%= if @episodesdata.empty? then @feed.entries.count else @episodesdata.count end %></h4>
-            <p><%= @podcast.description %></p>
-            <p><%= description %></p>
-            <% if user_signed_in? && current_user.following?(@podcast) == true  %>
-              <%= link_to "<span class='fa fa-minus'></span> Unfollow".html_safe, unfollow_podcast_path(@podcast), :class => "btn btn-primary"%>
-            <% else %>
-              <%= link_to "<span class='fa fa-plus'></span> Follow".html_safe, follow_podcast_path(@podcast), :class => "btn btn-primary"%>
-            <% end %>
-            <br><br><h4> Followers : <%= @podcast.followers_count %></h4>
-            <div class="row">
-              <% @podcast.followers.each do |followers| %>
-                <div class="col-sm-4">
-                  <%= followers.first_name %>
-                  <%= image_tag(followers.profile_image.url, height: '60', width: '60') %>
-                </div>
-              <% end %>
-            </div><br>
-            <%= link_to "Edit Connections", new_user_podcast_path, :class => "btn btn-primary" %>
+        <% end %>
       </div>
-    <% end %>
-    <% if @podcast.hideplayer == true %>
-    <% else %>
-      <div class="col-md-5">
+      <br>
+      <%= link_to "Edit Connections", new_user_podcast_path, class: 'btn btn-primary' %>
+    </div>
+
+    <% unless @podcast.hideplayer %>
+      <div class="col-md-6">
         <ul class="nav nav-tabs" role="tablist">
           <li class="active"><a href="#episodes" role="tab" data-toggle="tab">Episodes</a></li>
           <li><a href="#reviews" role="tab" data-toggle="tab">Reviews</a></li>
@@ -301,21 +57,74 @@ $('.thread a:first').addClass('btn btn-primary btn-block');
         <div class="tab-content">
           <div class="tab-pane active" id="episodes">
             <br>
-            <li class="well" style="list-style:none;"><p><%= link_to(image_tag('contact.jpg'), 'mailto:info@ipdb.net') %></p>
-            </li>
-          </div>
-          <div class="tab-pane" id="reviews">
-            <% unless @podcast.itunes_id.nil? %>
-              <% unless @id['feed']['entry'].nil? %>
-                <% @id['feed']['entry'].drop(1).each do |review| %>
-                  <h3><%= review['author']['name']['label'] %></h3>
-                  <%= review['content']['label'] %><br>
-                  <% if review['im:rating']['label'] == '5' %>
-                    <%= fa_icon 'star 15x' %>
-                    <%= fa_icon 'star 15x' %>
-                    <%= fa_icon 'star 15x' %>
-                    <%= fa_icon 'star 15x' %>
+            <% if @podcast.user_approved? %>
+              <!-- itunes feed -->
+              <% unless @episodesdata.empty? %>
+                <% @episodesdata.first([@episodesdata.count, 15].min).each do |episode| %>
+                  <li class="well">
+                    <p><%= episode.css('.text').text %></p>
+                    <audio controls>
+                      <source src=<%= episode["audio-preview-url"] %>>
+                    </audio>
+                    <div class="row actions">
+                      <div class="col-md-4"></div>
+                      <div class="col-md-4"></div>
+                      <div class="col-md-4">
+                        <%= link_to episode["audio-preview-url"], class: 'pull-right' do %>
+                          <%= fa_icon 'download' %> Download
+                        <% end %>
+                      </div>
+                    </div>
+                  </li>
+                <% end %>
+              <% end %>
+
+              <!-- rss feeds -->
+              <% @feed && @feed.entries.first(15).each do |t| %>
+                <li class="well">
+                  <h4><%= link_to t.title, t.url %></h4>
+
+                  <%= t.author %>
+                  <% if @podcast.video %>
+                    <video width="100%" controls poster="/images/ipdb.png">
+                      <source src=<%= t.enclosure_url || t.image %>>
+                        Your browser does not support the audio element.
+                    </video>
+                    <p><%= sanitize t.summary.to_s %></p>
+                  <% else %> 
+                    <p><%=sanitize t.summary %></p>
+                    <audio controls>
+                      <source src=<%= t.enclosure_url || t.image %> type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
                   <% end %>
+                  <div class="row actions">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                      <a href=<%= t.enclosure_url || t.image %> class="pull-right" download>
+                        <%= fa_icon 'download' %> Download
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              <% end %>
+            <% else %>
+              <li class="well" style="list-style:none;"><p><%= link_to(image_tag('contact.jpg'), 'mailto:info@ipdb.net') %></p>
+            </li>
+            <% end %>
+          </div>
+
+          <div class="tab-pane" id="reviews">
+            <% if @podcast.itunes_id && @id['feed']['entry'] %>
+              <% @id['feed']['entry'].drop(1).each do |review| %>
+                <h3><%= review['author']['name']['label'] %></h3>
+                <%= review['content']['label'] %><br>
+                <% if review['im:rating']['label'] == '5' %>
+                  <%= fa_icon 'star 15x' %>
+                  <%= fa_icon 'star 15x' %>
+                  <%= fa_icon 'star 15x' %>
+                  <%= fa_icon 'star 15x' %>
                 <% end %>
               <% end %>
             <% end %>
@@ -337,43 +146,103 @@ $('.thread a:first').addClass('btn btn-primary btn-block');
           <!-- <div class="tab-pane" id="messages">...</div> -->
           <!-- <div class="tab-pane" id="settings">...</div> -->
         </div>
-      <% end %>
       </div>
-      <div class="col-md-4">
-        <%# link_to(image_tag('ad-2.jpg'), 'http://www.eventbrite.com/e/ipdb-web-site-launch-party-tickets-13913853711') %>
+    <% end %>
+
+    <div class="col-md-3">
+      <% if @podcast.user_approved? %>
+        <hr />
+        <%= commontator_thread(@podcast) %>
+        <!-- 
+          <hr />
+          <%= link_to(image_tag('http://podcastanswerman.com/wp-content/uploads/2011/10/AtoZRegister.jpg'), 'http://podcastanswerman.com/atoz/', target: '_blank') %>
+          <hr />
+          <%= link_to(image_tag('http://podcastdata.com/images/Hosting300x250.png'), 'http://create.blubrry.com/resources/podcast-media-hosting/?code=IPDb2014', target: '_blank') %>
+        -->
+        <hr />
+      <% else %>
+        <% # link_to(image_tag('ad-2.jpg'), 'http://www.eventbrite.com/e/ipdb-web-site-launch-party-tickets-13913853711') %>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- IPDb -->
         <ins class="adsbygoogle"
           style="display:block"
           data-ad-client="ca-pub-8369774684567556"
           data-ad-slot="4507027791"
-          data-ad-format="auto"></ins>
-        <script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+          data-ad-format="auto">
+        </ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         <hr />
         <%= link_to(image_tag('ad-1.jpg'), new_user_registration_path) %>
         <hr />
-        <h3>Find us on Facebook</h3>
-        <div class="fb-page" data-href="https://www.facebook.com/ipcdb" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/ipcdb"><a href="https://www.facebook.com/ipcdb">IPDB</a></blockquote></div></div>
+      <% end %>
 
-        <hr />
-        <h3>Follow us on Twitter</h3>
-        <a class="twitter-timeline" href="https://twitter.com/ipdb" data-widget-id="630382616311566336">Tweets by @ipdb</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-        <!-- <%= link_to(image_tag('http://podcastdata.com/images/Hosting300x250.png'), 'http://create.blubrry.com/resources/podcast-media-hosting/?code=IPDb2014', target: '_blank') %> -->
-
-        <% if @podcast.users.each{ |u| u.id }.include?(current_user) == true %>
-          <hr />
-          <%= link_to 'Edit', edit_podcast_path(@podcast) %> |
-          <%= link_to 'Back', podcasts_path %>
-        <% end %>
+      <h3>Find us on Facebook</h3>
+      <div class="fb-page" data-href="https://www.facebook.com/ipcdb" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false">
+        <div class="fb-xfbml-parse-ignore">
+          <blockquote cite="https://www.facebook.com/ipcdb">
+            <a href="https://www.facebook.com/ipcdb">IPDB</a>
+          </blockquote>
+        </div>
       </div>
+
+      <hr />
+      <h3>Follow us on Twitter</h3>
+      <a class="twitter-timeline" href="https://twitter.com/ipdb" data-widget-id="630382616311566336">Tweets by @ipdb</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      <!-- <%= link_to(image_tag('http://podcastdata.com/images/Hosting300x250.png'), 'http://create.blubrry.com/resources/podcast-media-hosting/?code=IPDb2014', target: '_blank') %> -->
+
+      <% if @podcast.users.each{ |u| u.id }.include?(current_user) %>
+        <hr />
+        <%= link_to 'Edit', edit_podcast_path(@podcast) %> |
+        <%= link_to 'Back', podcasts_path %>
+      <% end %>
     </div>
-    </div>
-    <script>
-$('span.thread_new_comment_link a').addClass('btn  btn-primary');
-$('.thread a:first').addClass('btn btn-primary btn-block');
-    </script>
-  <% end %>
   </div>
+
+  <div class="row">
+      <h3>Recently Viewed</h3>
+      <% @recently_viewed_podcasts.each do |podcast| %>
+        <li class="well col-xs-5 col-md-2">
+          <% if podcast.user_approved? %>
+            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast, :class => "podcast-img" %><br>
+          <% else %>
+            <%= link_to image_tag('ipdb.png') + '', podcast, :class => "podcast-img" %><br>
+          <% end %>
+
+          <h4><%= link_to podcast.name, podcast %></h4>
+          <%= rating_for podcast %>
+
+          <br>
+          <% podcast.awards.each do |award| %>
+            <%= award_icon award.name %>
+          <% end %>
+
+          <br>
+          <% if podcast.category %>
+            <span class="label label-success"><%= podcast.category.html_safe %></span>
+          <% end %>
+          <% if podcast.explicit %>
+            <span class="label label-danger">explict</span>
+            <br>
+          <% end %>
+          <% if podcast.video %>
+            <span class="label label-info">video</span>
+          <% end %>
+          <br>
+
+          <% podcast.user_podcasts.each do |user_podcast| %>
+            <% if user_podcast.position == 'Host' || user_podcast.position == 'Co-Host' %>
+              By: <%= link_to user_podcast.user.any_name, user_podcast.user %>
+              <br>
+            <% end %>
+          <% end %>
+        </li>
+
+      <% end %>
+  </div>
+</div>
+
+<script>
+  $('span.thread_new_comment_link a').addClass('btn  btn-primary');
+  $('.thread a:first').addClass('btn btn-primary btn-block');
+</script>

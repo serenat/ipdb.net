@@ -21,18 +21,19 @@ class PodcastsController < ApplicationController
   end
 
   def show
-    @itunes = Nokogiri::HTML(open(@podcast.episodes_url))
-    @itunesdata = @itunes.css('body')
-    @episodesdata = @itunes.css('tr.podcast-episode')
-    @feed = Feedjira::Feed.fetch_and_parse(@podcast.episodes_url  )
-    @podcast = Podcast.find(params[:id])
-    @commentable = @podcast
-    @comments = @commentable.comments
-    @comment = Comment.new
-    @data = Rate.all
-    @response = HTTParty.get('http://itunes.apple.com/rss/customerreviews/id=' + @podcast.itunes_id.to_s + '/json') 
-    @id = JSON.parse(@response)
+    doc = Nokogiri::HTML(open(@podcast.episodes_url))
+    @itunes = doc.at_css('body')
+    @episodesdata = doc.css('tr.podcast-episode')
+    @feed = get_rss(@podcast.episodes_url)
+    #@podcast = Podcast.find(params[:id])
+    #@commentable = @podcast
+    #@comments = @commentable.comments
+    #@comment = Comment.new
+    #@data = Rate.all
+    response = HTTParty.get('http://itunes.apple.com/rss/customerreviews/id=' + @podcast.itunes_id.to_s + '/json')
+    @id = JSON.parse(response)
     add_to_recently_viewed_podcasts @podcast.id
+    @recently_viewed_podcasts = Podcast.where(id: session[:recently_viewed_podcasts])
   end
 
   def add_to_recently_viewed_podcasts(id)
@@ -123,11 +124,17 @@ class PodcastsController < ApplicationController
 
 
   private
+
   def set_podcast
     @podcast = Podcast.find(params[:id])
   end
 
   def podcast_params
     params.require(:podcast).permit(:description, :episodes_url, :name, :image, :video)
+  end
+
+  def get_rss(url)
+    Feedjira::Feed.fetch_and_parse(url)
+  rescue StandardError
   end
 end
