@@ -1,6 +1,7 @@
 ActiveAdmin.register Podcast do
 	filter :name
   filter :awards
+
   permit_params :description, :name, :image_file_name,:image_url, :episodes_url,
     :user_id, :explicit, :category, :approved,:user_approved, :itunes_id, :video,
     nominations_attributes: [:id, :award_id, :name, :year, :_destroy]
@@ -17,7 +18,7 @@ ActiveAdmin.register Podcast do
     column :name
     column :description
     column :id
-
+    column :score
     actions
   end
 
@@ -30,6 +31,7 @@ ActiveAdmin.register Podcast do
       row :awards do |podcast|
         podcast.awards.map(&:name).join(', ')
       end
+      row :score
       row :approved
       row :episodes_url
       row :user

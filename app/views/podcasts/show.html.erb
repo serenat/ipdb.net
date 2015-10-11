@@ -1,3 +1,4 @@
+<div id="podcast-show-page"></div>
 <div class="container">
   <div class="row">
     <div class="col-md-3">
@@ -70,7 +71,7 @@
                       <div class="col-md-4"></div>
                       <div class="col-md-4"></div>
                       <div class="col-md-4">
-                        <%= link_to episode["audio-preview-url"], class: 'pull-right' do %>
+                        <%= link_to episode["audio-preview-url"], class: 'pull-right episode-download', target: :_blank do %>
                           <%= fa_icon 'download' %> Download
                         <% end %>
                       </div>
@@ -87,14 +88,14 @@
                   <%= t.author %>
                   <% if @podcast.video %>
                     <video width="100%" controls poster="/images/ipdb.png">
-                      <source src=<%= t.enclosure_url || t.image %>>
+                      <source src=<%= defined?(t.enclosure_url) ? t.enclosure_url : t.image %>>
                         Your browser does not support the audio element.
                     </video>
                     <p><%= sanitize t.summary.to_s %></p>
                   <% else %> 
                     <p><%=sanitize t.summary %></p>
                     <audio controls>
-                      <source src=<%= t.enclosure_url || t.image %> type="audio/mpeg">
+                      <source src=<%= defined?(t.enclosure_url) ? t.enclosure_url : t.image %> type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
                   <% end %>
@@ -102,7 +103,7 @@
                     <div class="col-md-4"></div>
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
-                      <a href=<%= t.enclosure_url || t.image %> class="pull-right" download>
+                      <a href=<%= defined?(t.enclosure_url) ? t.enclosure_url : t.image %> class="pull-right episode-download" target="_blank" download>
                         <%= fa_icon 'download' %> Download
                       </a>
                     </div>

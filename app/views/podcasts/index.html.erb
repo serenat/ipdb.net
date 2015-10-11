@@ -16,51 +16,50 @@
     <h1>Listing podcasts</h1>
     <%= paginate @paginate %>
     <hr />
-    <% @podcasts.each do |podcast| %>
-      <!--Should be moved in scope @podcasts = Podcast.approved -->
-      <% if podcast.approved %>
-        <li class="well col-xs-5 col-md-2">
-          <% if podcast.user_approved? %>
-            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast, :class => "podcast-img" %><br>
-          <% else %>
-            <%= link_to image_tag('ipdb.png') + '', podcast, :class => "podcast-img" %><br>
-          <% end %>
+    <% @podcasts.each_with_index do |podcast, i| %>
+      <li class="well col-xs-5 col-md-2">
+        <% if podcast.user_approved? %>
+          <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast, :class => "podcast-img" %><br>
+        <% else %>
+          <%= link_to image_tag('ipdb.png') + '', podcast, :class => "podcast-img" %><br>
+        <% end %>
 
-          <h4><%= link_to podcast.name, podcast %></h4>
+        <div class="rating-box">
+          <span class="rank label label-primary"><%= rank(@paginate.prev_page, i) %></span>
           <%= rating_for podcast %>
+        </div>
+          <h4><%= link_to podcast.name, podcast %></h4>
+        <br>
+        <% podcast.awards.each do |award| %>
+          <%= award_icon award.name %>
+        <% end %>
 
+        <br>
+        <% if podcast.category %>
+          <span class="label label-success"><%= podcast.category.html_safe %></span>
+        <% end %>
+        <% if podcast.explicit %>
+          <span class="label label-danger">explict</span>
           <br>
-          <% podcast.awards.each do |award| %>
-            <%= award_icon award.name %>
-          <% end %>
+        <% end %>
+        <% if podcast.video %>
+          <span class="label label-info">video</span>
+        <% end %>
+        <br>
 
-          <br>
-          <% if podcast.category %>
-            <span class="label label-success"><%= podcast.category.html_safe %></span>
-          <% end %>
-          <% if podcast.explicit %>
-            <span class="label label-danger">explict</span>
+        <% podcast.user_podcasts.each do |user_podcast| %>
+          <% if user_podcast.position == 'Host' || user_podcast.position == 'Co-Host' %>
+            By: <%= link_to user_podcast.user.any_name, user_podcast.user %>
             <br>
           <% end %>
-          <% if podcast.video %>
-            <span class="label label-info">video</span>
-          <% end %>
-          <br>
+        <% end %>
 
-          <% podcast.user_podcasts.each do |user_podcast| %>
-            <% if user_podcast.position == 'Host' || user_podcast.position == 'Co-Host' %>
-              By: <%= link_to user_podcast.user.any_name, user_podcast.user %>
-              <br>
-            <% end %>
-          <% end %>
-
-          <% if podcast.users == current_user %>
-            <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
-            <%= link_to 'Delete', podcast, class: "btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %>
-          <% end %>
-          <br>
-        </li>
-      <% end %>
+        <% if podcast.users == current_user %>
+          <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
+          <%= link_to 'Delete', podcast, class: "btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+        <br>
+      </li>
     <% end %>
   </div>
   <div class="row nopadding">

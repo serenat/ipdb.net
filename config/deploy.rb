@@ -3,6 +3,7 @@ lock '3.4.0'
 set :application, "ipdb"
 set :repo_url, 'git@github.com:serenat/ipdb.net.git'
 set :deploy_via, :remote_cache
+set :pty,  false
 
 set :user, 'deploy'
 set :deploy_to, "/home/#{fetch(:user)}/apps/#{fetch(:application)}"

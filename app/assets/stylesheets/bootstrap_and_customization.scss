@@ -75,6 +75,19 @@ a.btn-social.btn-facebook.btn-connect {
   font-size: 1.2em;
 }
 
+.rating-box {
+  margin: 8px 5px 8px 0px;
+}
+
+.rating-box .rank {
+  margin: 3px 6px 3px 0px;
+  float: left;
+}
+
+.rating-box .star {
+  display: inline-block;
+}
+
 form.new_user .form-row input.text, .form-row textarea {
   width: 100%;
 }

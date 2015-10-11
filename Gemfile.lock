@@ -89,9 +89,30 @@ GEM
     capistrano-rbenv (2.0.3)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
+    capistrano-sidekiq (0.5.3)
+      capistrano
+      sidekiq
     capistrano3-puma (1.1.0)
       capistrano (~> 3.0)
       puma (>= 2.6)
+    celluloid (0.17.2)
+      celluloid-essentials
+      celluloid-extras
+      celluloid-fsm
+      celluloid-pool
+      celluloid-supervision
+      timers (>= 4.1.1)
+    celluloid-essentials (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-extras (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-fsm (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-pool (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-supervision (0.20.5)
+      timers (>= 4.1.1)
+    chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.7)
@@ -107,6 +128,7 @@ GEM
     commontator (4.2.2)
       jquery-rails
       rails (>= 3.1)
+    connection_pool (2.2.0)
     curb (0.8.8)
     devise (3.5.1)
       bcrypt (~> 3.0)
@@ -136,6 +158,7 @@ GEM
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hashie (3.4.2)
+    hitimes (1.2.3)
     httparty (0.13.5)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -245,6 +268,9 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.2)
+    redis (3.2.1)
+    redis-namespace (1.5.2)
+      redis (~> 3.0, >= 3.0.4)
     ref (2.0.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
@@ -257,6 +283,12 @@ GEM
       tilt (~> 1.1)
     sax-machine (0.2.1)
       nokogiri (~> 1.6.0)
+    sidekiq (3.5.0)
+      celluloid (~> 0.17.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      json (~> 1.0)
+      redis (~> 3.2, >= 3.2.1)
+      redis-namespace (~> 1.5, >= 1.5.2)
     sprockets (3.2.0)
       rack (~> 1.0)
     sprockets-rails (2.3.2)
@@ -275,6 +307,8 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    timers (4.1.1)
+      hitimes
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
@@ -284,6 +318,8 @@ GEM
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
+    whenever (0.9.4)
+      chronic (>= 0.6.3)
 
 PLATFORMS
   ruby
@@ -299,6 +335,7 @@ DEPENDENCIES
   capistrano-bundler
   capistrano-rails
   capistrano-rbenv
+  capistrano-sidekiq
   capistrano3-puma
   coffee-rails
   commontator (~> 4.2.0)
@@ -322,10 +359,12 @@ DEPENDENCIES
   rails (~> 4.2.0)
   rails4-autocomplete
   sass-rails
+  sidekiq (~> 3.5.0)
   textacular
   therubyracer
   turbolinks
   uglifier
+  whenever (~> 0.9.4)
 
 BUNDLED WITH
    1.10.6

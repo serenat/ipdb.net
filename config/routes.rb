@@ -24,11 +24,12 @@ Ipdb::Application.routes.draw do
   resources :user_podcasts, :path => "connections"
   resources :podcasts do
     get :autocomplete_podcast_name, :on => :collection
-      member do
-        get :follow
-        get :unfollow
-        get :ppff
-        put "like", to: "podcasts#upvote"
-      end
+    member do
+      get :follow
+      get :unfollow
+      get :ppff
+      put "like", to: "podcasts#upvote"
+      post :count
     end
+  end
 end
