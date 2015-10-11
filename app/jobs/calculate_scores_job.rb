@@ -39,7 +39,7 @@ class CalculateScoresJob < ActiveJob::Base
         .includes(:rating_cache, :podcast_stat)
 
     podcasts_with_rating.find_each do |p|
-      h, uh, d, ud, sh, ush, s, ir = 0, 0, 0, 0, 0, 0, 0, 0
+      h, uh, d, ud, sh, ush, s, ir, irc = 0, 0, 0, 0, 0, 0, 0, 0, 0
 
       if ps = p.podcast_stat
         h  = scale(ps.hits, h_min, h_range)
@@ -48,8 +48,8 @@ class CalculateScoresJob < ActiveJob::Base
         d  = scale(ps.downloads, d_min, d_range)
         ud = scale(ps.unique_downloads, ud_min, ud_range)
 
-        #sh  = scale(ps.shares, sh_min, sh_range)
-        #ush = scale(ps.unique_shares, ush_min, ush_range)
+        sh  = scale(ps.shares, sh_min, sh_range)
+        ush = scale(ps.unique_shares, ush_min, ush_range)
 
         ir = ps.itunes_rating
         irc = scale(ps.itunes_review_count, irc_min, irc_range)
@@ -64,13 +64,13 @@ class CalculateScoresJob < ActiveJob::Base
       # fsh - final shares
       # fir - final itunes rating
 
-      fh  = (h  * uh  + uh)  / 2
-      fd  = (d  * ud  + ud)  / 2
-      #fsh = (sh * ush + ush) / 2
+      fh  = 5.0 * (h  * uh  + uh)  / 2.0
+      fd  = 5.0 * (d  * ud  + ud)  / 2.0
+      fsh = 5.0 * (sh * ush + ush) / 2.0
 
-      fir = (ir * irc + ir) / 2
+      fir = (ir * irc + ir) / 2.0
 
-      p.score = (5*((fh + fd + s) / 3) + fir ) / 2
+      p.score = (((fh + fd + fsh + s) / 4.0) + fir ) / 2.0
       p.save!
     end
   end
