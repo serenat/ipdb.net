@@ -17,4 +17,8 @@ module PodcastsHelper
     classes << AWARDS_LOOKUP[award]
     content_tag(:i, nil, class: classes)
   end
+
+  def rank(prev_page, index)
+    prev_page.to_i * 25 + (index + 1)
+  end
 end

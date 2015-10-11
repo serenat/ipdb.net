@@ -7,5 +7,8 @@ require 'capistrano/rails/migrations'
 require 'capistrano/puma'
 require 'capistrano/puma/nginx'
 require 'capistrano/puma/monit'
+require 'capistrano/sidekiq'
+require 'capistrano/sidekiq/monit'
+require 'whenever/capistrano'
 
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }

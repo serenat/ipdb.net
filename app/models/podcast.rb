@@ -4,6 +4,7 @@ class Podcast < ActiveRecord::Base
   has_many :episodes
   has_many :nominations
   has_many :awards, -> { distinct }, through: :nominations
+  has_one :podcast_stat, dependent: :destroy
   accepts_nested_attributes_for :nominations, allow_destroy: true
 
   has_attached_file :image, :default_url => "/images/ipdb.png",  :styles => {:medium => "250x250", :thumb => "100x100>"}
@@ -21,6 +22,8 @@ class Podcast < ActiveRecord::Base
       .joins("LEFT JOIN nominations ON podcasts.id = nominations.podcast_id")
       .where("nominations.award_id IS NOT NULL")
   }
+  scope :approved, -> { where(approved: true) }
+  scope :by_score, -> { order(score: :desc) }
 
   def hideplayer
     self[:hideplayer] || false
@@ -34,4 +37,3 @@ class Podcast < ActiveRecord::Base
     end
   end
 end
-

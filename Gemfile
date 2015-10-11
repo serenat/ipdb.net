@@ -32,6 +32,8 @@ gem 'feedjira', '1.3.0'
 gem 'httparty'
 gem 'rails4-autocomplete'
 
+gem 'sidekiq', '~> 3.5.0'
+gem 'whenever', '~> 0.9.4', require: false
 gem 'omniauth-facebook'
 
 gem 'puma'
@@ -43,4 +45,5 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano3-puma'
   gem 'capistrano-rbenv'
+  gem 'capistrano-sidekiq'
 end

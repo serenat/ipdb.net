@@ -3,7 +3,7 @@ require 'open-uri'
 require 'httparty'
 
 class PodcastsController < ApplicationController
-  before_action :set_podcast, only: [:show, :edit, :update, :destroy]
+  before_action :set_podcast, except: [:index, :new, :create]
   autocomplete :podcast, :name, :full => true
 
   def index
@@ -12,7 +12,7 @@ class PodcastsController < ApplicationController
       @usersearch = User.search(params[:search])
       @paginate = Kaminari.paginate_array(@podcasts).page(params[:page])
     else
-      @podcasts = Podcast.with_awards.order('created_at DESC').page(params[:page]).per(25)
+      @podcasts = Podcast.with_awards.by_score.page(params[:page])
       @paginate = @podcasts
       @usersearch = User.none
     end
@@ -34,12 +34,6 @@ class PodcastsController < ApplicationController
     @id = JSON.parse(response)
     add_to_recently_viewed_podcasts @podcast.id
     @recently_viewed_podcasts = Podcast.where(id: session[:recently_viewed_podcasts])
-  end
-
-  def add_to_recently_viewed_podcasts(id)
-    session[:recently_viewed_podcasts] ||= []
-    session[:recently_viewed_podcasts].unshift(id) unless session[:recently_viewed_podcasts].include?(id)
-    session[:recently_viewed_podcasts] = session[:recently_viewed_podcasts][0, 5]
   end
 
   def new
@@ -85,7 +79,6 @@ class PodcastsController < ApplicationController
     end
   end
 
-
   def destroy
     @podcast.destroy
     respond_to do |format|
@@ -95,33 +88,32 @@ class PodcastsController < ApplicationController
   end
 
   def follow
-    @podcast = Podcast.find(params[:id])
     current_user.follow(@podcast)
     redirect_to :back
   end
 
   def unfollow
-    @podcast = Podcast.find(params[:id])
     current_user.stop_following(@podcast)
     redirect_to :back
   end
 
   def ppff
-    @podcast = Podcast.find(params[:id])
     @podcast.increment!(:ppff)
     redirect_to :back
   end
 
   def upvote
-    @podcast = Podcast.find(params[:id])
     @podcast.liked_by current_user
     redirect_to :back
   end
 
   def host
-    @podcast = Podcast.find(params[:id])
   end
 
+  def count
+    CollectStatJob.perform_now @podcast, params[:event], request.remote_ip
+    head :ok
+  end
 
   private
 
@@ -134,7 +126,14 @@ class PodcastsController < ApplicationController
   end
 
   def get_rss(url)
-    Feedjira::Feed.fetch_and_parse(url)
-  rescue StandardError
+    rss = Feedjira::Feed.fetch_and_parse(url)
+    rss = nil if rss.kind_of? Fixnum
+    rss
+  end
+
+  def add_to_recently_viewed_podcasts(id)
+    session[:recently_viewed_podcasts] ||= []
+    session[:recently_viewed_podcasts].unshift(id) unless session[:recently_viewed_podcasts].include?(id)
+    session[:recently_viewed_podcasts] = session[:recently_viewed_podcasts][0, 5]
   end
 end

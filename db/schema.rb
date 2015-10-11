@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930143331) do
+ActiveRecord::Schema.define(version: 20151011121645) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -156,10 +156,34 @@ ActiveRecord::Schema.define(version: 20150930143331) do
     t.datetime "updated_at"
   end
 
+  create_table "podcast_events", force: :cascade do |t|
+    t.integer "podcast_id", limit: 4
+    t.string  "ip_address", limit: 255
+    t.string  "event",      limit: 255
+  end
+
+  add_index "podcast_events", ["podcast_id"], name: "index_podcast_events_on_podcast_id", using: :btree
+
   create_table "podcast_searches", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "podcast_stats", force: :cascade do |t|
+    t.integer  "podcast_id",          limit: 4
+    t.integer  "hits",                limit: 4,                         default: 0,   null: false
+    t.integer  "unique_hits",         limit: 4,                         default: 0,   null: false
+    t.integer  "downloads",           limit: 4,                         default: 0,   null: false
+    t.integer  "unique_downloads",    limit: 4,                         default: 0,   null: false
+    t.integer  "shares",              limit: 4,                         default: 0,   null: false
+    t.integer  "unique_shares",       limit: 4,                         default: 0,   null: false
+    t.integer  "itunes_review_count", limit: 4,                         default: 0,   null: false
+    t.decimal  "itunes_rating",                 precision: 6, scale: 5, default: 0.0, null: false
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
+  end
+
+  add_index "podcast_stats", ["podcast_id"], name: "index_podcast_stats_on_podcast_id", using: :btree
 
   create_table "podcasts", force: :cascade do |t|
     t.string   "description",        limit: 255
@@ -173,20 +197,21 @@ ActiveRecord::Schema.define(version: 20150930143331) do
     t.datetime "image_updated_at"
     t.string   "image_url",          limit: 255
     t.string   "episodes_url",       limit: 255
-    t.boolean  "pcaward",                          default: false
-    t.boolean  "pcaward2",                         default: false
-    t.boolean  "pcaward3",                         default: false
-    t.boolean  "explicit",                         default: false
+    t.boolean  "pcaward",                                                  default: false
+    t.boolean  "pcaward2",                                                 default: false
+    t.boolean  "pcaward3",                                                 default: false
+    t.boolean  "explicit",                                                 default: false
     t.string   "category",           limit: 255
     t.integer  "guest_id",           limit: 4
     t.integer  "cohost_id",          limit: 4
     t.integer  "ppff",               limit: 4
-    t.boolean  "approved",                         default: false
-    t.boolean  "hideplayer",                       default: false
+    t.boolean  "approved",                                                 default: false
+    t.boolean  "hideplayer",                                               default: false
     t.string   "__awards",           limit: 255
     t.integer  "itunes_id",          limit: 4
     t.boolean  "video"
-    t.boolean  "user_approved",                    default: false
+    t.boolean  "user_approved",                                            default: false
+    t.decimal  "score",                            precision: 6, scale: 5, default: 0.0,   null: false
   end
 
   add_index "podcasts", ["cohost_id"], name: "index_podcasts_on_cohost_id", using: :btree
