@@ -10,3 +10,6 @@ $(document).ready ->
   $('.episode-download').on 'click', (e) ->
     url = document.location.pathname + '/count'
     $.post url, {event: 'download'}
+
+  $('.podcast-img img').error (e) ->
+    $(this).unbind('error').attr('src', 'assets/ipdb.png')
