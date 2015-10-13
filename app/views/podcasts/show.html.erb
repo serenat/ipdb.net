@@ -1,8 +1,14 @@
+<% content_for :og_meta_tags do %>
+  <meta property="og:url" content="<%= podcast_url @podcast %>" />
+  <meta property="og:title" content="<%= @itunes.css(".left h1").text.blank? ? @podcast.name : @itunes.css(".left h1").text %>" />
+  <meta property="og:description" content="<%= @podcast.description || @itunes.css('.product-review p').text %>" />
+<% end %>
+
 <div id="podcast-show-page"></div>
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <h3><%= @itunes.css(".left h1").text || @podcast.name %></h3>
+      <h3><%= @itunes.css(".left h1").text.blank? ? @podcast.name : @itunes.css(".left h1").text %></h3>
       <img src=<%= @podcast.image_url.blank? ? @podcast.image : @podcast.image_url %> style="width:100%;">
 
       <%= rating_for @podcast %><br>
@@ -21,6 +27,23 @@
       <p><%= @podcast.description %></p>
       <p><%= @itunes.css('.product-review p').text %></p>
 
+      <a
+        id="share-podcast"
+        class="btn btn-social btn-facebook btn-xs"
+        data-url=<%= podcast_url @podcast %>
+        target="_blank">
+        <i class="fa fa-facebook"></i> Share
+      </a>
+      <a
+        id="tweet-podcast"
+        class="btn btn-social btn-twitter btn-xs"
+        href=<%="https://twitter.com/intent/tweet?url=#{podcast_url @podcast}&via=ipdb"%>
+        target="_blank"
+        style="color:white;">
+        <i class="fa fa-twitter"></i> Tweet
+      </a>
+      <br />
+      <br />
       <% if user_signed_in? && current_user.following?(@podcast) %>
         <%= link_to unfollow_podcast_path(@podcast), class: 'btn btn-primary' do %>
           <span class='fa fa-minus'> Unfollow</span>
@@ -189,7 +212,6 @@
       <hr />
       <h3>Follow us on Twitter</h3>
       <a class="twitter-timeline" href="https://twitter.com/ipdb" data-widget-id="630382616311566336">Tweets by @ipdb</a>
-      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
       <!-- <%= link_to(image_tag('http://podcastdata.com/images/Hosting300x250.png'), 'http://create.blubrry.com/resources/podcast-media-hosting/?code=IPDb2014', target: '_blank') %> -->
 
       <% if @podcast.users.each{ |u| u.id }.include?(current_user) %>

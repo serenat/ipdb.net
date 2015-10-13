@@ -3,13 +3,35 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready ->
 
+  # log hit event
   if $('#podcast-show-page').length
     url = document.location.pathname + '/count'
     $.post url, {event: 'hit'}
 
+  # log download event
   $('.episode-download').on 'click', (e) ->
     url = document.location.pathname + '/count'
     $.post url, {event: 'download'}
 
+  # log share(twitter) event
+  twttr.ready (twttr) ->
+    twttr.events.bind 'tweet', (event) ->
+      if event.target.id == 'tweet-podcast'
+        url = document.location.pathname + '/count'
+        $.post url, event: 'share'
+      return
+    return
+
+  # log share(facebook) event
+  $('#share-podcast').on 'click', (e) ->
+    FB.ui
+      method: "share"
+      href: $(this).data('url')
+    , (response) ->
+      if response && !response.error_message
+        url = document.location.pathname + '/count'
+        $.post url, event: 'share'
+
+  # fix(stub) broken podcast images
   $('.podcast-img img').error (e) ->
     $(this).unbind('error').attr('src', 'assets/ipdb.png')

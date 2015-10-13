@@ -84,35 +84,14 @@
 </div>
 
 <script type="text/javascript">
-  // initialize facebook js sdk
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : <%= Rails.application.secrets.facebook['app_id'] %>,
-      xfbml      : true,
-      version    : 'v2.4'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-  //
-
   $(window).load(function(){
     $('.share-box .btn-facebook').on('click', function() {
       FB.ui({
         method: 'share',
-        href: 'http://010ff6de.ngrok.io/',
+        href: 'http://ipdb.net',
       }, function(response){});
     });
 
     $('.share-box').modal('show');
   });
-
-  //twitter social buttton
-  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 </script>
