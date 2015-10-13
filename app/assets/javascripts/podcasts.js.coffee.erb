@@ -34,4 +34,4 @@ $(document).ready ->
 
   # fix(stub) broken podcast images
   $('.podcast-img img').error (e) ->
-    $(this).unbind('error').attr('src', 'assets/ipdb.png')
+    $(this).unbind('error').attr('src', "<%= asset_path('ipdb.png') %>")
