@@ -9,12 +9,12 @@ class PodcastsController < ApplicationController
   def index
     if params[:search].present?
       @podcasts = Podcast.search(params[:search])
-      @usersearch = User.search(params[:search])
+      @personsearch = Person.search(params[:search])
       @paginate = Kaminari.paginate_array(@podcasts).page(params[:page])
     else
       @podcasts = Podcast.with_people.with_awards.by_score.page(params[:page])
       @paginate = @podcasts
-      @usersearch = User.none
+      @personsearch = Person.none
     end
     #@users= User.all
     @comments = Comment.all

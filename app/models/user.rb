@@ -18,14 +18,6 @@ class User < ActiveRecord::Base
   acts_as_follower
   acts_as_voter
 
-  def self.search(search)
-    if search
-      where("concat(first_name,' ',last_name) like ?", "%#{search}%")
-    else
-      all
-    end
-  end
-
   def email_required?
     false
   end

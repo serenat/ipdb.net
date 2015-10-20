@@ -3,4 +3,12 @@ class Person < ActiveRecord::Base
   has_many :people_podcasts, dependent: :destroy
   has_many :podcasts, through: :people_podcasts
   validates :name, presence: :true
+
+  def self.search(search)
+    if search
+      where("name like ?", "%#{search}%")
+    else
+      all
+    end
+  end
 end

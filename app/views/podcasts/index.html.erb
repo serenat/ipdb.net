@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row">
-    <% @usersearch.each do |user| %>
-      <% unless user.membership == 'Podcast Fan Plus' %>
+    <% @personsearch.each do |person| %>
+      <% unless person.user.membership == 'Podcast Fan Plus' %>
         <div class="col-md-2">
-          <h4><%= link_to user.name, user %></h4>
-          <%= image_tag user.profile_image, class: "img-circle", style: 'width:150px; height:150px;' %>
+          <h4><%= link_to person.name, person.user %></h4>
+          <%= image_tag person.user.profile_image, class: "img-circle", style: 'width:150px; height:150px;' %>
         </div>
       <% end %>
     <% end %>
@@ -12,7 +12,9 @@
 
   <div class="podcast">
     <%= link_to 'Add New Podcast', new_podcast_path, class: "btn btn-primary btn-lg pull-right" %>
-
+    <% if @personsearch.any? %>
+      <br /><br />
+    <% end %>
     <h1>Listing podcasts</h1>
     <%= paginate @paginate %>
     <hr />
