@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151011121645) do
+ActiveRecord::Schema.define(version: 20151020082248) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -148,6 +148,23 @@ ActiveRecord::Schema.define(version: 20151011121645) do
   add_index "nominations", ["award_id"], name: "index_nominations_on_award_id", using: :btree
   add_index "nominations", ["podcast_id"], name: "index_nominations_on_podcast_id", using: :btree
 
+  create_table "people", force: :cascade do |t|
+    t.string   "name",       limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "people_podcasts", force: :cascade do |t|
+    t.integer  "person_id",  limit: 4
+    t.integer  "podcast_id", limit: 4
+    t.text     "position",   limit: 65535
+    t.boolean  "approved",                 default: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  add_index "people_podcasts", ["person_id", "podcast_id"], name: "index_people_podcasts_on_person_id_and_podcast_id", using: :btree
+
   create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content",         limit: 65535
     t.integer  "searchable_id",   limit: 4
@@ -265,8 +282,8 @@ ActiveRecord::Schema.define(version: 20151011121645) do
     t.string   "last_sign_in_ip",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "first_name",                 limit: 255
-    t.string   "last_name",                  limit: 255
+    t.string   "__first_name",               limit: 255
+    t.string   "__last_name",                limit: 255
     t.text     "description",                limit: 65535
     t.string   "profile_image_file_name",    limit: 255
     t.string   "profile_image_content_type", limit: 255
@@ -280,12 +297,14 @@ ActiveRecord::Schema.define(version: 20151011121645) do
     t.text     "about",                      limit: 65535
     t.text     "work",                       limit: 65535
     t.text     "education",                  limit: 65535
-    t.string   "username",                   limit: 255
+    t.string   "__username",                 limit: 255
     t.string   "membership",                 limit: 255
     t.string   "imdb",                       limit: 255
+    t.integer  "person_id",                  limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["person_id"], name: "index_users_on_person_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "votes", force: :cascade do |t|

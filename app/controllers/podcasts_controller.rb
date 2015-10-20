@@ -3,8 +3,8 @@ require 'open-uri'
 require 'httparty'
 
 class PodcastsController < ApplicationController
-  before_action :set_podcast, except: [:index, :new, :create]
-  autocomplete :podcast, :name, :full => true
+  before_action :set_podcast, except: [:index, :new, :create, :autocomplete_podcast_name]
+  autocomplete :podcast, :name, full: true
 
   def index
     if params[:search].present?
@@ -12,11 +12,11 @@ class PodcastsController < ApplicationController
       @usersearch = User.search(params[:search])
       @paginate = Kaminari.paginate_array(@podcasts).page(params[:page])
     else
-      @podcasts = Podcast.with_awards.by_score.page(params[:page])
+      @podcasts = Podcast.with_people.with_awards.by_score.page(params[:page])
       @paginate = @podcasts
       @usersearch = User.none
     end
-    @users= User.all
+    #@users= User.all
     @comments = Comment.all
   end
 
@@ -45,22 +45,20 @@ class PodcastsController < ApplicationController
 
   def create
     @podcast = Podcast.new(podcast_params)
-    if current_user.nil?
-      @podcast.users
-    else 
-      @podcast.users << current_user
+    if current_user
+      @podcast.people << current_user.person
     end
 
     respond_to do |format|
       if @podcast.save
         format.html { redirect_to podcasts_path ,notice: 'Thank you for submiting your podcast. It is currently being proccesed. We will notify you when your podcast is live.' }
         format.json { render action: 'show', status: :created, location: @podcast }
-        PodcastMailer.approval_email(@podcast).deliver
-        if current_user.nil?
-        else
-          PodcastMailer.processing_email(current_user, @podcast).deliver
+        PodcastMailer.approval_email(@podcast).deliver_later
+        if current_user
+          PodcastMailer.processing_email(current_user, @podcast).deliver_later
         end
       else
+        p @podcast.people.errors
         format.html { render action: 'new' }
         format.json { render json: @podcast.errors, status: :unprocessable_entity }
       end

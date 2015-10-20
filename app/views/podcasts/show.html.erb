@@ -13,11 +13,11 @@
 
       <%= rating_for @podcast %><br>
       <div class="titles">
-        <% @podcast.user_podcasts.each do |user_podcast| %>
-          <% if user_podcast.approved? %>
+        <% @podcast.people_podcasts.each do |pp| %>
+          <% if pp.approved? %>
             <li>
-              <%= position_to_label user_podcast.position %>
-              <%= link_to user_podcast.user.any_name, user_podcast.user %>
+              <%= position_to_label pp.position %>
+              <%= link_to pp.person.name, pp.person.user %>
             </li>
           <% end %>
         <% end %>
@@ -48,7 +48,7 @@
         <%= link_to unfollow_podcast_path(@podcast), class: 'btn btn-primary' do %>
           <span class='fa fa-minus'> Unfollow</span>
         <% end %>
-      <% else %>
+      <% elsif user_signed_in? %>
         <%= link_to follow_podcast_path(@podcast), class: 'btn btn-primary' do %>
           <span class='fa fa-plus'>Follow</span>
         <% end %>
@@ -58,15 +58,15 @@
       <h4> Followers : <%= @podcast.followers_count %></h4>
 
       <div class="row">
-        <% @podcast.followers.each do |followers| %>
+        <% @podcast.followers.each do |follower| %>
           <div class="col-sm-4">
-            <%= followers.first_name %>
-            <%= image_tag(followers.profile_image.url, height: '60', width: '60') %>
+            <%= follower.person.name %>
+            <%= image_tag(follower.profile_image.url, height: '60', width: '60') %>
           </div>
         <% end %>
       </div>
       <br>
-      <%= link_to "Edit Connections", new_user_podcast_path, class: 'btn btn-primary' %>
+      <%= link_to "Edit Connections", new_person_podcast_path, class: 'btn btn-primary' %>
     </div>
 
     <% unless @podcast.hideplayer %>
@@ -115,7 +115,7 @@
                         Your browser does not support the audio element.
                     </video>
                     <p><%= sanitize t.summary.to_s %></p>
-                  <% else %> 
+                  <% else %>
                     <p><%=sanitize t.summary %></p>
                     <audio controls>
                       <source src=<%= defined?(t.enclosure_url) ? t.enclosure_url : t.image %> type="audio/mpeg">
@@ -177,7 +177,7 @@
       <% if @podcast.user_approved? %>
         <hr />
         <%= commontator_thread(@podcast) %>
-        <!-- 
+        <!--
           <hr />
           <%= link_to(image_tag('http://podcastanswerman.com/wp-content/uploads/2011/10/AtoZRegister.jpg'), 'http://podcastanswerman.com/atoz/', target: '_blank') %>
           <hr />
@@ -214,7 +214,7 @@
       <a class="twitter-timeline" href="https://twitter.com/ipdb" data-widget-id="630382616311566336">Tweets by @ipdb</a>
       <!-- <%= link_to(image_tag('http://podcastdata.com/images/Hosting300x250.png'), 'http://create.blubrry.com/resources/podcast-media-hosting/?code=IPDb2014', target: '_blank') %> -->
 
-      <% if @podcast.users.each{ |u| u.id }.include?(current_user) %>
+      <% if @podcast.users.include?(current_user) %>
         <hr />
         <%= link_to 'Edit', edit_podcast_path(@podcast) %> |
         <%= link_to 'Back', podcasts_path %>
@@ -227,7 +227,7 @@
       <% @recently_viewed_podcasts.each do |podcast| %>
         <li class="well col-xs-5 col-md-2">
           <% if podcast.user_approved? %>
-            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast, :class => "podcast-img" %><br>
+            <%= link_to image_tag(podcast.image_url.blank? ? podcast.image : podcast.image_url) + '', podcast, :class => "podcast-img" %><br>
           <% else %>
             <%= link_to image_tag('ipdb.png') + '', podcast, :class => "podcast-img" %><br>
           <% end %>
@@ -253,9 +253,9 @@
           <% end %>
           <br>
 
-          <% podcast.user_podcasts.each do |user_podcast| %>
-            <% if user_podcast.position == 'Host' || user_podcast.position == 'Co-Host' %>
-              By: <%= link_to user_podcast.user.any_name, user_podcast.user %>
+          <% podcast.people_podcasts.each do |pp| %>
+            <% if pp.position == 'Host' || pp.position == 'Co-Host' %>
+              By: <%= link_to pp.person.name, pp.person.user %>
               <br>
             <% end %>
           <% end %>

@@ -47,9 +47,9 @@
         <% end %>
         <br>
 
-        <% podcast.user_podcasts.each do |user_podcast| %>
-          <% if user_podcast.position == 'Host' || user_podcast.position == 'Co-Host' %>
-            By: <%= link_to user_podcast.user.any_name, user_podcast.user %>
+        <% podcast.people_podcasts.each do |person_podcast| %>
+          <% if person_podcast.position == 'Host' || person_podcast.position == 'Co-Host' %>
+            By: <%= link_to person_podcast.person.name, person_podcast.person.user %>
             <br>
           <% end %>
         <% end %>
