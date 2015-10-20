@@ -1,6 +1,7 @@
 class Podcast < ActiveRecord::Base
-  has_many :user_podcasts
-  has_many :users, :through => :user_podcasts
+  has_many :people_podcasts
+  has_many :people, through: :people_podcasts
+  has_many :users, through: :people
   has_many :episodes
   has_many :nominations
   has_many :awards, -> { distinct }, through: :nominations
@@ -16,6 +17,9 @@ class Podcast < ActiveRecord::Base
 
   scope :with_awards, -> {
     includes(:awards)
+  }
+  scope :with_people, -> {
+    includes(:people).includes(:users)
   }
   scope :awarded, -> {
     with_awards

@@ -1,31 +1,26 @@
 ActiveAdmin.register User  do
-	filter :first_name
   active_admin_importable
   controller do
     def permitted_params
       params.permit :utf8, :_method, :authenticity_token, :commit, :id,
-                user: [:id, :first_name, :last_name, :email, :description, :password, :password_confirmation, :education, :username, :work, :about, :linkedin, :instagram, :pinterest, :twitter, :facebook, :membership, :imdb ]
+                user: [:id, :person_id, :email, :description, :password, :password_confirmation, :education, :work, :about, :linkedin, :instagram, :pinterest, :twitter, :facebook, :membership, :imdb ]
     end
     def update_resource(object, attributes)
-    update_method = attributes.first[:password].present? ? :update_attributes : :update_without_password
-    object.send(update_method, *attributes)
+      update_method = attributes.first[:password].present? ? :update_attributes : :update_without_password
+      object.send(update_method, *attributes)
     end
   end
 
   index do
-    column :username 
-    column :first_name
-    column :last_name
     column :email
+    column :person
     actions
   end
 
   form do |f|
     f.inputs "Details" do
       f.input :email
-      f.input :username
-      f.input :first_name
-      f.input :last_name
+      f.input :person
       f.input :password
       f.input :password_confirmation
       f.input :imdb

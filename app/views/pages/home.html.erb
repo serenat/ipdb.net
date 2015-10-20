@@ -21,7 +21,7 @@
         color:#000;
       }
 </style>
-<body class="loading"> 
+<body class="loading">
 
 <%= render 'share_modal' if @share %>
 
@@ -36,7 +36,7 @@
       <li style="background: url('<%= asset_path 'microphone-dark.jpg' %>');">
         <div class="container">
 
-          <div class="row row-padded"> 
+          <div class="row row-padded">
 
             <div class="span6 pullright">
               <div class="inner">
@@ -70,7 +70,9 @@
                         <span>or</span>
                       </div>
                       <div class="form-row">
-                        <%= f.text_field :name, :class => "text login_input", :placeholder => "Name", :required => true %>
+                      <%= f.fields_for :person do |fp| %>
+                        <%= fp.text_field :name, :class => "text login_input", :placeholder => "Name", :required => true %>
+                      <% end %>
                         <div class="clearfix"></div>
                       </div>
                       <div class="form-row">
@@ -80,10 +82,10 @@
                       <div class="form-row">
                         <%= f.password_field :password, :class => "text login_input", :placeholder => "Password", :required => true %>
                       <div class="clearfix"></div>
-                      </div> 
+                      </div>
                       <div class="form-row">
                         <label><input type="checkbox" name="vehicle" value="Bike" required> Agree to terms &amp; conditions</label>
-                        <div class="clearfix"></div> 
+                        <div class="clearfix"></div>
                       </div>
                       <div class="form-row form-row-last">
                         <input type="submit" name="register" value="Finished, sign me up!" class="btn" data-loading-text="Loading..." />
@@ -117,7 +119,7 @@
             </div>
 
             <div class="span7">
-              <div class="inner align-right"> 
+              <div class="inner align-right">
                 <%= image_tag('macbook.png') %>
               </div>
             </div>
@@ -140,7 +142,9 @@
                   <h1>Signup</h1>
                   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
                     <div class="form-row">
-                      <%= f.text_field :name, :class => "text login_input", :placeholder => "Name", :required => true %>
+                      <%= f.fields_for :person do |fp| %>
+                        <%= fp.text_field :name, :class => "text login_input", :placeholder => "Name", :required => true %>
+                      <% end %>
                       <div class="clearfix"></div>
                     </div>
                     <div class="form-row">
@@ -150,7 +154,7 @@
                     <div class="form-row">
                       <%= f.password_field :password, :class => "text login_input", :placeholder => "Password", :required => true %>
                     <div class="clearfix"></div>
-                    </div> 
+                    </div>
                     <div class="form-row">
                       <div class="item">
                         <label><input type="checkbox" name="vehicle" value="Bike" required> Agree to terms &amp; conditions</label>

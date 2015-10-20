@@ -21,7 +21,9 @@ Ipdb::Application.routes.draw do
   resources :user, :path => "users" do
     get :autocomplete_user_username, :on => :collection
   end
-  resources :user_podcasts, :path => "connections"
+
+  resources :people_podcasts, :path => :connections, only: [:new, :create]
+
   resources :podcasts do
     get :autocomplete_podcast_name, :on => :collection
     member do
@@ -31,5 +33,8 @@ Ipdb::Application.routes.draw do
       put "like", to: "podcasts#upvote"
       post :count
     end
+  end
+  resources :people do
+    get :autocomplete_person_name, :on => :collection
   end
 end

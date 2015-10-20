@@ -13,26 +13,25 @@ ActiveAdmin.register_page "Dashboard" do
           end
         end
       end
- 
+
       column do
         panel "New Connections" do
-          table_for UserPodcast.order('created_at desc').limit(20) do
-            column :user do |user|
-              u = User.find_by_id(user.user_id)
-                if u.nil?
-                  link_to user.id, admin_connection_path(user)
-                else
-                  link_to u.any_name, admin_connection_path(user)
-                end
+          table_for PersonPodcast.order('created_at desc').limit(20) do
+            column :person do |pp|
+              person = Person.find(pp.person_id)
+              if person.nil?
+                link_to pp.id, admin_connection_path(pp)
+              else
+                link_to person.name, admin_connection_path(pp)
+              end
             end
 
-
-            column :podcast do |podcast|
-                p = Podcast.find_by_id(podcast.podcast_id)
-                  if p.nil?
-                  link_to podcast.podcast_id, admin_connection_path(podcast)
+            column :podcast do |pp|
+                podcast = Podcast.find(pp.podcast_id)
+                if podcast.nil?
+                  link_to pp.podcast_id, admin_connection_path(pp)
                 else
-                  link_to p.name, admin_connection_path(podcast)
+                  link_to podcast.name, admin_connection_path(pp)
                 end
             end
             column :position
