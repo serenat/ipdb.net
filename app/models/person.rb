@@ -4,6 +4,8 @@ class Person < ActiveRecord::Base
   has_many :podcasts, through: :people_podcasts
   validates :name, presence: :true
 
+  scope :uniq_name, -> { group(:name) }
+
   def self.search(search)
     if search
       where("name like ?", "%#{search}%")

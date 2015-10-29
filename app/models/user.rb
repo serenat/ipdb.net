@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
   belongs_to :person
   has_many :people_podcasts, through: :person
   has_one :identity, dependent: :destroy
-  has_attached_file :profile_image, :default_url => "ipdb.png", :styles => { :medium => "300x300>", :thumb => "100x100>" }
+  has_attached_file :profile_image, styles: { medium: '300x300>', thumb: '100x100>' },
+    default_url: ->(attachment) { ActionController::Base.helpers.asset_path('ipdb.png') }
   validates_attachment_content_type :profile_image, :content_type => %w(image/jpeg image/jpg image/png)
   validates :email, presence: true, uniqueness: true
   validates :person, presence: true

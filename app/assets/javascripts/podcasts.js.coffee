@@ -31,7 +31,3 @@ $(document).ready ->
       if response && !response.error_message
         url = document.location.pathname + '/count'
         $.post url, event: 'share'
-
-  # fix(stub) broken podcast images
-  $('.podcast-img img').error (e) ->
-    $(this).unbind('error').attr('src', "<%= asset_path('ipdb.png') %>")

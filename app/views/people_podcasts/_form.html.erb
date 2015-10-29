@@ -1,4 +1,4 @@
-<%= form_for @host do |f| %>
+<%= form_for @host, url: podcast_people_podcasts_path(@podcast) do |f| %>
   <% if @host.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@host.errors.count, "error") %> prohibited this podcast from being saved:</h2>
@@ -13,24 +13,28 @@
 
   <div class="form-group">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-sm-6">
         <h4><%= f.label :user_name %></h4>
-        <%= f.autocomplete_field :person_name, autocomplete_person_name_people_path, :update_elements => {}, :id_element => '#person_podcast_person_id',  class: "form-control" %>
+        <%= f.autocomplete_field :person_name,
+          autocomplete_person_name_people_path,
+          update_elements: {},
+          id_element: '#person_podcast_person_id',
+          required: true,
+          class: "form-control" %>
         <input id="person_podcast_person_id" name="person_podcast[person_id]" type="hidden">
       </div>
-      <div class="col-md-4">
-        <h4><%= f.label :podcast_name %></h4>
-        <%= f.autocomplete_field :podcast_name, autocomplete_podcast_name_podcasts_path, :update_elements => {:id => '#person_podcast_podcast_id'},  class: "form-control" %>
-          <input id="person_podcast_podcast_id" name="person_podcast[podcast_id]" type="hidden">
-      </div>
-      <div class="col-md-4">
+      <div class="col-sm-6">
       <h4><%= f.label :position %></h4>
       <%= f.select(:position, options_for_select([['Host'], ['Co-host'], ['Guest'], ['Artwork'], ['Music'], ['Sound Engineer'], ['Performer']]), {}, {class: "form-control"}) %>
       </div>
     </div>
   </div>
   <div class="form-group">
-    <%= f.submit "Add Connections" ,class: "btn btn-primary pull-right" %>
+    <div class="row">
+      <div class="col-sm-12">
+        <%= f.submit "Submit Request" ,class: "btn btn-primary pull-right" %>
+      </div>
+    </div>
   </div>
 
 <% end %>

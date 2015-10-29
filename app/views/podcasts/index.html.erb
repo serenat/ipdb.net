@@ -4,7 +4,7 @@
       <% unless person.user.membership == 'Podcast Fan Plus' %>
         <div class="col-md-2">
           <h4><%= link_to person.name, person.user %></h4>
-          <%= image_tag person.user.profile_image, class: "img-circle", style: 'width:150px; height:150px;' %>
+          <%= image_tag person.user.profile_image, class: "img-circle ward", style: 'width:150px; height:150px;' %>
         </div>
       <% end %>
     <% end %>
@@ -21,9 +21,9 @@
     <% @podcasts.each_with_index do |podcast, i| %>
       <li class="well col-xs-5 col-md-2">
         <% if podcast.user_approved? %>
-          <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end) + '', podcast, :class => "podcast-img" %><br>
+          <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end, class: 'ward') + '', podcast %><br>
         <% else %>
-          <%= link_to image_tag('ipdb.png') + '', podcast, :class => "podcast-img" %><br>
+          <%= link_to image_tag('ipdb.png', class: 'ward') + '', podcast %><br>
         <% end %>
 
         <div class="rating-box">
@@ -49,7 +49,7 @@
         <% end %>
         <br>
 
-        <% podcast.people_podcasts.each do |person_podcast| %>
+        <% podcast.people_podcasts.approved.each do |person_podcast| %>
           <% if person_podcast.position == 'Host' || person_podcast.position == 'Co-Host' %>
             By: <%= link_to person_podcast.person.name, person_podcast.person.user %>
             <br>

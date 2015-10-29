@@ -8,7 +8,9 @@ class Podcast < ActiveRecord::Base
   has_one :podcast_stat, dependent: :destroy
   accepts_nested_attributes_for :nominations, allow_destroy: true
 
-  has_attached_file :image, :default_url => "/images/ipdb.png",  :styles => {:medium => "250x250", :thumb => "100x100>"}
+  has_attached_file :image, styles: {medium: "250x250", thumb: "100x100>"},
+    default_url: ->(attachment) { ActionController::Base.helpers.asset_path('ipdb.png') }
+
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   acts_as_commontable
   acts_as_votable
@@ -39,5 +41,9 @@ class Podcast < ActiveRecord::Base
     else
       all
     end
+  end
+
+  def art
+    image_url.blank? ? image : image_url
   end
 end
