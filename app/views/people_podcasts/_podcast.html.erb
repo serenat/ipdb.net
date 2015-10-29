@@ -1,0 +1,27 @@
+<div class="row podcast-info">
+  <div class="col-md-5 col-sm-3">
+    <%= image_tag @podcast.art, class: 'podcast-art ward' %>
+  </div>
+  <div class="col-md-7 col-sm-9">
+    <div class="line">
+      <h4>Name</h4>
+      <span id="podcast-name">
+        <%= @podcast.name %>
+      </span>
+    </div>
+    <div class="line">
+      <h4>Description</h4>
+      <%= @podcast.description %>
+    </div>
+    <div class="line">
+      <% if @people_podcasts.any? %>
+        <h4>People</h4>
+        <% @people_podcasts.each do |pp| %>
+          <span><%= pp.person.name %></span>
+          <span>(<%= pp.position %>)</span>
+          <br />
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

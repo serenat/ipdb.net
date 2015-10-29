@@ -1,0 +1,9 @@
+window.imgError = (image) ->
+  image.onerror = ""
+  image.src = "<%= asset_path('ipdb.png') %>"
+  true
+
+$(document).ready ->
+  # fix(stub) broken images
+  $('img.ward').error (e) ->
+    imgError(this)

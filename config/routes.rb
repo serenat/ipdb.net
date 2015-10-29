@@ -22,10 +22,10 @@ Ipdb::Application.routes.draw do
     get :autocomplete_user_username, :on => :collection
   end
 
-  resources :people_podcasts, :path => :connections, only: [:new, :create]
-
   resources :podcasts do
     get :autocomplete_podcast_name, :on => :collection
+
+    resources :people_podcasts, :path => :connections, only: [:new, :create]
     member do
       get :follow
       get :unfollow
@@ -36,5 +36,6 @@ Ipdb::Application.routes.draw do
   end
   resources :people do
     get :autocomplete_person_name, :on => :collection
+    post :search, :on => :collection
   end
 end

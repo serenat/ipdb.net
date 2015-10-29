@@ -31,10 +31,12 @@ gem 'passenger'
 gem 'feedjira', '1.3.0'
 gem 'httparty'
 gem 'rails4-autocomplete'
+gem 'underscore-rails'
 
 gem 'sidekiq', '~> 3.5.0'
 gem 'whenever', '~> 0.9.4', require: false
 gem 'omniauth-facebook'
+gem 'active_model_serializers', '~> 0.10.0.rc3'
 
 gem 'puma'
 gem 'figaro'
@@ -46,4 +48,15 @@ group :development do
   gem 'capistrano3-puma'
   gem 'capistrano-rbenv'
   gem 'capistrano-sidekiq'
+end
+
+group :development do
+  gem 'better_errors'
+  gem 'quiet_assets'
+end
+
+group :development, :test do
+  gem 'byebug'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end

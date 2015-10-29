@@ -1,7 +1,96 @@
 <div class="container">
-  <h2>Have you been on a show? If so, which one?</h2>
 	<h1>New Connections</h1>
-	<%= render 'form' %>
-
-  <%= link_to 'Back', podcasts_path %>
+  <div class="row">
+    <div class="col-md-5">
+      <%= render 'podcast' %>
+    </div>
+    <div class="col-md-7">
+      <div class="people-form">
+        <%= render 'form' %>
+      </div>
+      <div class="people-list">
+      </div>
+    </div>
+  </div>
 </div>
+
+<script type="text/template" class="template people-list">
+  <h4>Names</h4>
+  <%= form_for @host, url: podcast_people_podcasts_path(@podcast) do |f| %>
+    <table class="table table-striped">
+    <tbody>
+      <%% _.each(people, function(person) { %>
+        <tr>
+          <td>
+            <input type="radio" name="person_podcast[person_id]" value="<%%= person.id %>" required>
+          </td>
+          <td class="person-photo">
+            <a href="<%%= person.user.profile_path %>">
+              <img alt="<%%= person.name %>"
+                   title="<%%= person.name %>"
+                   src="<%%= person.user.profile_image %>"
+                   onError="imgError(this)">
+            </a>
+          </td>
+          <td>
+            <a href="<%%= person.user.profile_path %>">
+              <span><%%= person.name %></span>
+              <span><%%= person.rank %></span>
+            </a>
+            <span class="podcasts">
+              <%% if(person.podcasts) { %>
+                &ndash; (
+                  <%%= person.podcasts %>
+                )
+              <%% } %>
+            </span>
+          </td>
+        </tr>
+      <%% }); %>
+      <tr class="new-person">
+        <td style="padding-top:20px;">
+          <input type="radio" name="person_podcast[person_id]" value="" required>
+          <input type="hidden" name="person_podcast[position]" value="<%%= connection.position %>">
+          <input type="hidden" name="person[name]" value="<%%= connection.name %>">
+        </td>
+        <td colspan="2" align="center">
+        <p>
+          <strong> None of these </strong>
+          &ndash; create [
+          <strong>
+            <%%= connection.name %> <%%= connection.rank %>
+          </strong>
+          ] &ndash;
+          <strong>
+            <%%= connection.podcast_name %>
+          </strong>
+        </p>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+    <%= f.submit 'Submit', class: "btn btn-primary pull-right" %>
+  <% end %>
+    <%= link_to :back %>
+</script>
+
+<script type="text/template" class="template no-people">
+  <div class="jumbotron">
+    <%= form_for @host, url: podcast_people_podcasts_path(@podcast) do |f| %>
+      <h3>
+        No results found for "<strong><%%= connection.name %></strong>".
+      </h3>
+      <p>
+        Create
+        <strong>[ <%%= connection.name %>]</strong>
+        &ndash;
+        <strong><%%= connection.podcast_name %></strong>
+        ?
+      </p>
+      <input type="hidden" name="person_podcast[position]" value="<%%= connection.position %>">
+      <input type="hidden" name="person[name]" value="<%%= connection.name %>">
+      <%= f.submit 'Create', class: "btn btn-primary pull-right" %>
+      <%= link_to :back %>
+    <% end %>
+  </div>
+</script>

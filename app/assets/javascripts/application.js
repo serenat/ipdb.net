@@ -17,4 +17,5 @@
 //= require turbolinks
 //= require jquery.turbolinks
 //= require bootstrap
+//= require underscore
 //= require_tree .

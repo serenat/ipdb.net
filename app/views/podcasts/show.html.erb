@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col-md-3">
       <h3><%= @itunes.css(".left h1").text.blank? ? @podcast.name : @itunes.css(".left h1").text %></h3>
-      <img src=<%= @podcast.image_url.blank? ? @podcast.image : @podcast.image_url %> style="width:100%;">
+      <img src=<%= @podcast.image_url.blank? ? @podcast.image : @podcast.image_url %> style="width:100%;" class="ward">
 
       <%= rating_for @podcast %><br>
       <div class="titles">
@@ -61,12 +61,14 @@
         <% @podcast.followers.each do |follower| %>
           <div class="col-sm-4">
             <%= follower.person.name %>
-            <%= image_tag(follower.profile_image.url, height: '60', width: '60') %>
+            <%= image_tag(follower.profile_image.url, height: '60', width: '60', class: 'ward') %>
           </div>
         <% end %>
       </div>
       <br>
-      <%= link_to "Edit Connections", new_person_podcast_path, class: 'btn btn-primary' %>
+      <% if current_user %>
+        <%= link_to "Edit Connections", new_podcast_person_podcast_path(@podcast), class: 'btn btn-primary' %>
+      <% end %>
     </div>
 
     <% unless @podcast.hideplayer %>
@@ -222,14 +224,14 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row recently-viewed">
       <h3>Recently Viewed</h3>
       <% @recently_viewed_podcasts.each do |podcast| %>
         <li class="well col-xs-5 col-md-2">
           <% if podcast.user_approved? %>
-            <%= link_to image_tag(podcast.image_url.blank? ? podcast.image : podcast.image_url) + '', podcast, :class => "podcast-img" %><br>
+            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end, class: 'ward') + '', podcast, :class => "podcast-img" %><br>
           <% else %>
-            <%= link_to image_tag('ipdb.png') + '', podcast, :class => "podcast-img" %><br>
+            <%= link_to image_tag('ipdb.png', class: 'ward') + '', podcast, :class => "podcast-img" %><br>
           <% end %>
 
           <h4><%= link_to podcast.name, podcast %></h4>
@@ -253,7 +255,7 @@
           <% end %>
           <br>
 
-          <% podcast.people_podcasts.each do |pp| %>
+          <% podcast.people_podcasts.approved.each do |pp| %>
             <% if pp.position == 'Host' || pp.position == 'Co-Host' %>
               By: <%= link_to pp.person.name, pp.person.user %>
               <br>

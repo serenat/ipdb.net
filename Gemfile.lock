@@ -39,6 +39,10 @@ GEM
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
     active_admin_importable (1.1.2)
+    active_model_serializers (0.10.0.rc3)
+      actionpack (>= 4.0)
+      activemodel (>= 4.0)
+      railties (>= 4.0)
     activejob (4.2.3)
       activesupport (= 4.2.3)
       globalid (>= 0.3.0)
@@ -69,6 +73,10 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
     bcrypt (3.1.10)
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
     bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
@@ -76,6 +84,7 @@ GEM
       sass (~> 3.4)
       thor
     builder (3.2.2)
+    byebug (6.0.2)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -117,6 +126,7 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.7)
       climate_control (>= 0.0.3, < 1.0)
+    coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -139,6 +149,13 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.5.2)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
+    faker (1.5.0)
+      i18n (~> 0.5)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     feedjira (1.3.0)
@@ -232,6 +249,8 @@ GEM
     polyamorous (1.2.0)
       activerecord (>= 3.0)
     puma (2.12.2)
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -316,6 +335,7 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    underscore-rails (1.8.3)
     warden (1.2.3)
       rack (>= 1.0)
     whenever (0.9.4)
@@ -326,11 +346,14 @@ PLATFORMS
 
 DEPENDENCIES
   active_admin_importable
+  active_model_serializers (~> 0.10.0.rc3)
   activeadmin!
   acts_as_follower
   acts_as_votable
   aws-sdk (< 2.0)
+  better_errors
   bootstrap-sass
+  byebug
   capistrano
   capistrano-bundler
   capistrano-rails
@@ -340,6 +363,8 @@ DEPENDENCIES
   coffee-rails
   commontator (~> 4.2.0)
   devise
+  factory_girl_rails
+  faker
   feedjira (= 1.3.0)
   figaro
   font-awesome-rails
@@ -356,6 +381,7 @@ DEPENDENCIES
   paperclip
   passenger
   puma
+  quiet_assets
   rails (~> 4.2.0)
   rails4-autocomplete
   sass-rails
@@ -364,6 +390,7 @@ DEPENDENCIES
   therubyracer
   turbolinks
   uglifier
+  underscore-rails
   whenever (~> 0.9.4)
 
 BUNDLED WITH
