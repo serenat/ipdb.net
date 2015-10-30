@@ -12,6 +12,10 @@ module PodcastsHelper
     'European Podcast Awards Winner' => ['fa-microphone', 'gold']
   }
 
+  def connection_positions
+    ['Host', 'Co-host', 'Guest', 'Artwork', 'Music', 'Sound Engineer', 'Performer']
+  end
+
   def award_icon(award)
     classes = ["fa", "fa-15x"]
     classes << AWARDS_LOOKUP[award]

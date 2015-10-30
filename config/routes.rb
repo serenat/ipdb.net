@@ -11,7 +11,6 @@ Ipdb::Application.routes.draw do
   get "dashboard" => "pages#dashboard"
   get "about" => "pages#about"
   get "awards" => "pages#awards"
-  get "profile" => "pages#profile"
   get "privacy" => "pages#privacy"
   get "media" => "pages#media"
   get "terms" => "pages#terms"

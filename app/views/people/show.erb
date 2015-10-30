@@ -1,21 +1,24 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <h2 class="username"><%= @user.person.name %></h2>
+      <h2 class="username"><%= @person.name %></h2>
+      <br />
+      <% if @user %>
+        <%= image_tag @user.profile_image, class: "img-circle ward" %>
+        <div class="social">
+          <%= link_to '<i class="fa fa-facebook-square fa-2x"></i>'.html_safe,  'http://facebook.com/' + @user.facebook, target: '_blank' if @user.facebook.present? %>
+          <%= link_to '<i class="fa fa-twitter-square fa-2x"></i>'.html_safe, 'http://twitter.com/' + @user.twitter, target: '_blank' if @user.twitter.present? %>
+          <%= link_to '<i class="fa fa-pinterest-square fa-2x"></i>'.html_safe, 'http://pinterest.com/' + @user.pinterest, target: '_blank' if @user.pinterest.present? %>
+          <%= link_to '<i class="fa fa-instagram fa-2x"></i>'.html_safe, 'http://instagram.com/' + @user.instagram, target: '_blank' if @user.instagram.present? %>
+          <%= link_to '<i class="fa fa-linkedin-square fa-2x"></i>'.html_safe, 'http://linkedin.com/' + @user.linkedin, target: '_blank' if @user.linkedin.present? %>
+          <%= link_to '<i class="fa fa-film fa-2x"></i>'.html_safe, '' + @user.imdb, target: '_blank' if @user.imdb.present? %>
+        </div>
+      <% else %>
+        <%= image_tag 'ipdb.png', class: "img-circle" %>
+      <% end %>
       <br />
 
-      <%= image_tag @user.profile_image, class: "img-circle" %>
-      <div class="social">
-        <%= link_to '<i class="fa fa-facebook-square fa-2x"></i>'.html_safe,  'http://facebook.com/' + @user.facebook, target: '_blank' if @user.facebook.present? %>
-        <%= link_to '<i class="fa fa-twitter-square fa-2x"></i>'.html_safe, 'http://twitter.com/' + @user.twitter, target: '_blank' if @user.twitter.present? %>
-        <%= link_to '<i class="fa fa-pinterest-square fa-2x"></i>'.html_safe, 'http://pinterest.com/' + @user.pinterest, target: '_blank' if @user.pinterest.present? %>
-        <%= link_to '<i class="fa fa-instagram fa-2x"></i>'.html_safe, 'http://instagram.com/' + @user.instagram, target: '_blank' if @user.instagram.present? %>
-        <%= link_to '<i class="fa fa-linkedin-square fa-2x"></i>'.html_safe, 'http://linkedin.com/' + @user.linkedin, target: '_blank' if @user.linkedin.present? %>
-        <%= link_to '<i class="fa fa-film fa-2x"></i>'.html_safe, '' + @user.imdb, target: '_blank' if @user.imdb.present? %>
-      </div>
-      <br />
-
-      <p><%= @user.description %></p>
+      <p><%= @user.description if @user %></p>
       <div class="row"></div>
       <hr />
       <div class="social"></div>
@@ -197,28 +200,30 @@
       </div>
 
       <hr style="clear:both;" />
-      <div class="tab-info">
-        <ul id="tabs" class="nav nav-tabs">
-          <li class="active"><a href="#home" data-toggle="tab">About</a></li>
-          <li><a href="#awards" data-toggle="tab">Awards</a></li>
-          <li><a href="#profile" data-toggle="tab">Education</a></li>
-          <li><a href="#work" id="tab" data-toggle="tab" >Work</a></li>
-        </ul>
-        <div id="myTabContent" class="tab-content">
-          <div class="tab-pane fade in active" id="home">
-            <p><%= @user.about %></p>
-          </div>
-          <div class="tab-pane fade" id="awards">
-            <p></p>
-          </div>
-          <div class="tab-pane fade" id="profile">
-            <p><%= @user.education %></p>
-          </div>
-          <div class="tab-pane fade" id="work">
-            <p><%= @user.work %></p>
+      <% if @user %>
+        <div class="tab-info">
+          <ul id="tabs" class="nav nav-tabs">
+            <li class="active"><a href="#home" data-toggle="tab">About</a></li>
+            <li><a href="#awards" data-toggle="tab">Awards</a></li>
+            <li><a href="#profile" data-toggle="tab">Education</a></li>
+            <li><a href="#work" id="tab" data-toggle="tab" >Work</a></li>
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="home">
+              <p><%= @user.about %></p>
+            </div>
+            <div class="tab-pane fade" id="awards">
+              <p></p>
+            </div>
+            <div class="tab-pane fade" id="profile">
+              <p><%= @user.education %></p>
+            </div>
+            <div class="tab-pane fade" id="work">
+              <p><%= @user.work %></p>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

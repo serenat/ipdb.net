@@ -14,7 +14,7 @@ class PeoplePodcastsController < ApplicationController
     @host = @podcast.people_podcasts.build(person_podcast_params)
     respond_to do |format|
       if @host.save
-        format.html { redirect_to :back, notice: 'Thank you for submiting your connection. It is currently being proccesed. We will notify you when your podcast is live.' }
+        format.html { redirect_to({action: 'new'}, notice: 'Thank you for submiting your connection. It is currently being proccesed. We will notify you when your podcast is live.')}
         format.json { render action: 'show', status: :created, location: @podcast }
         #PodcastMailer.approval_email(@host).deliver
         if current_user
