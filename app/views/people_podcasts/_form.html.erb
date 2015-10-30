@@ -11,21 +11,24 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <div class="row">
-      <div class="col-sm-6">
-        <h4><%= f.label :user_name %></h4>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :user_name, 'Name' %>
         <%= f.autocomplete_field :person_name,
           autocomplete_person_name_people_path,
           update_elements: {},
           id_element: '#person_podcast_person_id',
           required: true,
           class: "form-control" %>
-        <input id="person_podcast_person_id" name="person_podcast[person_id]" type="hidden">
+        <span class="help-block">If the name you wish to add is not in the text box, that's no problem. Simply type in the name and click Submit Request. We'll confirm your submission and check for similar names in the database.</span>
+        <input id="person_podcast_person_id" name="person_podcast[person_id]" type="hidden" class="form-control">
       </div>
-      <div class="col-sm-6">
-      <h4><%= f.label :position %></h4>
-      <%= f.select(:position, options_for_select([['Host'], ['Co-host'], ['Guest'], ['Artwork'], ['Music'], ['Sound Engineer'], ['Performer']]), {}, {class: "form-control"}) %>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :position %>
+        <%= f.select(:position, options_for_select(connection_positions), {}, {class: "form-control"})%>
       </div>
     </div>
   </div>

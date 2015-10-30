@@ -17,7 +17,7 @@
           <% if pp.approved? %>
             <li>
               <%= position_to_label pp.position %>
-              <%= link_to pp.person.name, pp.person.user %>
+              <%= link_to pp.person.name, pp.person %>
             </li>
           <% end %>
         <% end %>
@@ -68,6 +68,8 @@
       <br>
       <% if current_user %>
         <%= link_to "Edit Connections", new_podcast_person_podcast_path(@podcast), class: 'btn btn-primary' %>
+      <% else %>
+        <%= link_to "Log in to Edit Connections", new_user_session_path, class: 'btn btn-primary' %>
       <% end %>
     </div>
 
@@ -257,7 +259,7 @@
 
           <% podcast.people_podcasts.approved.each do |pp| %>
             <% if pp.position == 'Host' || pp.position == 'Co-Host' %>
-              By: <%= link_to pp.person.name, pp.person.user %>
+              By: <%= link_to pp.person.name, pp.person %>
               <br>
             <% end %>
           <% end %>

@@ -13,4 +13,8 @@ class Person < ActiveRecord::Base
       all
     end
   end
+
+  def profile_image
+    user && user.profile_image
+  end
 end

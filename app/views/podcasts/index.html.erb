@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row">
     <% @personsearch.each do |person| %>
-      <% unless person.user.membership == 'Podcast Fan Plus' %>
+      <% if person.user.nil? || person.user.membership != 'Podcast Fan Plus' %>
         <div class="col-md-2">
-          <h4><%= link_to person.name, person.user %></h4>
-          <%= image_tag person.user.profile_image, class: "img-circle ward", style: 'width:150px; height:150px;' %>
+          <h4><%= link_to person.name, person %></h4>
+          <%= image_tag person.profile_image, class: "img-circle ward", style: 'width:150px; height:150px;' %>
         </div>
       <% end %>
     <% end %>
@@ -51,7 +51,7 @@
 
         <% podcast.people_podcasts.approved.each do |person_podcast| %>
           <% if person_podcast.position == 'Host' || person_podcast.position == 'Co-Host' %>
-            By: <%= link_to person_podcast.person.name, person_podcast.person.user %>
+            By: <%= link_to person_podcast.person.name, person_podcast.person %>
             <br>
           <% end %>
         <% end %>

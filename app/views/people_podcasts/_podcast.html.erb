@@ -17,7 +17,7 @@
       <% if @people_podcasts.any? %>
         <h4>People</h4>
         <% @people_podcasts.each do |pp| %>
-          <span><%= pp.person.name %></span>
+          <span><%= link_to pp.person.name, pp.person %></span>
           <span>(<%= pp.position %>)</span>
           <br />
         <% end %>

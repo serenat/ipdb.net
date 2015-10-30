@@ -25,15 +25,15 @@
             <input type="radio" name="person_podcast[person_id]" value="<%%= person.id %>" required>
           </td>
           <td class="person-photo">
-            <a href="<%%= person.user.profile_path %>">
+            <a href="<%%= person.profile_path %>">
               <img alt="<%%= person.name %>"
                    title="<%%= person.name %>"
-                   src="<%%= person.user.profile_image %>"
+                   src="<%%= person.profile_image %>"
                    onError="imgError(this)">
             </a>
           </td>
           <td>
-            <a href="<%%= person.user.profile_path %>">
+            <a href="<%%= person.profile_path %>">
               <span><%%= person.name %></span>
               <span><%%= person.rank %></span>
             </a>
