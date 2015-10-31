@@ -65,6 +65,7 @@ $(document).ready ->
       name:    $('#person_podcast_person_name').val()
       position: $('#person_podcast_position').val()
       podcast_name: $('#podcast-name').html().trim()
+      doc_url: $('#person_podcast_doc_url').val()
       rank:    ""
 
     # Submit person search

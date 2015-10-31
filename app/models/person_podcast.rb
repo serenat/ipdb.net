@@ -5,4 +5,8 @@ class PersonPodcast < ActiveRecord::Base
   validates :position, uniqueness: {scope: [:person, :position]}
   attr_reader :person_name, :podcast_name
   scope :approved, -> { where(approved: true) }
+
+  def person_name
+    person && person.name
+  end
 end

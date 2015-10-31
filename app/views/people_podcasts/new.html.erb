@@ -51,7 +51,9 @@
         <td style="padding-top:20px;">
           <input type="radio" name="person_podcast[person_id]" value="" required>
           <input type="hidden" name="person_podcast[position]" value="<%%= connection.position %>">
+          <input type="hidden" name="person_podcast[doc_url]" value="<%%= connection.doc_url %>">
           <input type="hidden" name="person[name]" value="<%%= connection.name %>">
+
         </td>
         <td colspan="2" align="center">
         <p>
@@ -88,6 +90,7 @@
         ?
       </p>
       <input type="hidden" name="person_podcast[position]" value="<%%= connection.position %>">
+      <input type="hidden" name="person_podcast[doc_url]" value="<%%= connection.doc_url %>">
       <input type="hidden" name="person[name]" value="<%%= connection.name %>">
       <%= f.submit 'Create', class: "btn btn-primary pull-right" %>
       <%= link_to :back %>

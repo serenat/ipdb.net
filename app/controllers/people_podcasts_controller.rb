@@ -7,11 +7,8 @@ class PeoplePodcastsController < ApplicationController
   end
 
   def create
-    if person_podcast_params[:person_id].blank?
-      person = Person.create!(person_params)
-      params[:person_podcast][:person_id] = person.id
-    end
     @host = @podcast.people_podcasts.build(person_podcast_params)
+    @host.build_person(person_params) if person_podcast_params[:person_id].blank?
     respond_to do |format|
       if @host.save
         format.html { redirect_to({action: 'new'}, notice: 'Thank you for submiting your connection. It is currently being proccesed. We will notify you when your podcast is live.')}
@@ -35,7 +32,7 @@ class PeoplePodcastsController < ApplicationController
   end
 
   def person_podcast_params
-    params.require(:person_podcast).permit(:person_id, :position)
+    params.require(:person_podcast).permit(:person_id, :position, :doc_url)
   end
 
   def person_params
