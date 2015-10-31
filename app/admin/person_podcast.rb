@@ -1,27 +1,30 @@
 ActiveAdmin.register PersonPodcast, :as => "Connections" do
 	filter :person
-  permit_params :position, :name ,:podcast_id, :description, :name, :image_file_name,:image_url, :episodes, :user_id, :guest_id, :cohost_id, :pcaward, :pcaward2, :pcaward3, :explicit,:category, :ppff, :approved
+  permit_params :podast_id, :person_id, :position, :doc_url, :approved
   active_admin_importable
 
-     batch_action :flag do |selection|
+    batch_action :flag do |selection|
       Post.find(selection).each { |p| p.flag! }
       redirect_to collection_path, :notice => "Posts flagged!"
     end
 
   index do
-   selectable_column
+    selectable_column
     column :podcast
-    column :position
     column :person
+    column :position
+    column :approved
+    column :doc_url
     column :id
- actions
-end
+    actions
+  end
 
   form do |f|
     f.inputs "Podcast Details" do
       f.input :podcast_id
       f.input :person_id
-      f.input :position, :as => :select, :collection => [['Host'], ['Co-Host'], ['Guest'],['Art Work'], ['Music'], ['Sound Engineer'], ['Performer']]
+      f.input :position, as: :select, collection: connection_positions
+      f.input :doc_url
       f.input :approved
     end
     f.actions

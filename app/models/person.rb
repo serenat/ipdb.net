@@ -17,4 +17,8 @@ class Person < ActiveRecord::Base
   def profile_image
     user && user.profile_image
   end
+
+  def name=(s)
+    super s.titleize
+  end
 end
