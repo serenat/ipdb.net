@@ -8,7 +8,7 @@ class PodcastsController < ApplicationController
 
   def index
     if params[:search].present?
-      @podcasts = Podcast.search(params[:search])
+      @podcasts = Podcast.search(params[:search]).with_people.with_awards.by_score
       @personsearch = Person.search(params[:search])
       @paginate = Kaminari.paginate_array(@podcasts).page(params[:page])
     else
@@ -46,7 +46,7 @@ class PodcastsController < ApplicationController
   def create
     @podcast = Podcast.new(podcast_params)
     if current_user
-      @podcast.people << current_user.person
+      @podcast.people_podcasts.build(person: current_user.person, position: 'Host')
     end
 
     respond_to do |format|
@@ -58,7 +58,6 @@ class PodcastsController < ApplicationController
           PodcastMailer.processing_email(current_user, @podcast).deliver_later
         end
       else
-        p @podcast.people.errors
         format.html { render action: 'new' }
         format.json { render json: @podcast.errors, status: :unprocessable_entity }
       end
@@ -120,7 +119,8 @@ class PodcastsController < ApplicationController
   end
 
   def podcast_params
-    params.require(:podcast).permit(:description, :episodes_url, :name, :image, :video)
+    params.require(:podcast).permit(:name, :description, :image, :episodes_url, :video,
+      :explicit, :category, :episodes_count, :start_date)
   end
 
   def get_rss(url)

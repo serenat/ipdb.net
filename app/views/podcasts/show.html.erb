@@ -22,8 +22,8 @@
           <% end %>
         <% end %>
       </div>
-
-      <h4>Number of Episodes : <%= @episodesdata.empty? ? @feed.entries.count : @episodesdata.count %></h4>
+      <% num_eps = @episodesdata.empty? ? @feed.entries.count : @episodesdata.count %>
+      <h4>Number of Episodes : <%= @podcast.episodes_count + num_eps.to_i  %></h4>
       <p><%= @podcast.description %></p>
       <p><%= @itunes.css('.product-review p').text %></p>
 

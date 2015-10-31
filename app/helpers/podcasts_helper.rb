@@ -25,4 +25,12 @@ module PodcastsHelper
   def rank(prev_page, index)
     prev_page.to_i * 25 + (index + 1)
   end
+
+  def categories_list
+    [
+      'arts', 'business', 'comedy', 'education', 'games & hobbies', 'government & organizations',
+      'health', 'kids & family', 'music', 'news & politics', 'religion & spirituality',
+      'science & medicine', 'society & culture', 'sports & recreation', 'technology', 'tv & film'
+    ]
+  end
 end

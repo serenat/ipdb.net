@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151031103136) do
+ActiveRecord::Schema.define(version: 20151031165841) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -328,6 +328,8 @@ ActiveRecord::Schema.define(version: 20151031103136) do
     t.boolean  "video"
     t.boolean  "user_approved",                                            default: false
     t.decimal  "score",                            precision: 6, scale: 5, default: 0.0,   null: false
+    t.integer  "episodes_count",     limit: 4,                             default: 0
+    t.date     "start_date"
   end
 
   add_index "podcasts", ["cohost_id"], name: "index_podcasts_on_cohost_id", using: :btree

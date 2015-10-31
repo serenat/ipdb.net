@@ -31,6 +31,11 @@ class User < ActiveRecord::Base
     super && !identity
   end
 
+  def host?(podcast)
+    pp = people_podcasts.where(podcast: podcast).take
+    pp && pp.position == 'Host'
+  end
+
   def self.find_for_oauth(auth)
     identity = Identity.find_for_oauth(auth)
     user = identity.user

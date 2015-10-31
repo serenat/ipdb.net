@@ -11,20 +11,59 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control" %><br>
-    <%= f.label :description %>
-    <%= f.text_area :description, class: "form-control", :rows => '5' %><br>
-    <%= f.label :image %>
-    <%= f.file_field :image, class: "form-control" %><br>
-    <label>RSS Feed (URL of Podcasts)</label>
-    <%= f.text_field :episodes_url, class: "form-control" %><br>
-    <label>Video Podcast</label>
-    <%= f.check_box :video %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, class: "form-control", :rows => '5' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :image %>
+        <%= f.file_field :image, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <label>RSS Feed (URL of Podcasts)</label>
+        <%= f.text_field :episodes_url, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <label>
+          <%= f.check_box :video %>
+          Video Podcast
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          <%= f.check_box :explicit %>
+          Explicit Content
+        </label>
+      </div>
+    </div>
   </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label>Category</label>
+        <%= f.select :category, categories_list, {prompt: 'Select your category'}, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <label>Podcast Start Date</label>
+        <%= f.text_field :start_date, class: 'form-control', type: 'date' %>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="form-group">
+        <label>True episode count</label>
+        <%= f.number_field :episodes_count, min: 0, placeholder: '0', class: 'form-control' %>
+        <p class="help-block">If your podcast does not show the true number of episodes, list the difference here.</p>
+      </div>
+    </div>
+  </div>
+
   <div class="form-group">
     <%= f.submit "Submit Podcast", class: "btn btn-primary" %>
   </div>
-
 <% end %>

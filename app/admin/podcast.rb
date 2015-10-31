@@ -2,17 +2,17 @@ ActiveAdmin.register Podcast do
 	filter :name
   filter :awards
 
-  permit_params :description, :name, :image_file_name,:image_url, :episodes_url,
-    :user_id, :explicit, :category, :approved,:user_approved, :itunes_id, :video,
+  permit_params :description, :name, :image_file_name,:image_url, :episodes_url, :episodes_count,
+    :user_id, :explicit, :category, :approved,:user_approved, :itunes_id, :video, :start_date,
     nominations_attributes: [:id, :award_id, :name, :year, :_destroy]
 
   active_admin_importable
-  
+
   batch_action :flag do |selection|
     Post.find(selection).each { |p| p.flag! }
     redirect_to collection_path, :notice => "Posts flagged!"
   end
-  
+
   index do
     selectable_column
     column :name
@@ -34,6 +34,7 @@ ActiveAdmin.register Podcast do
       row :score
       row :approved
       row :episodes_url
+      row :episodes_count
       row :user
       row :user_approved
       row :guest
@@ -42,6 +43,7 @@ ActiveAdmin.register Podcast do
       row :hideplayer
       row :itunes
       row :video
+      row :start_date
       row :created_at
       row :updated_at
     end
@@ -52,15 +54,14 @@ ActiveAdmin.register Podcast do
       f.input :name
       f.input :explicit, :label => "Explict?"
       f.input :episodes_url
+      f.input :episodes_count
       f.input :description
       f.input :itunes_id
-      f.input :image_file_name
-      f.input :image_url
-      f.input :category, :as => :select, :collection =>[["arts"], ["business"], ["comedy"],["education"], ["games & hobbies"], ["government & organizations"],["health"], ["kids & family"],["music"], ["news & politics"], ["religion & spirituality"],["science & medicine"], ["society & culture"],["sports & recreation"], ["technology"],["tv & film"]]
+      f.input :category, :as => :select, :collection => categories_list
       f.input :approved
       f.input :user_approved
       f.input :video
-
+      f.input :start_date
     end
 
     f.inputs do
@@ -72,7 +73,7 @@ ActiveAdmin.register Podcast do
     end
 
     f.actions
-  end  
+  end
 
 
 
@@ -88,6 +89,6 @@ ActiveAdmin.register Podcast do
   #  permitted << :other if resource.something?
   #  permitted
   # end
-  
+
 end
 

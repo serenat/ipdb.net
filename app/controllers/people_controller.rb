@@ -9,6 +9,6 @@ class PeopleController < ApplicationController
   def show
     @person = Person.find(params[:id])
     @user = @person.user
-    @people_podcasts = @person.people_podcasts.approved.includes(:podcast)
+    @people_podcasts = @person.people_podcasts.fully_approved.includes(:podcast)
   end
 end
