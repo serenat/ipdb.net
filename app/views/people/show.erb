@@ -2,9 +2,8 @@
   <div class="row">
     <div class="col-md-3">
       <h2 class="username"><%= @person.name %></h2>
-      <br />
       <% if @user %>
-        <%= image_tag @user.profile_image, class: "img-circle ward" %>
+        <%= image_tag @user.profile_image, class: "avatar img-circle center-block ward" %>
         <div class="social">
           <%= link_to '<i class="fa fa-facebook-square fa-2x"></i>'.html_safe,  'http://facebook.com/' + @user.facebook, target: '_blank' if @user.facebook.present? %>
           <%= link_to '<i class="fa fa-twitter-square fa-2x"></i>'.html_safe, 'http://twitter.com/' + @user.twitter, target: '_blank' if @user.twitter.present? %>
@@ -14,7 +13,12 @@
           <%= link_to '<i class="fa fa-film fa-2x"></i>'.html_safe, '' + @user.imdb, target: '_blank' if @user.imdb.present? %>
         </div>
       <% else %>
-        <%= image_tag 'ipdb.png', class: "img-circle" %>
+        <div class="" style="margin-top:-15px;">
+          <p class="text-info">This is me. I'd like to sign up for an account at IPDb.
+            <%= link_to '[Sign up]', new_user_registration_path(person_id: @person.id) %>
+          </p>
+        </div>
+        <%= image_tag 'user.png', class: "img-circle center-block avatar" %>
       <% end %>
       <br />
 
@@ -40,10 +44,10 @@
               <% end %>
 
               <li class="well col-md-12">
-                <%= link_to image_tag( podcast.image_url.blank? ? podcast.image : podcast.image_url,  class: 'ward') + '', podcast %>
+                <%= link_to image_tag( podcast.image_url.blank? ? podcast.image : podcast.image_url,  class: 'podcast-art') + '', podcast %>
                 <br />
                 <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
-                <% if current_user.host?(podcast) %>
+                <% if host?(current_user, podcast) %>
                   <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning btn-xs' %>
                   <%= link_to 'Delete', podcast, class: 'btn btn-danger btn-xs' ,method: :delete, data: { confirm: 'Are you sure?' } %>
                 <% end %>
@@ -66,7 +70,7 @@
                 <% shown_title = true %>
               <% end %>
               <li class="well col-md-12">
-                <%= link_to image_tag(podcast.image_url.blank? ? podcast.image : podcast.image_url, class: 'ward') + '', podcast %><br>
+                <%= link_to image_tag(podcast.image_url.blank? ? podcast.image : podcast.image_url, class: 'podcast-art') + '', podcast %><br>
                 <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
                 <% if podcast.users == current_user %>
                   <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
@@ -91,7 +95,7 @@
               <% end %>
 
               <li class="well col-md-12">
-                <%= link_to image_tag(podcast.image_url.blank? ? podcast.image : podcast.image_url, class: 'ward') + '', podcast %><br>
+                <%= link_to image_tag(podcast.image_url.blank? ? podcast.image : podcast.image_url, class: 'podcast-art') + '', podcast %><br>
                 <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
                 <% if podcast.users == current_user %>
                   <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
@@ -115,7 +119,7 @@
                 <% shown_title = true %>
               <% end %>
               <li class="well col-md-12">
-                <%= link_to image_tag(podcast.image_url.blank? ? podcast.image : podcast.image_url, class: 'ward') + '', podcast %><br>
+                <%= link_to image_tag(podcast.image_url.blank? ? podcast.image : podcast.image_url, class: 'podcast-art') + '', podcast %><br>
                 <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
                 <% if podcast.users == current_user %>
                   <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
@@ -139,7 +143,7 @@
                 <% shown_title = true %>
               <% end %>
               <li class="well col-md-12">
-                <%= link_to image_tag(podcast.image_url.blank? ? podcast.image : podcast.image_url, class: 'ward') + '', podcast %><br>
+                <%= link_to image_tag(podcast.image_url.blank? ? podcast.image : podcast.image_url, class: 'podcast-art') + '', podcast %><br>
                 <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
                 <% if podcast.users == current_user %>
                   <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
@@ -163,7 +167,7 @@
                 <% shown_title = true %>
               <% end %>
               <li class="well col-md-12">
-                <%= link_to image_tag(podcast.image_url.blank? ? podcast.image : podcast.image_url, class: 'ward') + '', podcast %><br>
+                <%= link_to image_tag(podcast.image_url.blank? ? podcast.image : podcast.image_url, class: 'podcast-art') + '', podcast %><br>
                 <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
                 <% if podcast.users == current_user %>
                   <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
@@ -187,7 +191,7 @@
                 <% shown_title = true %>
               <% end %>
               <li class="well col-md-12">
-                <%= link_to image_tag(podcast.image_url.blank? ? podcast.image : podcast.image_url, class: 'ward') + '', podcast %><br>
+                <%= link_to image_tag(podcast.image_url.blank? ? podcast.image : podcast.image_url, class: 'podcast-art') + '', podcast %><br>
                 <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
                 <% if podcast.users == current_user %>
                   <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning' %>
@@ -204,7 +208,7 @@
         <div class="tab-info">
           <ul id="tabs" class="nav nav-tabs">
             <li class="active"><a href="#home" data-toggle="tab">About</a></li>
-            <li><a href="#awards" data-toggle="tab">Awards</a></li>
+            <li><a href="#apodcast-arts" data-toggle="tab">Awards</a></li>
             <li><a href="#profile" data-toggle="tab">Education</a></li>
             <li><a href="#work" id="tab" data-toggle="tab" >Work</a></li>
           </ul>

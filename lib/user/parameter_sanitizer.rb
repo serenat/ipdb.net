@@ -17,4 +17,14 @@ class User::ParameterSanitizer < Devise::ParameterSanitizer
       :twitter, :instagram, :linkedin, :pinterest, :password_confirmation, :current_password,
       :about, :work, :education, :imdb, person_attributes: [:name])
   end
+
+  def sign_up
+    if params[:user][:person_id]
+      default_params.permit(:person_id, :email, :password, :password_confirmation,
+        :membership, person_attributes: [:name])
+    else
+      default_params.permit(:email, :password, :password_confirmation,
+        :membership, person_attributes: [:name])
+    end
+  end
 end

@@ -12,6 +12,14 @@ $screen-sm-min: 768px;
 @import "bootstrap-sprockets";
 @import 'bootstrap';
 
+img.avatar {
+  background-color: #F5F5F5;
+}
+
+img.podcast-art {
+  background-color: #F5F5F5;
+}
+
 a, a:visited{
   color: #3E454A;
 }

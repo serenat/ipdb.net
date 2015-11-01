@@ -1,9 +1,16 @@
-window.imgError = (image) ->
+window.avatarImgError = (image) ->
   image.onerror = ""
-  image.src = "<%= asset_path('ipdb.png') %>"
+  image.src = "<%= asset_path('user.png') %>"
+  true
+
+window.podcastArtImgError = (image) ->
+  image.onerror = ""
+  image.src = "<%= asset_path('microphone-slash.png') %>"
   true
 
 $(document).ready ->
   # fix(stub) broken images
-  $('img.ward').error (e) ->
-    imgError(this)
+  $('.avatar').error (e) ->
+    avatarImgError(this)
+  $('.podcast-art').error (e) ->
+    podcastArtImgError(this)

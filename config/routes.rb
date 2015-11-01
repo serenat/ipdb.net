@@ -3,7 +3,10 @@ Ipdb::Application.routes.draw do
   ActiveAdmin.routes(self)
   post '/rate' => 'rater#create', :as => 'rate'
 
-  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
+  devise_for :users, controllers: {
+    registrations: "users/registrations",
+    omniauth_callbacks: "omniauth_callbacks"
+  }
 
   mount Commontator::Engine => '/commontator'
 
