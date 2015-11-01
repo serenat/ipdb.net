@@ -3,8 +3,9 @@
     <% @personsearch.each do |person| %>
       <% if person.user.nil? || person.user.membership != 'Podcast Fan Plus' %>
         <div class="col-md-2">
-          <h4><%= link_to person.name, person %></h4>
-          <%= image_tag person.profile_image, class: "img-circle ward", style: 'width:150px; height:150px;' %>
+          <h4 class="username"><%= link_to person.name, person %></h4>
+          <%= image_tag person.profile_image, class: "avatar img-circle center-block", style: 'width:150px; height:150px;' %>
+          <br/>
         </div>
       <% end %>
     <% end %>
@@ -21,9 +22,9 @@
     <% @podcasts.each_with_index do |podcast, i| %>
       <li class="well col-xs-5 col-md-2">
         <% if podcast.user_approved? %>
-          <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end, class: 'ward') + '', podcast %><br>
+          <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end, class: 'podcast-art') + '', podcast %><br>
         <% else %>
-          <%= link_to image_tag('ipdb.png', class: 'ward') + '', podcast %><br>
+          <%= link_to image_tag('microphone-slash.png', class: 'podcast-art') + '', podcast %><br>
         <% end %>
 
         <div class="rating-box">

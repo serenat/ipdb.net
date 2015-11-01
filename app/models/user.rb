@@ -8,10 +8,10 @@ class User < ActiveRecord::Base
   has_many :people_podcasts, through: :person
   has_one :identity, dependent: :destroy
   has_attached_file :profile_image, styles: { medium: '300x300>', thumb: '100x100>' },
-    default_url: ->(attachment) { ActionController::Base.helpers.asset_path('ipdb.png') }
+    default_url: ->(attachment) { ActionController::Base.helpers.asset_path('user.png') }
+
   validates_attachment_content_type :profile_image, :content_type => %w(image/jpeg image/jpg image/png)
-  validates :email, presence: true, uniqueness: true
-  validates :person, presence: true
+  validates :email, :person, presence: true, uniqueness: true
 
   accepts_nested_attributes_for :person
   letsrate_rater
@@ -29,11 +29,6 @@ class User < ActiveRecord::Base
 
   def password_required?
     super && !identity
-  end
-
-  def host?(podcast)
-    pp = people_podcasts.where(podcast: podcast).take
-    pp && pp.position == 'Host'
   end
 
   def self.find_for_oauth(auth)

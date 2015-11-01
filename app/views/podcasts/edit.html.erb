@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Editing podcast</h1>
-  <% if current_user && current_user.host?(@podcast) %>
+  <% if host?(current_user, @podcast) %>
     <%= render 'form' %>
   <% else %>
     <h4>You cannot edit this Podcast</h4>

@@ -33,4 +33,10 @@ module PodcastsHelper
       'science & medicine', 'society & culture', 'sports & recreation', 'technology', 'tv & film'
     ]
   end
+
+  def host?(user, podcast)
+    if user && podcast
+      PersonPodcast.where(person: user.person, podcast: podcast, position: 'Host').first
+    end
+  end
 end
