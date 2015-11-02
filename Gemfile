@@ -37,6 +37,7 @@ gem 'sidekiq', '~> 3.5.0'
 gem 'whenever', '~> 0.9.4', require: false
 gem 'omniauth-facebook'
 gem 'active_model_serializers', '~> 0.10.0.rc3'
+gem 'cancancan', '~> 1.13', '>= 1.13.1'
 
 gem 'puma'
 gem 'figaro'

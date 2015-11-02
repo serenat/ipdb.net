@@ -36,7 +36,7 @@
       <div class="form-group">
         <%= f.label :membership%>
         <br>
-        <%= f.select(:membership, ['Podcast Fan Plus','PodcasterBasic','PodcasterPRO'], {}, { :class => 'form-control' }) %>
+        <%= f.select(:membership, membership_levels, { prompt: true }, { :class => 'form-control' }) %>
       </div>
 
       <br><br>

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <% @personsearch.each do |person| %>
-      <% if person.user.nil? || person.user.membership != 'Podcast Fan Plus' %>
+      <% if person.user.nil? || !person.user.silver? %>
         <div class="col-md-2">
           <h4 class="username"><%= link_to person.name, person %></h4>
           <%= image_tag person.profile_image, class: "avatar img-circle center-block", style: 'width:150px; height:150px;' %>
