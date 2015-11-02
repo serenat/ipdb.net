@@ -67,4 +67,20 @@ class User < ActiveRecord::Base
       super
     end
   end
+
+  def regular?
+    membership.blank?
+  end
+
+  def silver?
+    membership == 'Silver'
+  end
+
+  def gold?
+    membership == 'Gold'
+  end
+
+  def platinum?
+    membership == 'Platinum'
+  end
 end

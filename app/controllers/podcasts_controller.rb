@@ -119,8 +119,14 @@ class PodcastsController < ApplicationController
   end
 
   def podcast_params
-    params.require(:podcast).permit(:name, :description, :image, :episodes_url, :video,
-      :explicit, :category, :episodes_count, :start_date)
+    if current_user.nil? || current_user.regular?
+      params.require(:podcast).permit(:name, :description, :image, :episodes_url, :video,
+        :explicit, :category, :start_date)
+    else
+      # Only Sliver, Gold or Platinum users can create/update episodes count
+      params.require(:podcast).permit(:name, :description, :image, :episodes_url, :video,
+        :explicit, :category, :start_date, :episodes_count)
+    end
   end
 
   def get_rss(url)

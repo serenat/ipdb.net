@@ -85,6 +85,7 @@ GEM
       thor
     builder (3.2.2)
     byebug (6.0.2)
+    cancancan (1.13.1)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -354,6 +355,7 @@ DEPENDENCIES
   better_errors
   bootstrap-sass
   byebug
+  cancancan (~> 1.13, >= 1.13.1)
   capistrano
   capistrano-bundler
   capistrano-rails

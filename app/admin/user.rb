@@ -24,7 +24,7 @@ ActiveAdmin.register User  do
       f.input :password
       f.input :password_confirmation
       f.input :imdb
-      f.input :membership, :as => :select, :collection => [['Podcast Fan Plus'], ['PodcasterBasic'], ['PodcasterPRO']]
+      f.input :membership, :as => :select, :collection => membership_levels
     end
     f.actions
   end

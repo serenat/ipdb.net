@@ -55,11 +55,13 @@
       </div>
     </div>
     <div class="col-md-5">
-      <div class="form-group">
-        <label>True episode count</label>
-        <%= f.number_field :episodes_count, min: 0, placeholder: '0', class: 'form-control' %>
-        <p class="help-block">If your podcast does not show the true number of episodes, list the difference here.</p>
-      </div>
+      <% if can? :set_episodes_count, @podcast %>
+        <div class="form-group">
+          <label>True episode count</label>
+          <%= f.number_field :episodes_count, min: 0, placeholder: '0', class: 'form-control' %>
+          <p class="help-block">If your podcast does not show the true number of episodes, list the difference here.</p>
+        </div>
+      <% end %>
     </div>
   </div>
 

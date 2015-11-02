@@ -15,4 +15,8 @@ module UserHelper
     classes << POSITION_LOOKUP[pos] || 'label-info'
     content_tag(:span, pos, class: classes)
   end
+
+  def membership_levels
+    %w(Silver Gold Platinum)
+  end
 end
