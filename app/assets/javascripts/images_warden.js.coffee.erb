@@ -5,7 +5,7 @@ window.avatarImgError = (image) ->
 
 window.podcastArtImgError = (image) ->
   image.onerror = ""
-  image.src = "<%= asset_path('microphone-slash.png') %>"
+  image.src = "<%= asset_path('microphone.png') %>"
   true
 
 $(document).ready ->
