@@ -90,7 +90,8 @@
               <% unless @episodesdata.empty? %>
                 <% @episodesdata.first([@episodesdata.count, 15].min).each do |episode| %>
                   <li class="well">
-                    <p><%= episode.css('.text').text %></p>
+                    <h5><%= episode.css('td.name').text.strip %></h5>
+                    <p><%= episode.css('td.description span.text').text.strip %></p>
                     <audio controls>
                       <source src=<%= episode["audio-preview-url"] %>>
                     </audio>
