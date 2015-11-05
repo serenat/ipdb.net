@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151031195101) do
+ActiveRecord::Schema.define(version: 20151105181903) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -250,7 +250,10 @@ ActiveRecord::Schema.define(version: 20151031195101) do
     t.string   "name",       limit: 255, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "slug",       limit: 255
   end
+
+  add_index "people", ["slug"], name: "index_people_on_slug", using: :btree
 
   create_table "people_podcasts", force: :cascade do |t|
     t.integer  "person_id",  limit: 4
@@ -330,10 +333,12 @@ ActiveRecord::Schema.define(version: 20151031195101) do
     t.decimal  "score",                            precision: 6, scale: 5, default: 0.0,   null: false
     t.integer  "episodes_count",     limit: 4,                             default: 0
     t.date     "start_date"
+    t.string   "slug",               limit: 255
   end
 
   add_index "podcasts", ["cohost_id"], name: "index_podcasts_on_cohost_id", using: :btree
   add_index "podcasts", ["guest_id"], name: "index_podcasts_on_guest_id", using: :btree
+  add_index "podcasts", ["slug"], name: "index_podcasts_on_slug", using: :btree
   add_index "podcasts", ["user_id"], name: "index_podcasts_on_user_id", using: :btree
 
   create_table "rates", force: :cascade do |t|

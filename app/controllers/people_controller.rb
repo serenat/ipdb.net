@@ -7,7 +7,7 @@ class PeopleController < ApplicationController
   end
 
   def show
-    @person = Person.find(params[:id])
+    @person = Person.friendly.find(params[:id])
     @user = @person.user
     @people_podcasts = @person.people_podcasts.fully_approved.includes(:podcast)
   end

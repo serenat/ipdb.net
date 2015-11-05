@@ -32,6 +32,7 @@ gem 'feedjira', '1.3.0'
 gem 'httparty'
 gem 'rails4-autocomplete'
 gem 'underscore-rails'
+gem 'friendly_id', '~> 5.1'
 
 gem 'sidekiq', '~> 3.5.0'
 gem 'whenever', '~> 0.9.4', require: false
