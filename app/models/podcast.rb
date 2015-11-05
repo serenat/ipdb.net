@@ -1,4 +1,5 @@
 class Podcast < ActiveRecord::Base
+  include PrettyId
   has_many :people_podcasts, dependent: :destroy
   has_many :people, through: :people_podcasts
   has_many :users, through: :people

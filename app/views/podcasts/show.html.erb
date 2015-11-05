@@ -111,7 +111,7 @@
               <!-- rss feeds -->
               <% @feed && @feed.entries.first(15).each do |t| %>
                 <li class="well">
-                  <h4><%= link_to t.title, t.url %></h4>
+                  <h5><%= link_to t.title, t.url %></h5>
 
                   <%= t.author %>
                   <% if @podcast.video %>
@@ -227,14 +227,14 @@
     </div>
   </div>
 
-  <div class="row recently-viewed">
+  <div class="row recently-viewed podcast">
       <h3>Recently Viewed</h3>
       <% @recently_viewed_podcasts.each do |podcast| %>
         <li class="well col-xs-5 col-md-2">
           <% if podcast.user_approved? %>
-            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end, class: 'ward') + '', podcast, :class => "podcast-img" %><br>
+            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end, class: 'podcast-art') + '', podcast, :class => "podcast-img" %><br>
           <% else %>
-            <%= link_to image_tag('ipdb.png', class: 'ward') + '', podcast, :class => "podcast-img" %><br>
+            <%= link_to image_tag('microphone.png', class: 'ward') + '', podcast, :class => "podcast-img" %><br>
           <% end %>
 
           <h4><%= link_to podcast.name, podcast %></h4>

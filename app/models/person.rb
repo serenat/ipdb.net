@@ -1,4 +1,5 @@
 class Person < ActiveRecord::Base
+  include PrettyId
   has_one :user
   has_many :people_podcasts, dependent: :destroy
   has_many :podcasts, through: :people_podcasts

@@ -115,7 +115,7 @@ class PodcastsController < ApplicationController
   private
 
   def set_podcast
-    @podcast = Podcast.find(params[:id])
+    @podcast = Podcast.friendly.find(params[:id])
   end
 
   def podcast_params

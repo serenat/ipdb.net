@@ -40,6 +40,6 @@ class PeoplePodcastsController < ApplicationController
   end
 
   def set_podcast
-    @podcast = Podcast.find(params[:podcast_id])
+    @podcast = Podcast.friendly.find(params[:podcast_id])
   end
 end

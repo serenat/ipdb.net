@@ -16,7 +16,6 @@
 
 (function(jQuery)
 {
-  console.log('Blea');
   var self = null;
   var options = {};
   jQuery.fn.railsAutocomplete = function() {
