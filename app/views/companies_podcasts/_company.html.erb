@@ -1,0 +1,16 @@
+<div class="row company-info">
+  <div class="col-md-5 col-sm-3">
+    <%= image_tag @company.image, class: 'company-logo' %>
+  </div>
+  <div class="col-md-7 col-sm-9">
+    <div class="line">
+      <h4>Name</h4>
+      <span id="company-name">
+        <%= @company.name %>
+      </span>
+    </div>
+    <div class="line">
+      <%= @company.address %>
+    </div>
+  </div>
+</div>

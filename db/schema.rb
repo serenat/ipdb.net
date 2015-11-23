@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105181903) do
+ActiveRecord::Schema.define(version: 20151110194331) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -103,6 +103,47 @@ ActiveRecord::Schema.define(version: 20151105181903) do
 
   add_index "commontator_threads", ["commontable_id", "commontable_type"], name: "index_c_t_on_c_id_and_c_type", unique: true, using: :btree
 
+  create_table "companies", force: :cascade do |t|
+    t.string   "name",               limit: 255,                   null: false
+    t.string   "city",               limit: 255
+    t.string   "state",              limit: 255
+    t.string   "country",            limit: 255
+    t.text     "url",                limit: 65535
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+    t.boolean  "approved",                         default: false, null: false
+    t.string   "slug",               limit: 255
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+  end
+
+  add_index "companies", ["slug"], name: "index_companies_on_slug", using: :btree
+
+  create_table "companies_people", force: :cascade do |t|
+    t.integer  "person_id",  limit: 4
+    t.integer  "company_id", limit: 4
+    t.boolean  "approved",             default: false, null: false
+    t.boolean  "owner",                default: false, null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "companies_people", ["company_id"], name: "index_companies_people_on_company_id", using: :btree
+  add_index "companies_people", ["person_id"], name: "index_companies_people_on_person_id", using: :btree
+
+  create_table "companies_podcasts", force: :cascade do |t|
+    t.integer  "podcast_id", limit: 4
+    t.integer  "company_id", limit: 4
+    t.boolean  "approved",             default: false, null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "companies_podcasts", ["company_id"], name: "index_companies_podcasts_on_company_id", using: :btree
+  add_index "companies_podcasts", ["podcast_id"], name: "index_companies_podcasts_on_podcast_id", using: :btree
+
   create_table "episodes", force: :cascade do |t|
     t.string   "title",      limit: 255
     t.string   "source",     limit: 255
@@ -147,104 +188,6 @@ ActiveRecord::Schema.define(version: 20151105181903) do
 
   add_index "nominations", ["award_id"], name: "index_nominations_on_award_id", using: :btree
   add_index "nominations", ["podcast_id"], name: "index_nominations_on_podcast_id", using: :btree
-
-  create_table "payola_affiliates", force: :cascade do |t|
-    t.string   "code",       limit: 255
-    t.string   "email",      limit: 255
-    t.integer  "percent",    limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "payola_coupons", force: :cascade do |t|
-    t.string   "code",        limit: 255
-    t.integer  "percent_off", limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "active",                  default: true
-  end
-
-  create_table "payola_sales", force: :cascade do |t|
-    t.string   "email",                limit: 191
-    t.string   "guid",                 limit: 191
-    t.integer  "product_id",           limit: 4
-    t.string   "product_type",         limit: 100
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "state",                limit: 255
-    t.string   "stripe_id",            limit: 255
-    t.string   "stripe_token",         limit: 255
-    t.string   "card_last4",           limit: 255
-    t.date     "card_expiration"
-    t.string   "card_type",            limit: 255
-    t.text     "error",                limit: 65535
-    t.integer  "amount",               limit: 4
-    t.integer  "fee_amount",           limit: 4
-    t.integer  "coupon_id",            limit: 4
-    t.boolean  "opt_in"
-    t.integer  "download_count",       limit: 4
-    t.integer  "affiliate_id",         limit: 4
-    t.text     "customer_address",     limit: 65535
-    t.text     "business_address",     limit: 65535
-    t.string   "stripe_customer_id",   limit: 191
-    t.string   "currency",             limit: 255
-    t.text     "signed_custom_fields", limit: 65535
-    t.integer  "owner_id",             limit: 4
-    t.string   "owner_type",           limit: 100
-  end
-
-  add_index "payola_sales", ["coupon_id"], name: "index_payola_sales_on_coupon_id", using: :btree
-  add_index "payola_sales", ["email"], name: "index_payola_sales_on_email", using: :btree
-  add_index "payola_sales", ["guid"], name: "index_payola_sales_on_guid", using: :btree
-  add_index "payola_sales", ["owner_id", "owner_type"], name: "index_payola_sales_on_owner_id_and_owner_type", using: :btree
-  add_index "payola_sales", ["product_id", "product_type"], name: "index_payola_sales_on_product", using: :btree
-  add_index "payola_sales", ["stripe_customer_id"], name: "index_payola_sales_on_stripe_customer_id", using: :btree
-
-  create_table "payola_stripe_webhooks", force: :cascade do |t|
-    t.string   "stripe_id",  limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "payola_subscriptions", force: :cascade do |t|
-    t.string   "plan_type",            limit: 255
-    t.integer  "plan_id",              limit: 4
-    t.datetime "start"
-    t.string   "status",               limit: 255
-    t.string   "owner_type",           limit: 255
-    t.integer  "owner_id",             limit: 4
-    t.string   "stripe_customer_id",   limit: 255
-    t.boolean  "cancel_at_period_end"
-    t.datetime "current_period_start"
-    t.datetime "current_period_end"
-    t.datetime "ended_at"
-    t.datetime "trial_start"
-    t.datetime "trial_end"
-    t.datetime "canceled_at"
-    t.integer  "quantity",             limit: 4
-    t.string   "stripe_id",            limit: 255
-    t.string   "stripe_token",         limit: 255
-    t.string   "card_last4",           limit: 255
-    t.date     "card_expiration"
-    t.string   "card_type",            limit: 255
-    t.text     "error",                limit: 65535
-    t.string   "state",                limit: 255
-    t.string   "email",                limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "currency",             limit: 255
-    t.integer  "amount",               limit: 4
-    t.string   "guid",                 limit: 191
-    t.string   "stripe_status",        limit: 255
-    t.integer  "affiliate_id",         limit: 4
-    t.string   "coupon",               limit: 255
-    t.text     "signed_custom_fields", limit: 65535
-    t.text     "customer_address",     limit: 65535
-    t.text     "business_address",     limit: 65535
-    t.integer  "setup_fee",            limit: 4
-  end
-
-  add_index "payola_subscriptions", ["guid"], name: "index_payola_subscriptions_on_guid", using: :btree
 
   create_table "people", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -428,5 +371,9 @@ ActiveRecord::Schema.define(version: 20151105181903) do
   add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
   add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
+  add_foreign_key "companies_people", "companies"
+  add_foreign_key "companies_people", "people"
+  add_foreign_key "companies_podcasts", "companies"
+  add_foreign_key "companies_podcasts", "podcasts"
   add_foreign_key "identities", "users"
 end

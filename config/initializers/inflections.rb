@@ -14,4 +14,8 @@
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.plural 'person_podcast', 'people_podcasts'
   inflect.singular 'people_podcasts', 'person_podcast'
+  inflect.plural 'company_podcast', 'companies_podcasts'
+  inflect.singular 'companies_podcasts', 'company_podcast'
+  inflect.plural 'company_person', 'companies_people'
+  inflect.singular 'companies_people', 'company_person'
 end

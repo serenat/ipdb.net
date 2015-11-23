@@ -1,0 +1,42 @@
+<div class="container">
+  <h1>New Connections</h1>
+  <div class="row">
+    <div class="col-md-5">
+      <%= render 'company' %>
+    </div>
+    <div class="col-md-7">
+      <div class="company-list">
+        <%= form_for @company_podcast, url: company_companies_podcasts_path(@company) do |f| %>
+          <table class="table table-striped">
+          <tbody>
+            <% @podcasts.each do |podcast| %>
+              <tr>
+                <td style="width:42px;">
+                  <% if cp = podcast.companies_podcasts.where(company: @company).first %>
+                    <input type="checkbox" disabled checked>
+                  <% else %>
+                    <input type="checkbox" name="company_podcast[podcasts][]" value="<%= podcast.id %>">
+                  <% end %>
+                </td>
+                <td class="" style="width:58px;">
+                  <%= link_to podcast do %>
+                    <%= image_tag podcast.image, alt: podcast.name, class: 'podcast-art' %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to podcast.name, podcast %>
+                  <% if cp && !cp.approved %>
+                    <span class="label label-info">permit approval</span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+          </table>
+          <%= f.submit 'Submit', class: "btn btn-primary pull-right" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= link_to :back, @company %>
+</div>

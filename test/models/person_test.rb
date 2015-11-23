@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class PersonTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  should have_many(:companies_people).dependent(:destroy)
+  should have_many(:companies).through(:companies_people)
 end

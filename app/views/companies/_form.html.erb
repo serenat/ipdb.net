@@ -1,0 +1,27 @@
+<%= form_for @company do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :image, 'Image(logo)' %>
+    <%= f.file_field :image, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :country %>
+    <%= f.select :country, [], {}, {class: 'form-control bfh-countries', data: {country: @company.country || 'US'}}%>
+  </div>
+  <div class="form-group">
+    <%= f.label :state %>
+    <%= f.select :state, [], {}, {class: 'form-control bfh-states', data: {country: 'company_country', state: @company.state}} %>
+  </div>
+  <div class="form-group">
+    <%= f.label :city %>
+    <%= f.text_field :city, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :url, 'Web site link' %>
+    <%= f.text_field :url, class: 'form-control' %>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+<% end %>

@@ -1,0 +1,34 @@
+<div class="podography">
+  <% if @podcasts.any? %>
+    <table class="table">
+      <thead>
+        <td></td>
+        <td>Name</td>
+        <td>Description</td>
+        <td>Score</td>
+      </thead>
+      <tbody>
+      <% @podcasts.each do |podcast| %>
+      <tr>
+        <td style="width:58px;">
+          <%= link_to podcast do %>
+            <%= image_tag podcast.image, alt: podcast.name, title: podcast.name, class: 'podcast-art' %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to podcast.name, podcast %>
+        </td>
+        <td>
+          <%= truncate(podcast.description, length: 100) %>
+        </td>
+        <td>
+          <%= number_with_delimiter((podcast.score * 100000).to_i) %>
+        </td>
+      </tr>
+      </tbody>
+      <% end %>
+    </table>
+  <% else %>
+    <p class="lead">No podcasts yet.</p>
+  <% end %>
+</div>

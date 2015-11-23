@@ -1,9 +1,11 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+regular:
+  name: Duke Nukem
 
-one:
-  name: MyString
-  user_id: 
+silver:
+  name: Serious Sam
 
-two:
-  name: MyString
-  user_id: 
+gold:
+  name: Marine
+
+platinum:
+  name: Gordon Freeman

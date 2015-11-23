@@ -1,0 +1,25 @@
+<% if @companies.any? %>
+<div class="row">
+    <h2>Companies</h2>
+    <ul class="podcast-profile">
+      <% @companies.each do |company| %>
+        <li class="well col-md-12">
+          <%= link_to company do %>
+            <%= image_tag(company.image, class: 'company-logo') %>
+          <% end %>
+          <br />
+          <h5>
+            <%= link_to company.name.truncate(100), company %>
+            <% unless company.approved %>
+              <span class="help-block label label-info"> permit approval</span>
+            <% end %>
+          </h5>
+          <% if can?(:edit, company)%>
+            <%= link_to 'Edit', edit_company_path(company), class: 'btn btn-warning btn-xs' %>
+            <%= link_to 'Delete', company, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+</div>
+<% end %>

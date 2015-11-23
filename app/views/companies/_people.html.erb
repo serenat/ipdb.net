@@ -1,0 +1,29 @@
+<div class="people">
+<% if @people.any? %>
+  <table class="table">
+    <thead>
+      <td></td>
+      <td>Name</td>
+      <td>Score</td>
+    </thead>
+    <tbody>
+    <% @people.each do |person| %>
+    <tr>
+      <td style="width:58px;">
+        <%= link_to person do %>
+          <%= image_tag person.user.profile_image, alt: person.name, class: 'avatar' %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to person.name, person %>
+      </td>
+      <td>
+      </td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="lead">No people yet.</p>
+<% end %>
+</div>

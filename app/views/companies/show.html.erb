@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <h3><%= link_to @company.name, @company.url %></h3>
+      <%= image_tag @company.image, class: 'company-logo' %>
+      <div class="company-rank"></div>
+      <br />
+      <% if can?(:create, @company_person) && @company_person %>
+        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addProfile">
+          Connect Profile
+        </button>
+      <% end %>
+      <% if can?(:create, CompanyPodcast) %>
+        <%= link_to 'Connect Podcast', new_company_company_podcast_path(@company), class: "btn btn-primary btn-block" %>
+      <% end %>
+    </div>
+    <div class="col-sm-9">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#podography" role="tab" data-toggle="tab">Podography</a></li>
+        <li><a href="#people" role="tab" data-toggle="tab">People</a></li>
+        <li><a href="#reviews" role="tab" data-toggle="tab">Reviews</a></li>
+      </ul>
+      <br />
+      <div class="tab-content">
+        <div class="tab-pane active" role="tabpanel" id="podography">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <%= render 'podography' %>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" role="tabpanel" id="people">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <%= render 'people' %>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" role="tabpanel" id="reviews">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <%= commontator_thread(@company) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <%= link_to :back, companies_path %>
+</div>
+
+<% if can?(:create, @company_person) %>
+  <div class="modal fade" id="addProfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <%= form_for @company_person, url: company_companies_people_path(@company) do |f| %>
+      <div class="modal-content">
+        <div class="modal-header" style="border: 0px;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body" style="font-size: 1.1em;">
+          <br />
+          <span>Do you want connect your profile to <strong><%= @company.name %></strong>?</span>
+          <br />
+        </div>
+        <div class="modal-footer" style="border: 0px;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Yes, I want", class: 'btn btn-primary' %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,4 +1,5 @@
-ActiveAdmin.register PersonPodcast, :as => "Connections" do
+ActiveAdmin.register PersonPodcast do
+  menu parent: 'Connections', label: 'Person <~> Podcast'
 	filter :person
   permit_params :podast_id, :person_id, :position, :doc_url, :approved
   active_admin_importable
@@ -30,19 +31,11 @@ ActiveAdmin.register PersonPodcast, :as => "Connections" do
     f.actions
   end
 
-
-
-  # See permitted parameters documentation:
-  # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #  permitted = [:permitted, :attributes]
-  #  permitted << :other if resource.something?
-  #  permitted
-  # end
+  member_action :approve, method: :put do
+    pp = PersonPodcast.find(params[:id])
+    pp.update_attribute(:approved, true)
+    flash[:notice] = "Connection: '#{pp.person.name} <~> #{pp.podcast.name}' has been approved!."
+    redirect_to admin_root_path
+  end
 end
 

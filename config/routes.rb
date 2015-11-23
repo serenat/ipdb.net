@@ -40,4 +40,8 @@ Ipdb::Application.routes.draw do
     get :autocomplete_person_name, :on => :collection
     post :search, :on => :collection
   end
+  resources :companies do
+    resources :companies_people, only: [:new, :create]
+    resources :companies_podcasts, :path => :connections, only: [:new, :create]
+  end
 end
