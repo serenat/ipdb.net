@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PodcastsControllerTest < ActionController::TestCase
   setup do
-    @podcast = podcasts(:one)
+    @podcast = podcasts(:devzen)
   end
 
   test "should get index" do
@@ -21,13 +21,13 @@ class PodcastsControllerTest < ActionController::TestCase
       post :create, podcast: { description: @podcast.description }
     end
 
-    assert_redirected_to podcast_path(assigns(:podcast))
+    assert_redirected_to podcasts_path
   end
 
-  test "should show podcast" do
-    get :show, id: @podcast
-    assert_response :success
-  end
+  #test "should show podcast" do
+  #  get :show, id: @podcast
+  #  assert_response :success
+  #end
 
   test "should get edit" do
     get :edit, id: @podcast

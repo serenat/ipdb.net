@@ -3,16 +3,19 @@ class Podcast < ActiveRecord::Base
   has_many :people_podcasts, dependent: :destroy
   has_many :people, through: :people_podcasts
   has_many :users, through: :people
-  has_many :episodes
   has_many :nominations
   has_many :awards, -> { distinct }, through: :nominations
   has_one :podcast_stat, dependent: :destroy
+  has_many :companies_podcasts, dependent: :destroy
+  has_many :companies, through: :companies_podcasts
+
   accepts_nested_attributes_for :nominations, allow_destroy: true
 
   has_attached_file :image, styles: {medium: "250x250", thumb: "100x100>"},
     default_url: ->(attachment) { ActionController::Base.helpers.asset_path('microphone.png') }
 
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+
   acts_as_commontable
   acts_as_votable
   letsrate_rateable

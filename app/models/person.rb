@@ -3,9 +3,17 @@ class Person < ActiveRecord::Base
   has_one :user
   has_many :people_podcasts, dependent: :destroy
   has_many :podcasts, through: :people_podcasts
+  has_many :companies_people, dependent: :destroy
+  has_many :companies, through: :companies_people
+
   validates :name, presence: :true
 
   scope :uniq_name, -> { group(:name) }
+
+  def host_podcasts
+    podcasts.joins(:people_podcasts)
+      .where('people_podcasts.position = ? AND people_podcasts.approved = ?', 'Host', true)
+  end
 
   def self.search(search)
     if search

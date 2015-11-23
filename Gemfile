@@ -16,7 +16,7 @@ gem "font-awesome-rails"
 gem 'devise'
 gem 'nokogiri'
 gem 'paperclip'
-gem 'commontator', '~> 4.2.0'
+gem 'commontator', '~> 4.11.0'
 gem 'acts_as_votable'
 gem 'letsrate'
 gem 'activeadmin', github: 'gregbell/active_admin'
@@ -33,6 +33,7 @@ gem 'httparty'
 gem 'rails4-autocomplete'
 gem 'underscore-rails'
 gem 'friendly_id', '~> 5.1'
+gem 'country_select', '~> 2.5', '>= 2.5.1'
 
 gem 'sidekiq', '~> 3.5.0'
 gem 'whenever', '~> 0.9.4', require: false
@@ -52,13 +53,22 @@ group :development do
   gem 'capistrano-sidekiq'
 end
 
+group :development, :test do
+  gem 'byebug'
+end
+
 group :development do
   gem 'better_errors'
   gem 'quiet_assets'
+  gem 'guard', '~> 2.13', require: false
+  gem 'guard-minitest', '~> 2.4', '>= 2.4.4', require: false
 end
 
-group :development, :test do
-  gem 'byebug'
-  gem 'factory_girl_rails'
-  gem 'faker'
+group :test do
+  gem 'capybara'
+  gem 'connection_pool'
+  gem 'minitest-reporters'
+  gem 'mocha'
+  gem 'poltergeist'
+  gem 'shoulda', '~> 3.5'
 end

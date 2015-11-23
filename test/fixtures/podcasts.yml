@@ -1,7 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  description: MyString
+devzen:
+  name: DevZen
+  description: Podcast about IT and programming
+  episodes_url:
+  explicit: false
+  category:
+  approved: true
+  hideplayer: false
+  itunes_id:
+  video: false
+  user_approved: true
+  score: 1.12345
+  episodes_count: 0
+  start_date:
 
 two:
   description: MyString

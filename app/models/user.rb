@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   belongs_to :person
   has_many :people_podcasts, through: :person
+  has_many :podcasts, through: :people_podcasts
   has_one :identity, dependent: :destroy
   has_attached_file :profile_image, styles: { medium: '300x300>', thumb: '100x100>' },
     default_url: ->(attachment) { ActionController::Base.helpers.asset_path('user.png') }
@@ -14,6 +15,7 @@ class User < ActiveRecord::Base
   validates :email, :person, presence: true, uniqueness: true
 
   accepts_nested_attributes_for :person
+
   letsrate_rater
   acts_as_commontator
   acts_as_follower
@@ -70,6 +72,10 @@ class User < ActiveRecord::Base
 
   def regular?
     membership.blank?
+  end
+
+  def payed_subscriber?
+    membership.presence
   end
 
   def silver?

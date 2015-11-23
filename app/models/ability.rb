@@ -2,37 +2,50 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    # Define abilities for the passed in user here. For example:
-    #
+    payed_user_abilities = lambda do
+      can :set_episodes_count, Podcast
+      can :create, Company
+      can :read, Company, approved: true
+      can [:edit, :update], Company do |company|
+        owner = CompanyPerson.exists?(
+          company_id: company.id,
+          person_id: user.person_id,
+          owner: true
+        )
+        company.approved? && owner
+      end
+      can :create, CompanyPerson do |cp|
+        exists = CompanyPerson.exists?(company_id: cp.company_id, person_id: cp.person_id)
+        !exists && (cp.person_id == user.person_id)
+      end
+      can :create, CompanyPodcast do |cp|
+        podcast_approved = cp.podcast.approved?
+
+        relation_approved_person_is_host =
+          PersonPodcast.exists?(
+            person_id: user.person_id,
+            podcast_id: cp.podcast_id,
+            position: 'Host',
+            approved: true
+          )
+
+        podcast_approved && relation_approved_person_is_host
+      end
+    end
+
     if user.nil?
       cannot :set_episodes_count, Podcast
+      can :index, Company, approved: true
     elsif user.regular?
       cannot :set_episodes_count, Podcast
+      can :index, Company, approved: true
     elsif user.silver?
-      can :set_episodes_count, Podcast
+      payed_user_abilities.call
     elsif user.gold?
-      can :set_episodes_count, Podcast
+      payed_user_abilities.call
     elsif user.platinum?
-      can :set_episodes_count, Podcast
+      payed_user_abilities.call
     else
     end
-    #
-    # The first argument to `can` is the action you are giving the user
-    # permission to do.
-    # If you pass :manage it will apply to every action. Other common actions
-    # here are :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on.
-    # If you pass :all it will apply to every resource. Otherwise pass a Ruby
-    # class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the
-    # objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details:
-    # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
   end
 end
