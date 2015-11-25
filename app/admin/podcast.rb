@@ -1,12 +1,20 @@
 ActiveAdmin.register Podcast do
-	filter :name
-  filter :awards
-
   permit_params :description, :name, :image_file_name,:image_url, :episodes_url, :episodes_count,
     :user_id, :explicit, :category, :approved,:user_approved, :itunes_id, :video, :start_date,
     nominations_attributes: [:id, :award_id, :name, :year, :_destroy]
 
   active_admin_importable
+
+  filter :name
+  filter :awards
+  filter :category
+  filter :people
+  filter :companies
+  filter :episodes_url
+  filter :explicit
+  filter :video
+  filter :approved
+  filter :start_date
 
   batch_action :flag do |selection|
     Post.find(selection).each { |p| p.flag! }
@@ -14,12 +22,35 @@ ActiveAdmin.register Podcast do
   end
 
   index do
+    text_node '* A - Approved, E - Explicit, V - Video'
     selectable_column
-    column :name
-    column :description
-    column :id
-    column :score
-    actions
+    column :name do |podcast|
+      "<div style='min-width:180px'>#{podcast.name}</div>".html_safe
+    end
+    list_column :awards do |podcast|
+      podcast.awards.map do |award|
+        link_to award.name, admin_award_path(award), style: "white-space:nowrap;"
+      end
+    end
+    column :category
+    list_column :people do |podcast|
+      podcast.people.map do |person|
+        link_to person.name, admin_person_path(person), style: "white-space:nowrap;"
+      end
+    end
+    list_column :companies do |podcast|
+      podcast.companies.map do |company|
+        link_to company.name, admin_company_path(company), style: "white-space:nowrap;"
+      end
+    end
+    bool_column 'A', :approved
+    bool_column 'E', :explicit
+    bool_column 'V', :video
+    column :start_date
+
+    actions do |podcast|
+      link_to "Edit(new tab)", edit_admin_podcast_path(podcast), class: "member_link", target: '_blank'
+    end
   end
 
   show do
