@@ -21,9 +21,10 @@ ActiveAdmin.register PersonPodcast do
   end
 
   form do |f|
-    f.inputs "Podcast Details" do
-      f.input :podcast_id
-      f.input :person_id
+    f.inputs "Person <~> Podcast" do
+      f.input :person
+      f.input :podcast_id, as: :search_select, url: admin_podcasts_path,
+          fields: [:name], display_name: 'name', minimum_input_length: 2
       f.input :position, as: :select, collection: connection_positions
       f.input :doc_url
       f.input :approved

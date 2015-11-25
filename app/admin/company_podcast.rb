@@ -14,6 +14,16 @@ ActiveAdmin.register CompanyPodcast do
     actions
   end
 
+  form do |f|
+    f.inputs "Podcast <~> Company" do
+      f.input :company
+      f.input :podcast_id, as: :search_select, url: admin_podcasts_path,
+          fields: [:name], display_name: 'name', minimum_input_length: 2
+      f.input :approved
+    end
+    f.actions
+  end
+
   member_action :approve, method: :put do
     cp = CompanyPodcast.find(params[:id])
     cp.update_attribute(:approved, true)

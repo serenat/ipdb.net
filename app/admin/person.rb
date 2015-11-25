@@ -1,7 +1,11 @@
 ActiveAdmin.register Person  do
-  filter :name
   permit_params :name
   active_admin_importable
+
+  filter :name
+  filter :companies
+  filter :created_at
+  filter :updated_at
 
   index do
     column :name
