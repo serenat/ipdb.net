@@ -9,7 +9,7 @@ class Company < ActiveRecord::Base
   validates :name, presence: true, allow_blank: false
 
   has_attached_file :image, styles: {medium: '256x256', thumb: '128x128', small: '64x64'},
-    default_url: ':company_placeholder'
+    default_url: ->(attachment) { ActionController::Base.helpers.asset_path('university.png') }
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   acts_as_commontable

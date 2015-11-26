@@ -3,7 +3,21 @@ class Ability
 
   def initialize(user)
     payed_user_abilities = lambda do
-      can :set_episodes_count, Podcast
+      can :set_episodes_count, Podcast do |podcast|
+        host = PersonPodcast.exists?(
+          podcast_id: podcast.id,
+          person_id: user.person_id,
+          position: 'Host'
+        )
+        host && user.payed_subscriber?
+      end
+      can [:edit, :update], Podcast do |podcast|
+        PersonPodcast.exists?(
+          podcast_id: podcast.id,
+          person_id: user.person_id,
+          position: 'Host'
+        )
+      end
       can :create, Company
       can :read, Company, approved: true
       can [:edit, :update], Company do |company|
