@@ -1,6 +1,6 @@
 ActiveAdmin.register Podcast do
   permit_params :description, :name, :image_file_name,:image_url, :episodes_url, :episodes_count,
-    :user_id, :explicit, :category, :approved,:user_approved, :itunes_id, :video, :start_date,
+    :user_id, :explicit, :category, :approved,:user_approved, :itunes_id, :video, :start_date, :image,
     nominations_attributes: [:id, :award_id, :name, :year, :_destroy]
 
   active_admin_importable
@@ -75,13 +75,16 @@ ActiveAdmin.register Podcast do
       row :itunes
       row :video
       row :start_date
+      row :image do |podcast|
+        image_tag(podcast.image.url(:thumb))
+      end
       row :created_at
       row :updated_at
     end
   end
 
   form do |f|
-    f.inputs "Podcast Details" do
+    f.inputs "Podcast Details", multipart: true do
       f.input :name
       f.input :explicit, :label => "Explict?"
       f.input :episodes_url
@@ -93,6 +96,7 @@ ActiveAdmin.register Podcast do
       f.input :user_approved
       f.input :video
       f.input :start_date
+      f.input :image, as: :file, hint: image_tag(f.object.image.url(:thumb))
     end
 
     f.inputs do
@@ -112,4 +116,3 @@ ActiveAdmin.register Podcast do
     end
   end
 end
-

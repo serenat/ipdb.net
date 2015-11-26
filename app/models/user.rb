@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
   has_many :people_podcasts, through: :person
   has_many :podcasts, through: :people_podcasts
   has_one :identity, dependent: :destroy
-  has_attached_file :profile_image, styles: { medium: '300x300>', thumb: '100x100>' },
-    default_url: ->(attachment) { ActionController::Base.helpers.asset_path('user.png') }
+  has_attached_file :profile_image, styles: { medium: '256x256>', thumb: '128x128', small: '64x64' },
+    default_url: ':user_placeholder'
 
   validates_attachment_content_type :profile_image, :content_type => %w(image/jpeg image/jpg image/png)
   validates :email, :person, presence: true, uniqueness: true
