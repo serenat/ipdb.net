@@ -1,0 +1,8 @@
+development:
+  image_magic: '/usr/bin'
+
+test:
+  image_magic: '/usr/bin'
+
+production:
+  image_magic: '/usr/bin'

@@ -17,6 +17,29 @@ ActiveAdmin.register User  do
     actions
   end
 
+  show do
+    attributes_table do
+      row :person
+      row :membership
+      row :email
+      row :description
+      row :facebook
+      row :twitter
+      row :pinterest
+      row :instagram
+      row :linkedin
+      row :imdb
+      row :about
+      row :work
+      row :education
+      row :image do |podcast|
+        image_tag(podcast.profile_image.url(:thumb))
+      end
+      row :created_at
+      row :updated_at
+    end
+  end
+
   form do |f|
     f.inputs "Details" do
       f.input :email
