@@ -20,10 +20,6 @@ class PagesController < ApplicationController
     @podcasts = Podcast.where(:ppff => 1)
   end
 
-  def awards
-    @podcasts = Podcast.awarded
-  end
-
   def privacy
   end
 end
