@@ -76,7 +76,10 @@ a.btn-social.btn-facebook.btn-connect {
 }
 
 .navbar-nav .btn-facebook {
-  float: inherit;
+  @media (min-width: 768px) {
+    float: left;
+  }
+  position: relative;
   width: 110px;
   margin: 3px 0px 0px 6px;
 }
