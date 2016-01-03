@@ -8,9 +8,16 @@ window.podcastArtImgError = (image) ->
   image.src = "<%= asset_path('microphone.png') %>"
   true
 
+window.podcastArtImgThumbError = (image) ->
+  image.onerror = ""
+  image.src = "<%= asset_path('microphone_thumb.png') %>"
+  true
+
 $(document).ready ->
   # fix(stub) broken images
   $('.avatar').error (e) ->
     avatarImgError(this)
   $('.podcast-art').error (e) ->
     podcastArtImgError(this)
+  $('.podcast-art--thumb').error (e) ->
+    podcastArtImgThumbError(this)

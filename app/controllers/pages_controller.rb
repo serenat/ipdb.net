@@ -12,10 +12,6 @@ class PagesController < ApplicationController
   def about
   end
 
-  def profile
-    @podcasts = Podcast.all
-  end
-
   def ppff
     @podcasts = Podcast.where(:ppff => 1)
   end

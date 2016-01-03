@@ -7,7 +7,7 @@ class CompaniesPeopleController < ApplicationController
       if @company_person.save
         format.html { redirect_to(company_url(@company), notice: 'Thank you for submiting your connection. It is currently being proccesed. Please allow 1-2 weeks for your connections to be verified.')}
       else
-        format.html { redirect_to(company_url(@company), notice: 'Something went wrong. Try again or contact administrator')}
+        format.html { redirect_to(company_url(@company), alert: 'Something went wrong. Try again or contact administrator.')}
       end
     end
   end

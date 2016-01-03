@@ -17,11 +17,12 @@
 @import 'simple-line-icons';
 @import 'flexslider';
 @import 'style';
-@import "font-awesome";
+@import 'font-awesome';
 @import 'bootstrap-social';
 @import 'pages';
 @import 'autocomplete';
 @import 'components/*';
+@import 'trix';
 
 body{
   padding-top:60px;
@@ -54,6 +55,6 @@ body{
   margin-top:60px;
 }
 
-.btn:hover, .btn:focus, .btn.focus {
+.btn.btn-primary:hover, .btn.btn-primary:focus, .btn.btn-primary.focus {
   color: gold;
 }

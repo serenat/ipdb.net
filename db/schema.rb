@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110194331) do
+ActiveRecord::Schema.define(version: 20151202122402) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -178,6 +178,29 @@ ActiveRecord::Schema.define(version: 20151110194331) do
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+
+  create_table "incomings", force: :cascade do |t|
+    t.integer  "message_id",   limit: 4
+    t.integer  "recipient_id", limit: 4
+    t.boolean  "read",                   default: false, null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  add_index "incomings", ["message_id"], name: "index_incomings_on_message_id", using: :btree
+  add_index "incomings", ["recipient_id"], name: "index_incomings_on_recipient_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "sender_id",  limit: 4
+    t.integer  "podcast_id", limit: 4
+    t.string   "subject",    limit: 255
+    t.text     "body",       limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "messages", ["podcast_id"], name: "index_messages_on_podcast_id", using: :btree
+  add_index "messages", ["sender_id"], name: "index_messages_on_sender_id", using: :btree
 
   create_table "nominations", force: :cascade do |t|
     t.integer "award_id",   limit: 4
@@ -376,4 +399,8 @@ ActiveRecord::Schema.define(version: 20151110194331) do
   add_foreign_key "companies_podcasts", "companies"
   add_foreign_key "companies_podcasts", "podcasts"
   add_foreign_key "identities", "users"
+  add_foreign_key "incomings", "messages"
+  add_foreign_key "incomings", "users", column: "recipient_id"
+  add_foreign_key "messages", "podcasts"
+  add_foreign_key "messages", "users", column: "sender_id"
 end

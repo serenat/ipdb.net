@@ -13,7 +13,7 @@ module PodcastsHelper
   }
 
   def connection_positions
-    ['Host', 'Co-host', 'Guest', 'Artwork', 'Music', 'Sound Engineer', 'Performer']
+    PersonPodcast::POSITIONS
   end
 
   def award_icon(award)
@@ -37,6 +37,14 @@ module PodcastsHelper
   def host?(user, podcast)
     if user && podcast
       PersonPodcast.where(person: user.person, podcast: podcast, position: 'Host').first
+    end
+  end
+
+  def podcast_art_url(podcast, size = nil)
+    if podcast.image_url.blank?
+      podcast.image.url(size)
+    else
+      podcast.image_url
     end
   end
 end

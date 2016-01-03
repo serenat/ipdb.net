@@ -1,0 +1,40 @@
+<div class="messages">
+  <h1 class="page-header">Messages</h1>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="top-btn-group">
+        <button type="button" id="delete" disabled="disabled" class="btn btn-default" aria-label="Delete" data-toggle="tooltip" data-placement="right" title="Delete">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active" role="presentation">
+          <a href="#inbox" class="active" aria-controls="inbox" role="tab" data-toggle="tab">
+            <i class="fa fa-inbox text-green"></i>
+            Inbox
+          </a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="inbox">
+          <% if @incomings.blank? %>
+            <div style="padding: 60px 0px;margin-left:auto;margin-right:auto;max-width:400px;">
+              <h4>Your inbox tab is empty.</h4>
+            </div>
+          <% else %>
+            <ul class="list-group messages-list">
+              <%= render partial: 'messages/incoming', collection: @incomings %>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

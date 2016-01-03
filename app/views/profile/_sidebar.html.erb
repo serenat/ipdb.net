@@ -1,0 +1,18 @@
+<ul class="nav nav-sidebar">
+  <%= nav_elem profile_overview_path do %>
+    <%= link_to 'Overview', profile_overview_path  %>
+  <% end %>
+  <li><a href="#">Podcasts</a></li>
+  <li><a href="#">Companies</a></li>
+  <%= nav_elem profile_messages_path do %>
+    <%= link_to profile_messages_path do %>
+      <span>Messages</span>
+      <span class="badge badge-danger">
+        <%= @unread_count %>
+      </span>
+    <% end %>
+  <% end %>
+  <li>
+    <a tabindex="0" data-trigger="focus" data-toggle="popover" data-placement="right" data-container="body" title="Coming soon" data-content="The timeline will contain podcasts activity">Feed</a>
+  </li>
+</ul>

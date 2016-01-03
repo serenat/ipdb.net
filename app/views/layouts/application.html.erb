@@ -37,6 +37,7 @@
   </head>
   <body>
     <div id="fb-root"></div>
+    </div>
     <script>
       window.fbAsyncInit = function() {
         FB.init({
@@ -75,10 +76,12 @@
     <%= render "layouts/navi" %>
 
     <% flash.each do |name, msg| %>
-      <%= content_tag(:div, msg, class: "alert alert-info flash-msg") %>
+      <%= flash_msg(name, msg) %>
     <% end %>
 
-    <%= yield %>
+    <div id="container">
+      <%= yield %>
+    </div>
 
   </body>
 

@@ -8,6 +8,7 @@ class Podcast < ActiveRecord::Base
   has_one :podcast_stat, dependent: :destroy
   has_many :companies_podcasts, dependent: :destroy
   has_many :companies, through: :companies_podcasts
+  has_many :messages
 
   accepts_nested_attributes_for :nominations, allow_destroy: true
 

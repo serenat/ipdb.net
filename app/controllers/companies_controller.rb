@@ -17,6 +17,7 @@ class CompaniesController < ApplicationController
       if @company.save
         format.html { redirect_to({action: 'index'}, notice: 'Thank you for submiting your company. It is currently being proccesed. Please allow 1-2 weeks for your company to be verified.')}
       else
+        flash.now[:alert] = 'Something went wrong. Try again or contact administrator.'
         format.html { render action: 'new' }
       end
     end
@@ -28,8 +29,9 @@ class CompaniesController < ApplicationController
   def update
     respond_to do |format|
       if @company.update(company_params)
-        format.html { redirect_to( @company, notice: 'Company successfuly updated.') }
+        format.html { redirect_to(@company, notice: 'Company successfuly updated.') }
       else
+        flash.now[:alert] = 'Something went wrong. Try again or contact administrator.'
         format.html { render action: 'edit' }
       end
     end
