@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
 
   validates_attachment_content_type :profile_image, :content_type => %w(image/jpeg image/jpg image/png)
   validates :email, :person, presence: true, uniqueness: true
+  validates :membership, inclusion: { in: ['', 'Silver'],
+    message: "%{value} is not a valid membership" }
 
   accepts_nested_attributes_for :person
 
