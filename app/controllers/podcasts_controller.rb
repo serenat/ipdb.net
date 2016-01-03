@@ -32,6 +32,7 @@ class PodcastsController < ApplicationController
     #@comments = @commentable.comments
     #@comment = Comment.new
     #@data = Rate.all
+    @message = @podcast.messages.build
     response = HTTParty.get('http://itunes.apple.com/rss/customerreviews/id=' + @podcast.itunes_id.to_s + '/json')
     @id = JSON.parse(response)
     add_to_recently_viewed_podcasts @podcast.id
@@ -53,7 +54,7 @@ class PodcastsController < ApplicationController
 
     respond_to do |format|
       if @podcast.save
-        format.html { redirect_to podcasts_path ,notice: 'Thank you for submiting your podcast. It is currently being proccesed. We will notify you when your podcast is live.' }
+        format.html { redirect_to(podcasts_path, notice: 'Thank you for submiting your podcast. It is currently being proccesed. We will notify you when your podcast is live.') }
         format.json { render action: 'show', status: :created, location: @podcast }
         PodcastMailer.approval_email(@podcast).deliver_later
         if current_user
@@ -69,7 +70,7 @@ class PodcastsController < ApplicationController
   def update
     respond_to do |format|
       if @podcast.update(podcast_params)
-        format.html { redirect_to @podcast, notice: 'Podcast was successfully updated.' }
+        format.html { redirect_to(@podcast, notice: 'Podcast was successfully updated.') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -88,12 +89,18 @@ class PodcastsController < ApplicationController
 
   def follow
     current_user.follow(@podcast)
-    redirect_to :back
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { head :no_content }
+    end
   end
 
   def unfollow
     current_user.stop_following(@podcast)
-    redirect_to :back
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { head :no_content }
+    end
   end
 
   def ppff

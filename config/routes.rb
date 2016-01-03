@@ -43,4 +43,17 @@ Ipdb::Application.routes.draw do
     resources :companies_people, only: [:new, :create]
     resources :companies_podcasts, :path => :connections, only: [:new, :create]
   end
+
+  #profile
+  get 'profile/overview',  to: 'profile#overview'
+  get 'profile/podcasts',  to: 'profile#podcasts'
+  get 'profile/companies', to: 'profile#companies'
+  get 'profile/messages',  to: 'profile#messages'
+  get    'profile/messages/incomings/:id', to: 'incomings#show', as: 'incoming'
+  delete 'profile/messages/incomings/:id', to: 'incomings#destroy'
+  delete 'incomings/delete_bunch', to: 'incomings#delete_bunch'
+  get 'profile/messages/sent/:id', to: 'messages#show', as: 'sent'
+
+  resources :messages, only: :create
+
 end

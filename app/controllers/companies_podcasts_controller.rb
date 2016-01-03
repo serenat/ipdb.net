@@ -15,8 +15,8 @@ class CompaniesPodcastsController < ApplicationController
         format.html { redirect_to({action: 'new'}, notice: 'Thank you for submiting your connection. It is currently being proccesed. Please allow 1-2 weeks for your connections to be verified.')}
         format.json { head :no_content }
       else
-        format.html { redirect_to({action: 'new'}, 'Something went wrong. Try again or contact administrator') }
-        format.json { head :no_content, status: :unprocessable_entity}
+        format.html { redirect_to({action: 'new'}, alert: 'Something went wrong. Try again or contact administrator.') }
+        format.json { head :unprocessable_entity}
       end
     end
   end

@@ -18,4 +18,6 @@
 //= require jquery.turbolinks
 //= require bootstrap
 //= require underscore
+//= require trix
+//= require bootstrap-notify.min
 //= require_tree .

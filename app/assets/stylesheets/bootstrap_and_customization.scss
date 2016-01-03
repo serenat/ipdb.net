@@ -305,7 +305,7 @@ ul.nav-tabs li a{
   width:100%;
 }
 
-.col-md-2{
+li.well.col-md-2{
   margin:5px;
   overflow: hidden;
 }
@@ -317,7 +317,7 @@ ul.nav-tabs li a{
 }
 
 .fa-15x{
-  font-size:1.5em;	
+  font-size:1.5em;
 }
 
 .user h4{
@@ -420,4 +420,17 @@ li.well.col-md-12 img {
 .nopadding {
   padding: 0 !important;
   margin: 0 !important;
+}
+
+.badge-danger {
+  background-color: #d9534f;
+}
+
+.popover h3 {
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.popover-content {
+  color: #333;
 }

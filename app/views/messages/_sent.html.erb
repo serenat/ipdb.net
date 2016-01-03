@@ -1,0 +1,27 @@
+<li class="list-group-item message">
+  <a href="<%= sent_path(sent) %>" class="link-to"></a>
+  <div class="name-and-time">
+    <div class="time pull-right">
+      <small class="pull-right">
+        <span><%= time_date(sent.created_at) %></span>
+        <i class="icon-time"></i>
+      </small>
+    </div>
+    <div class="name Kg">
+      <span><%= sent.podcast.name %></span>
+    </div>
+  </div>
+  <div>
+    <div class="pull-left">
+      <div style="display:inline-block;">
+        <input type="checkbox">
+      </div>
+    </div>
+    <div class="subject Kg">
+      <%= strip_html_tags sent.subject %>
+    </div>
+  </div>
+  <div class="body Kg">
+    <%= strip_html_tags sent.body %>
+  </div>
+</li>

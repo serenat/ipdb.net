@@ -12,14 +12,14 @@ class CompanyCreateFlowTest < ActionDispatch::IntegrationTest
   # Guest
   test 'as guest i can not see the submit company page' do
     visit new_company_path
-    assert page.has_selector? 'div.alert-info', 'Access Denied.'
+    assert page.has_selector? 'div.alert-danger', 'Access Denied.'
   end
 
   # Regular User
   test 'as regular user i can not see the submit company page' do
     login_as users(:regular), scope: :user
     visit new_company_path
-    assert page.has_selector? 'div.alert-info', 'Access Denied.'
+    assert page.has_selector? 'div.alert-danger', 'Access Denied.'
   end
 
   # Payed subscriber. Silver, Gold or Platinum

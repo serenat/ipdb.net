@@ -19,4 +19,64 @@ module UserHelper
   def membership_levels
     %w(Silver Gold Platinum)
   end
+
+  def facebook_link(link)
+    if link.blank?
+      content_tag(:i, nil, class: 'fa fa-facebook-square fa-2x stub')
+    else
+      link_to 'http://facebook.com/' + link, target: '_blank' do
+        content_tag(:i, nil, class: 'fa fa-facebook-square fa-2x')
+      end
+    end
+  end
+
+  def twitter_link(link)
+    if link.blank?
+      content_tag(:i, nil, class: 'fa fa-twitter-square fa-2x stub')
+    else
+      link_to 'http://twitter.com/' + link, target: '_blank' do
+        content_tag(:i, nil, class: 'fa fa-twitter-square fa-2x')
+      end
+    end
+  end
+
+  def pinterest_link(link)
+    if link.blank?
+      content_tag(:i, nil, class: 'fa fa-pinterest-square fa-2x stub')
+    else
+      link_to 'http://pinterest.com/' + link, target: '_blank' do
+        content_tag(:i, nil, class: 'fa fa-pinterest-square fa-2x')
+      end
+    end
+  end
+
+  def instagram_link(link)
+    if link.blank?
+      content_tag(:i, nil, class: 'fa fa-instagram fa-2x stub')
+    else
+      link_to 'http://instagram.com/' + link, target: '_blank' do
+        content_tag(:i, nil, class: 'fa fa-instagram fa-2x')
+      end
+    end
+  end
+
+  def linkedin_link(link)
+    if link.blank?
+      content_tag(:i, nil, class: 'fa fa-linkedin-square fa-2x stub')
+    else
+      link_to 'http://linkedin.com/' + link, target: '_blank' do
+        content_tag(:i, nil, class: 'fa fa-linkedin-square fa-2x')
+      end
+    end
+  end
+
+  def imdb_link(link)
+    if link.blank?
+      content_tag(:i, nil, class: 'fa fa-film fa-2x stub')
+    else
+      link_to 'http://imdb.com/' + link, target: '_blank' do
+        content_tag(:i, nil, class: 'fa fa-film fa-2x')
+      end
+    end
+  end
 end

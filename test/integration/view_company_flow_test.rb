@@ -19,14 +19,14 @@ class ViewCompanyFlowTest < ActionDispatch::IntegrationTest
 
   test 'as guest i can not see the company page' do
     visit company_path(@company)
-    assert page.has_selector? 'div.alert-info', 'Access Denied.'
+    assert page.has_selector? 'div.alert-danger', 'Access Denied.'
   end
 
   # Regular User
   test 'as regular user i can not see the company page' do
     login_as users(:regular), scope: :user
     visit company_path(@company)
-    assert page.has_selector? 'div.alert-info', 'Access Denied.'
+    assert page.has_selector? 'div.alert-danger', 'Access Denied.'
   end
 
   test 'as regular user i can see the companies page' do

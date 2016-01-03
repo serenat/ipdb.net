@@ -7,6 +7,12 @@ class User < ActiveRecord::Base
   belongs_to :person
   has_many :people_podcasts, through: :person
   has_many :podcasts, through: :people_podcasts
+
+  has_many :incomings, foreign_key: :recipient_id
+  has_many :incoming_messages, through: :incomings, source: :message
+  has_many :sent_messages, class_name: 'Message',
+                           foreign_key: :sender_id
+
   has_one :identity, dependent: :destroy
   has_attached_file :profile_image, styles: { medium: '256x256>', thumb: '128x128', small: '64x64' },
     default_url: ':user_placeholder'
@@ -88,5 +94,9 @@ class User < ActiveRecord::Base
 
   def platinum?
     membership == 'Platinum'
+  end
+
+  def host?
+    PersonPodcast.exists?(person_id: person_id, position: 'Host', approved: true)
   end
 end

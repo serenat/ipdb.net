@@ -1,0 +1,137 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <%= render 'profile/sidebar' %>
+    </div>
+
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+      <h1 class="page-header">Overview</h1>
+
+      <div class="row placeholders">
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <%= image_tag @user.profile_image, class: "img-responsive" %>
+          <h4 class="username"><%= @person.name %></h4>
+          <div class="user-info__social-links">
+            <%= facebook_link(@user.facebook) %>
+            <%= twitter_link(@user.twitter) %>
+            <%= pinterest_link(@user.pinterest) %>
+            <%= instagram_link(@user.instagram) %>
+            <%= linkedin_link(@user.linkedin) %>
+            <%= imdb_link(@user.imdb) %>
+          </div>
+        </div>
+        <div class="col-xs-6 col-sm-8 col-sm-offset-1">
+          <div class="tab-info user-info" style="margin-top:0px;">
+            <ul id="tabs" class="nav nav-tabs">
+              <li class="active"><a href="#about" data-toggle="tab">About</a></li>
+              <li><a href="#awards" data-toggle="tab">Awards</a></li>
+              <li><a href="#education" data-toggle="tab">Education</a></li>
+              <li><a href="#work" id="tab" data-toggle="tab" >Work</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+              <div class="tab-pane fade in active" id="about">
+                <% if @user.about.blank? %>
+                  <div class="user-info__pane-stub">
+                    <h4>Empty</h4>
+                    <p>
+                      You can fill your profile <%= link_to 'here', edit_user_registration_path %>.
+                    </p>
+                  </div>
+                <% else %>
+                  <p><%= @user.about %></p>
+                <% end %>
+              </div>
+              <div class="tab-pane fade" id="awards">
+                <div class="user-info__pane-stub">
+                  <h4>Empty</h4>
+                  <p>
+                    You can fill your profile <%= link_to 'here', edit_user_registration_path %>.
+                  </p>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="education">
+                <% if @user.about.blank? %>
+                  <div class="user-info__pane-stub">
+                    <h4>Empty</h4>
+                    <p>
+                      You can fill your profile <%= link_to 'here', edit_user_registration_path %>.
+                    </p>
+                  </div>
+                <% else %>
+                  <p><%= @user.education %></p>
+                <% end %>
+              </div>
+              <div class="tab-pane fade" id="work">
+                <% if @user.about.blank? %>
+                  <div class="user-info__pane-stub">
+                    <h4>Empty</h4>
+                    <p>
+                      You can fill your profile <%= link_to 'here', edit_user_registration_path %>.
+                    </p>
+                  </div>
+                <% else %>
+                  <p><%= @user.work %></p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <h2 class="sub-header">Podography</h2>
+          <ul class="list-group podcast-list">
+            <% @people_podcasts.each do |pp| %>
+              <% podcast = pp.podcast %>
+              <li class="list-group-item podcast-list__podcast">
+                <div class="podcast-list__podcast__layout-left">
+                  <%= link_to podcast do %>
+                    <%= image_tag podcast_art_url(podcast, :thumb), class: 'podcast-art--thumb' %>
+                  <% end %>
+                </div>
+                <div class="podcast-list__podcast__layout-right">
+                  <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
+                  <p class="podcast-list__podcast__layout-right__position">
+                    Position: <%= pp.position %>
+                  </p>
+                  <% if pp.position == 'Host' %>
+                    <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning btn-xs' %>
+                    <%= link_to 'Delete', podcast, class: 'btn btn-danger btn-xs' ,method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <% end %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+
+          <h2 class="sub-header">Companies</h2>
+          <ul class="list-group company-list">
+            <% @companies_people.each do |cp| %>
+              <% company = cp.company %>
+              <li class="list-group-item company-list__company">
+                <div class="company-list__company__layout-left">
+                  <%= link_to company do %>
+                    <%= image_tag(company.image, class: 'company-logo--thumb') %>
+                  <% end %>
+                </div>
+                <div class="company-list__company__layout-right">
+                  <h5>
+                    <%= link_to company.name.truncate(100), company %>
+                    <% unless company.approved %>
+                      <span class="help-block label label-primary">company is pending approval</span>
+                    <% end %>
+                    <% unless cp.approved %>
+                      <span class="help-block label label-info">connection is pending approval</span>
+                    <% end %>
+                  </h5>
+                  <% if can?(:edit, company)%>
+                    <%= link_to 'Edit', edit_company_path(company), class: 'btn btn-warning btn-xs' %>
+                    <%= link_to 'Delete', company, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <% end %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<%= content_tag(:li, class: "list-group-item message #{'unread' unless incoming.read}") do %>
+<a href="<%= incoming_path(incoming) %>" class="link-to"></a>
+  <div class="name-and-time">
+    <div class="time pull-right">
+      <small class="pull-right">
+        <span><%= time_date(incoming.created_at) %></span>
+        <i class="icon-time"></i>
+      </small>
+    </div>
+    <div class="name Kg">
+      <span><%= incoming.message.podcast.name %></span>
+    </div>
+  </div>
+  <div>
+    <div class="pull-left">
+      <div style="display:inline-block;">
+        <input type="checkbox" name="ids[]" value="<%= incoming.id %>">
+      </div>
+    </div>
+    <div class="subject Kg">
+      <%= strip_html_tags incoming.message.subject %>
+    </div>
+  </div>
+  <div class="body Kg">
+    <%= strip_html_tags incoming.message.body %>
+  </div>
+<% end %>

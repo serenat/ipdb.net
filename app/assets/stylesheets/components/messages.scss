@@ -1,0 +1,190 @@
+.messages .top-btn-group {
+  padding-bottom: 15px;
+}
+
+.messages-list .message {
+  @media (max-width: 768px) {
+    padding: 10px 7px;
+  }
+}
+
+.messages-list .message {
+  background-color: rgba(243, 243, 243, 0.85098);
+  border-top: 0px;
+  margin-bottom: 0px;
+}
+
+.messages-list .message.unread {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.messages-list .message .Kg {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.messages-list .message .link-to {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 40px 0 40px;
+  @media (max-width: 768px) {
+    margin: 0 25px 0 25px;
+  }
+}
+
+.messages-list .message .name {
+  margin-left: 25px;
+  @media (max-width: 768px) {
+    margin-left: 18px;
+  }
+  color: #060606;
+  font-size: 17px;
+  font-weight: normal;
+}
+
+.messages-list .message.unread .name {
+  font-weight: bold;
+}
+
+.messages-list .message .subject {
+  margin-left: 25px;
+  @media (max-width: 768px) {
+    margin-left: 18px;
+  }
+  color: #777;
+  font-size: 13px;
+}
+
+.messages-list .message.unread .subject {
+  color: #060606;
+}
+
+.messages-list .message .body {
+  margin-left: 25px;
+  @media (max-width: 768px) {
+    margin-left: 18px;
+  }
+  color: #777;
+  font-size: 13px;
+}
+
+.messages-list .message .time {
+  color: #777;
+  margin-top: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+.messages-list .message.unread .time {
+  color: #15c;
+}
+
+#compose .close {
+  line-height: 1.5;
+  font-size: 1.1em;
+  font-weight: 300;
+  color: #fff;
+  opacity: 1;
+}
+
+#compose #inputPodcast,
+#compose #inputSubject {
+  height: 42px;
+  border-top: 0px;
+  border-bottom: 1px solid #ccc;
+  border-left: 0px;
+  border-right: 0px;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#compose #inputPodcast:focus,
+#compose #inputSubject:focus {
+  border-color: #ccc;
+  outline: 0;
+  box-shadow: none;
+}
+
+#compose .input-group-addon {
+  color: inherit;
+  text-align: center;
+  background-color: inherit;
+  border-top: 0px;
+  border-bottom: 1px solid #ccc;
+  border-left: 0px;
+  border-right: 0px;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#compose .modal-body {
+  padding-top: 0px;
+}
+
+#compose .editor {
+  margin: 0px -5px 0px -5px;
+}
+
+#compose trix-editor {
+  min-height: 300px;
+}
+
+#compose .modal-footer {
+  padding: 5px 15px 15px 15px;
+  border-top: none;
+}
+
+// Message
+
+.message__top-btn-group {
+  padding-bottom: 10px;
+  margin-bottom: 9px;
+  border-bottom: 1px solid #eee;
+}
+.message__top-btn-group a.btn {
+  color: initial;
+}
+
+.message__head {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.message__head__subject h2 {
+  margin-bottom: 15px;
+}
+
+.message__head .podcast-art--thumb {
+  background-color: #F5F5F5;
+  vertical-align: top;
+  width: 80px;
+  margin-right: 13px;
+}
+.message__head__from {
+  display: inline-block;
+  vertical-align: top;
+}
+.message__head__from__podcast-name {
+  font-size: 1.1em;
+}
+
+.message__head__from__user-name,
+.message__head__from__user-name:visited {
+  color: #7c8a90;
+}
+.message__head__from__unfollow-lnk a,
+.message__head__from__unfollow-lnk a:visited {
+  color: #0000EE;
+  text-decoration: underline;
+}
+.message__body {
+  padding: 20px 99px;
+  color:initial;
+  border-bottom: 1px solid #eee;
+}

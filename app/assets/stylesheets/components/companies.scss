@@ -14,3 +14,23 @@
 .companies .rating-box .star {
   display: block;
 }
+
+.company-list__company {
+  min-height: 100px;
+}
+.company-list__company__layout-left {
+  display: inline-block;
+}
+.company-list__company__layout-right {
+  display: inline-block;
+  vertical-align: top;
+}
+.company-list__company__layout-right h5 {
+  margin-bottom: 0px;
+}
+.company-list__company__layout-left .company-logo--thumb {
+  background-color: #F5F5F5;
+  vertical-align: top;
+  width: 80px;
+  margin-right: 13px;
+}

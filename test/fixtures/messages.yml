@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sender: silver
+  podcast: devzen
+  subject: MyString
+  body: MyText
+
+two:
+  sender: regular
+  podcast: devzen
+  subject: MyString
+  body: MyText
