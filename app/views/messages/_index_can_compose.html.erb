@@ -72,7 +72,7 @@
           <div class="form-group">
             <div class="input-group">
               <div class="input-group-addon">Podcast</div>
-              <%= f.collection_select :podcast_id, current_user.podcasts, :id, :name, {}, {class: 'form-control', id: 'inputPodcast'} %>
+              <%= f.collection_select :podcast_id, @podcasts, :id, :name, {}, {class: 'form-control', id: 'inputPodcast'} %>
             </div>
             <%= f.text_field :subject, class: 'form-control', id: 'inputSubject', placeholder: 'Subject', required: true %>
           </div>

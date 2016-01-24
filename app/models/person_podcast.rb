@@ -18,8 +18,4 @@ class PersonPodcast < ActiveRecord::Base
   def person_name
     person && person.name
   end
-
-  def self.sort_by_position(people_podcasts)
-    people_podcasts.sort_by { |pp| POSITIONS.index(pp.position) }
-  end
 end
