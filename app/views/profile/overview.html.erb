@@ -10,7 +10,7 @@
 
       <div class="row placeholders">
         <div class="col-xs-6 col-sm-3 placeholder">
-          <%= image_tag @user.profile_image, class: "img-responsive" %>
+          <%= image_tag @user.profile_image, class: "img-responsive avatar" %>
           <h4 class="username"><%= @person.name %></h4>
           <div class="user-info__social-links">
             <%= facebook_link(@user.facebook) %>
@@ -30,7 +30,7 @@
               <li><a href="#work" id="tab" data-toggle="tab" >Work</a></li>
             </ul>
             <div id="myTabContent" class="tab-content">
-              <div class="tab-pane fade in active" id="about">
+              <div class="tab-pane fade in active user-info__tab-pane" id="about">
                 <% if @user.about.blank? %>
                   <div class="user-info__pane-stub">
                     <h4>Empty</h4>
@@ -39,10 +39,11 @@
                     </p>
                   </div>
                 <% else %>
+                  <br />
                   <p><%= @user.about %></p>
                 <% end %>
               </div>
-              <div class="tab-pane fade" id="awards">
+              <div class="tab-pane fade user-info__tab-pane" id="awards">
                 <div class="user-info__pane-stub">
                   <h4>Empty</h4>
                   <p>
@@ -50,7 +51,7 @@
                   </p>
                 </div>
               </div>
-              <div class="tab-pane fade" id="education">
+              <div class="tab-pane fade user-info__tab-pane" id="education">
                 <% if @user.about.blank? %>
                   <div class="user-info__pane-stub">
                     <h4>Empty</h4>
@@ -59,11 +60,12 @@
                     </p>
                   </div>
                 <% else %>
+                  <br />
                   <p><%= @user.education %></p>
                 <% end %>
               </div>
-              <div class="tab-pane fade" id="work">
-                <% if @user.about.blank? %>
+              <div class="tab-pane fade user-info__tab-pane" id="work">
+                <% if @user.work.blank? %>
                   <div class="user-info__pane-stub">
                     <h4>Empty</h4>
                     <p>
@@ -71,6 +73,7 @@
                     </p>
                   </div>
                 <% else %>
+                  <br />
                   <p><%= @user.work %></p>
                 <% end %>
               </div>
@@ -79,8 +82,8 @@
 
           <h2 class="sub-header">Podography</h2>
           <ul class="list-group podcast-list">
-            <% @people_podcasts.each do |pp| %>
-              <% podcast = pp.podcast %>
+            <% @podcasts.each do |podcast| %>
+              <% positions = podcast.person_positions(@user.person_id) %>
               <li class="list-group-item podcast-list__podcast">
                 <div class="podcast-list__podcast__layout-left">
                   <%= link_to podcast do %>
@@ -88,11 +91,11 @@
                   <% end %>
                 </div>
                 <div class="podcast-list__podcast__layout-right">
-                  <h5><%= link_to podcast.name.truncate(100), podcast %></h5>
+                  <h5><%= link_to podcast.name.truncate(60), podcast %></h5>
                   <p class="podcast-list__podcast__layout-right__position">
-                    Position: <%= pp.position %>
+                    Position: <%= positions.join(', ') %>
                   </p>
-                  <% if pp.position == 'Host' %>
+                  <% if positions.include?('Host') %>
                     <%= link_to 'Edit',  edit_podcast_path(podcast), class: 'btn btn-warning btn-xs' %>
                     <%= link_to 'Delete', podcast, class: 'btn btn-danger btn-xs' ,method: :delete, data: { confirm: 'Are you sure?' } %>
                   <% end %>

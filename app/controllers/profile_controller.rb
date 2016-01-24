@@ -4,7 +4,7 @@ class ProfileController < ApplicationController
   def overview
     @user = current_user
     @person = @user.person
-    @people_podcasts = PersonPodcast.sort_by_position(@person.people_podcasts.includes(:podcast))
+    @podcasts = @user.podcasts.uniq
     @companies_people = @person.companies_people.includes(:company)
 
     respond_to do |format|
@@ -23,6 +23,7 @@ class ProfileController < ApplicationController
     @incomings = current_user.incomings.includes(:message).desc
     @published = current_user.sent_messages.desc
     @message = Message.new
+    @podcasts = current_user.podcasts.uniq
 
     respond_to do |format|
       format.html { render 'messages' }

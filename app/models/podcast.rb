@@ -52,4 +52,12 @@ class Podcast < ActiveRecord::Base
   def art
     image_url.blank? ? image : image_url
   end
+
+  def person_positions(person_id)
+    self.people_podcasts
+      .where(person_id: person_id)
+      .pluck(:position)
+      .sort_by { |position| PersonPodcast::POSITIONS.index(position).to_i }
+      .reject(&:empty?)
+  end
 end
