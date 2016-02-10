@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <%= image_tag attachments['ipdb-logo.png'].url, width: '150', alt: 'IPD logo' %>
+    <p style="font-size:16px;">
+      <strong><%= @person.name %></strong>, Welcome to IPDb and thank you for signing up! Your account plan is <strong><%= @plan.name.capitalize %></strong>. You can manage your subscription <%= link_to 'here', '#' %>.
+    </p>
+  </body>
+</html>

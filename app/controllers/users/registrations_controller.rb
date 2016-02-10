@@ -17,6 +17,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @plan = Plan.find_by!(name: params[:user][:membership])
     @person_id = params[:user][:person_id]
     super
+    AfterSignUpService.new(@user).run
   end
 
   # GET /resource/edit
