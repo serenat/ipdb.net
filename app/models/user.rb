@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
 
   validates_attachment_content_type :profile_image, :content_type => %w(image/jpeg image/jpg image/png)
   validates :email, :person, presence: true, uniqueness: true
-  validates :membership, inclusion: { in: ['', 'Silver'],
+  validates :membership, inclusion: { in: ['basic', 'silver'],
     message: "%{value} is not a valid membership" }
 
   accepts_nested_attributes_for :person
@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   acts_as_commontator
   acts_as_follower
   acts_as_voter
+
+  before_create :create_stripe_customer
 
   def email_required?
     false
@@ -78,27 +80,37 @@ class User < ActiveRecord::Base
     end
   end
 
-  def regular?
-    membership.blank?
+  def basic?
+    membership == 'basic'
   end
 
   def payed_subscriber?
-    membership.presence
+    membership != 'basic'
   end
 
   def silver?
-    membership == 'Silver'
+    membership == 'silver'
   end
 
   def gold?
-    membership == 'Gold'
+    membership == 'gold'
   end
 
   def platinum?
-    membership == 'Platinum'
+    membership == 'platinum'
   end
 
   def host?
     PersonPodcast.exists?(person_id: person_id, position: 'Host', approved: true)
   end
+
+  def create_stripe_customer
+    if membership && membership != 'basic'
+      customer_data = {email: email, source: card_token, plan: membership}
+      customer = Stripe::Customer.create customer_data
+      customer_id = customer.id
+      active_untile = 15.days.from_now
+    end
+  end
+
 end

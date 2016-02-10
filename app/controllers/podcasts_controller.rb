@@ -128,7 +128,7 @@ class PodcastsController < ApplicationController
   end
 
   def podcast_params
-    if current_user.nil? || current_user.regular?
+    if current_user.nil? || current_user.basic?
       params.require(:podcast).permit(:name, :description, :image, :episodes_url, :video,
         :explicit, :category, :start_date)
     else

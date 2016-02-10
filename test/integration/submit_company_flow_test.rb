@@ -16,8 +16,8 @@ class CompanyCreateFlowTest < ActionDispatch::IntegrationTest
   end
 
   # Regular User
-  test 'as regular user i can not see the submit company page' do
-    login_as users(:regular), scope: :user
+  test 'as basic user i can not see the submit company page' do
+    login_as users(:basic), scope: :user
     visit new_company_path
     assert page.has_selector? 'div.alert-danger', 'Access Denied.'
   end

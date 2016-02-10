@@ -1,0 +1,28 @@
+<div class="wrapper has-hr">
+  <h3>Billing</h3>
+  <p>You will be charged $13 for 30 days after the 14 day trial period.</p>
+  <div class="form-group form-group-lg">
+    <label for="card_number">Credit Card Number</label>
+    <%= text_field_tag :card_number, nil, required: true, placeholder: 'Valid Card Number', class: "input-block-level form-control", "data-stripe" => "number" %>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group form-group-lg">
+        <label for="exp_month">Expiration Month</label>
+        <%= select_tag :exp_month, options_for_select(month_list), required: true, include_blank: false, "data-stripe" => "exp-month", class: "form-control" %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group form-group-lg">
+        <label for="exp_year">Year</label>
+        <%= select_tag :exp_year, options_for_select(year_list), required: true, include_blank: false, "data-stripe" => "exp-year", class: "form-control" %>
+      </div>
+    </div>
+    <div class="col-sm-3 col-sm-offset-1">
+      <div class="form-group form-group-lg">
+        <label for="card_verification">Security Code</label>
+        <%= text_field_tag :card_verification, nil, class: "input-block-level form-control", placeholder: 'cvc', "data-stripe" => "cvc" %>
+      </div>
+    </div>
+  </div>
+</div>

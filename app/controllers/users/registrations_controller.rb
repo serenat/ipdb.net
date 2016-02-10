@@ -4,16 +4,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
+    @plan = Plan.find_by!(name: params[:plan])
+    self.build_resource({})
     unless User.find_by(person_id: params[:person_id])
       @person_id = params[:person_id]
     end
-    super do |resource|
-      resource.build_person
-    end
+    self.resource.build_person
   end
 
   # POST /resource
   def create
+    @plan = Plan.find_by!(name: params[:user][:membership])
     @person_id = params[:user][:person_id]
     super
   end

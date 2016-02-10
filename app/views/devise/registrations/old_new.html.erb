@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="col-md-12">
+    <h2>Sign up</h2>
+
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+      <div class="form-group">
+        <% if @person_id %>
+          <%= f.text_field :person_id, value: @person_id, hidden: true %>
+        <% else %>
+          <%= f.label :name %>
+          <%= f.fields_for :person do |fp| %>
+            <%= fp.text_field :name, :class => "form-control", required: true %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="form-group">
+        <%= f.label :email %>
+        <br>
+        <%= f.email_field :email, :class => "form-control", required: true %>
+      </div>
+
+      <% if f.object.password_required? %>
+        <div class="form-group">
+          <%= f.label :password %>
+          <br>
+          <%= f.password_field :password, :class => "form-control", required: true %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password_confirmation %>
+          <br>
+          <%= f.password_field :password_confirmation, :class => "form-control", required: true %>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label :membership%>
+        <br>
+        <%= f.select(:membership,
+                     {'Basic - Free' => 'basic', 'Silver - $13/month' => 'silver'},
+                     { prompt: true },
+                     { :class => 'form-control', required: true }) %>
+      </div>
+
+      <br><br>
+
+      <%= javascript_include_tag "https://js.stripe.com/v2/" %>
+      <script>
+        Stripe.setPublishableKey('#{Rails.application.secrets.stripe_publishable_key}');
+      </script>
+
+      <%= label_tag "Card Number", nil, required: true %>
+      <div class="control-group">
+        <div class="controls">
+          <%= text_field_tag :card_number, nil, class: "input-block-level", "data-stripe" => "number" %>
+        </div>
+      </div>
+      <%= label_tag "Card Verification", nil, required: true %>
+      <div class="control-group">
+        <div class="controls">
+          <%= text_field_tag :card_verification, nil, class: "input-block-level", "data-stripe" => "cvv" %>
+        </div>
+      </div>
+      <%= label_tag "Card Expires", nil, required: true %>
+      <%= select_tag :exp_month, options_for_select(Date::MONTHNAMES.compact.each_with_index.map { |name,i| ["#{i+1} - #{name}", i+1] }), include_blank: false, "data-stripe" => "exp-month", class: "span2" %>
+      <%= select_tag :exp_year, options_for_select((Date.today.year..(Date.today.year+10)).to_a), include_blank: false, "data-stripe" => "exp-year", class: "span1" %>
+      <div class="actions">
+        <%= f.submit "Registration Payment", class: "btn", style: "color: white;background: rgb(242, 118, 73);" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.submit "Sign up", :class => "btn btn-primary" %>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

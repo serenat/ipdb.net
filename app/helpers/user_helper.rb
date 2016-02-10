@@ -17,7 +17,7 @@ module UserHelper
   end
 
   def membership_levels
-    %w(Silver Gold Platinum)
+    %w(basic silver gold platinum)
   end
 
   def facebook_link(link)

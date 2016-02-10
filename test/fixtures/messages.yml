@@ -7,7 +7,7 @@ one:
   body: MyText
 
 two:
-  sender: regular
+  sender: basic
   podcast: devzen
   subject: MyString
   body: MyText

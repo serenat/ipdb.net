@@ -1,0 +1,84 @@
+.signup .wrapper {
+  padding: 20px 7px 20px 7px;
+  @media (min-width: 768px) {
+    padding: 30px 30px 20px 30px;
+  }
+}
+
+.signup .wrapper.has-hr {
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.signup .signup-form {
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  background: #fff;
+  border: 1px solid #d5dadf;
+}
+
+.signup .plan-changer {
+  background: #f9f9f9;
+  padding: 30px;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.signup .plan-changer h2 {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  float: left;
+  -webkit-transition: 0.3s ease all;
+  -moz-transition: 0.3s ease all;
+  -o-transition: 0.3s ease all;
+  transition: 0.3s ease all;
+}
+
+.signup .plan-changer h2 span {
+    color: #9a9a9a;
+}
+
+.signup .plan-changer a.plans {
+  font-size: 16px;
+  display: block;
+  float: right;
+  border-bottom: 1px dotted;
+  text-decoration: none;
+  font-weight: lighter;
+  margin: 3px 0 0 0;
+  -webkit-transition: 0.3s ease all;
+  -moz-transition: 0.3s ease all;
+  -o-transition: 0.3s ease all;
+  transition: 0.3s ease all;
+}
+
+.signup h3 {
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  font-weight: 400;
+  color: #222;
+}
+
+.signup p {
+  color: #6f6f6f;
+  font-size: 16px;
+  line-height: 22px;
+  margin: 0 0 15px 0;
+  padding: 0;
+}
+
+.signup .btn-primary {
+  margin: 0 0 20px 0;
+}
+
+.signup #error_explanation {
+  padding: 15px;
+  margin-bottom: 20px;
+  color: #a94442;
+  background-color: #f2dede;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 4px;
+  border-color: #ebccd1;
+}
