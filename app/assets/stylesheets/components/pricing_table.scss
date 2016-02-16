@@ -113,7 +113,7 @@
 .pricing-table .card ul.card-content {
   text-align: center;
   padding: 30px 20px;
-border: 1px solid #d8d8d8;
+  border: 1px solid #d8d8d8;
   -moz-border-radius: 0 0 4px 4px;
   -webkit-border-radius: 0;
   border-radius: 0 0 4px 4px;
@@ -128,8 +128,10 @@ border: 1px solid #d8d8d8;
 
 .pricing-table .card ul.card-content li {
   list-style-type: none;
-  font-size: 16px;
-  line-height: 36px;
+  font-size: 14px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
 }
 
 .pricing-table hgroup {
