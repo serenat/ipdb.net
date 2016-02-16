@@ -38,6 +38,14 @@ class User < ActiveRecord::Base
     false
   end
 
+  def active_for_authentication?
+    super && account_active?
+  end
+
+  def account_active?
+    payed_subscriber? ? (active_until > Time.current) : true
+  end
+
   def self.from_oauth(auth, password)
     user = User.new(
       email: auth.info.email,
@@ -108,8 +116,8 @@ class User < ActiveRecord::Base
     if membership && membership != 'basic'
       customer_data = {email: email, source: card_token, plan: membership}
       customer = Stripe::Customer.create customer_data
-      customer_id = customer.id
-      active_untile = 15.days.from_now
+      self.customer_id = customer.id
+      self.active_until = 15.days.from_now
     end
   end
 
