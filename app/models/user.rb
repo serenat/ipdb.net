@@ -56,12 +56,16 @@ class User < ActiveRecord::Base
     membership == nil
   end
 
+  def has_plan?
+    membership != nil
+  end
+
   def basic?
     membership == 'basic'
   end
 
   def payed_subscriber?
-    !without_plan? && (membership != 'basic')
+    has_plan? && (membership != 'basic')
   end
 
   def silver?

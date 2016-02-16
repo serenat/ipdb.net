@@ -99,8 +99,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def check_membership
-    unless current_user && current_user.without_plan?
-      redirect_to root_path
+    if user_signed_in?
+      if current_user.has_plan?
+        redirect_to root_path, notice: 'You already selected the plan.'
+      end
+    else
+      redirect_to root_path, notice: 'You are not signed in.'
     end
   end
 end
