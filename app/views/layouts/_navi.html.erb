@@ -64,9 +64,7 @@
         <% end %>
       <% else %>
         <li><%= link_to "Sign in", new_user_session_path %></li>
-        <%= link_to user_omniauth_authorize_path(provider: :facebook), class: 'btn btn-block btn-social btn-facebook' do %>
-          <i class="fa fa-facebook"></i><span> Login</span>
-        <% end %>
+        <li><%= link_to "Pricing", pricing_path %></li>
         <%= form_tag(podcasts_path, :method => "get", id: "search-form", class: "navbar-form navbar-right") do %>
           <div class="form-group">
             <%= text_field_tag :search, params[:search], placeholder: "People & Podcasts", class: "form-control" %>

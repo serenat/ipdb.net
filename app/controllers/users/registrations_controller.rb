@@ -1,6 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
+  before_filter :check_membership, only: [:select_plan, :select_silver, :finish]
 
   # GET /resource/sign_up
   def new
@@ -14,10 +15,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    @plan = Plan.find_by!(name: params[:user][:membership])
+    @plan = Plan.find_by(name: params[:user][:membership])
     @person_id = params[:user][:person_id]
+
     super
-    AfterSignUpService.new(@user).run
+
+    if resource.without_plan?
+      set_flash_message :notice, :signed_up_but_without_plan if is_flashing_format?
+    end
+
+    AfterSignUpService.new(resource).run
   end
 
   # GET /resource/edit
@@ -44,6 +51,25 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  def select_plan
+    @basic = Plan.find_by!(name: 'basic')
+    @silver = Plan.find_by!(name: 'silver')
+  end
+
+  def finish
+    plan = Plan.find_by!(name: params[:plan])
+    case plan.name
+    when 'basic'
+      current_user.select_basic_plan
+    when 'silver'
+      current_user.select_silver_plan(params[:user][:card_token])
+    end
+    respond_to do |format|
+      format.html { redirect_to root_path(shared: false), notice: 'Your registration flow is completely finished.' }
+    end
+    UserMailer.welcome_email(current_user).deliver_later
+  end
+
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -57,12 +83,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_sign_up_path_for(resource)
+    if resource.without_plan?
+      select_plan_path
+    else
+      root_path(shared: false)
+    end
+  end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  private
+
+  def check_membership
+    unless current_user && current_user.without_plan?
+      redirect_to root_path
+    end
+  end
 end

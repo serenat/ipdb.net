@@ -1,4 +1,4 @@
-class MessagesController < ApplicationController
+class MessagesController < UserAccessController
 
   def create
     @message = current_user.sent_messages.build(message_params)

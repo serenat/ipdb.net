@@ -1,0 +1,58 @@
+<div class="container pricing">
+  <div class="row ">
+    <div class="pricing-table-wrapper col-sm-10 col-sm-offset-1">
+      <div class="row">
+        <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+          <div class="pricing-table">
+            <hgroup>
+              <h1>Select your plan</h1>
+            </hgroup>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card silver">
+                  <header class="card-header">
+                    <h3>Silver</h3>
+                    <span class="monthly-price">
+                      <small>$</small><%= @silver.price.to_i %><span>/ mo.</span>
+                    </span>
+                    <a class="btn btn-block" href="<%= select_silver_path %>">Start Trial</a>
+                    <span class="trial-period">14-day Free Trial</span>
+                  </header>
+                  <ul class="card-content">
+                    <li>Bla</li>
+                    <li>Bla</li>
+                    <li>Bla</li>
+                    <li>Bla</li>
+                    <hr />
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="card basic">
+                  <header class="card-header">
+                    <h3>Basic</h3>
+                    <span class="monthly-price">
+                      <small>$</small>free
+                    </span>
+                    <%= link_to 'Select', finish_path(plan: 'basic'), method: :post, class: 'btn btn-block' %>
+                    <span class="trial-period--invisible">Stub</span>
+                  </header>
+                  <ul class="card-content">
+                    <li>Bla</li>
+                    <li>Bla</li>
+                    <li>Bla</li>
+                    <li>Bla</li>
+                    <hr />
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

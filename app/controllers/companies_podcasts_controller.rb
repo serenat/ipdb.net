@@ -1,4 +1,4 @@
-class CompaniesPodcastsController < ApplicationController
+class CompaniesPodcastsController < UserAccessController
   before_action :set_company
   before_action :set_company_podcast, only: :create
   authorize_resource

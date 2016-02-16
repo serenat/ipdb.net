@@ -7,7 +7,9 @@ class AfterSignUpService
 
   def run
     if valid_and_persisted_user?
-      UserMailer.welcome_email(@user).deliver_later
+      unless user.without_plan?
+        UserMailer.welcome_email(user).deliver_later
+      end
     end
   end
 

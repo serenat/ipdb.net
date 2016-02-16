@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class CommentsController < UserAccessController
   	def index
       @comments = @commentable.comments
     end

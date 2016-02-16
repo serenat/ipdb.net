@@ -8,18 +8,17 @@ class User < ActiveRecord::Base
   has_many :people_podcasts, through: :person
   has_many :podcasts, through: :people_podcasts
 
-  has_many :incomings, foreign_key: :recipient_id
+  has_many :incomings, foreign_key: :recipient_id, dependent: :destroy
   has_many :incoming_messages, through: :incomings, source: :message
   has_many :sent_messages, class_name: 'Message',
                            foreign_key: :sender_id
 
-  has_one :identity, dependent: :destroy
   has_attached_file :profile_image, styles: { medium: '256x256>', thumb: '128x128', small: '64x64' },
     default_url: ':user_placeholder'
 
   validates_attachment_content_type :profile_image, :content_type => %w(image/jpeg image/jpg image/png)
   validates :email, :person, presence: true, uniqueness: true
-  validates :membership, inclusion: { in: ['basic', 'silver'],
+  validates :membership, inclusion: { in: [nil, 'basic', 'silver'],
     message: "%{value} is not a valid membership" }
 
   accepts_nested_attributes_for :person
@@ -39,45 +38,22 @@ class User < ActiveRecord::Base
     false
   end
 
-  def password_required?
-    super && !identity
-  end
-
-  def self.find_for_oauth(auth)
-    identity = Identity.find_for_oauth(auth)
-    user = identity.user
-    # Create the user if needed
-    if user.nil?
-      user = User.find_or_initialize_by(email: auth.info.email)
-      if user.person
-        user.person.name = auth.info.name if user.person.name.blank?
-      else
-        user.build_person(name: auth.info.name)
-      end
-      user.profile_image = open(auth.info.image) if !user.profile_image.exists? && !auth.extra.raw_info.picture.data.is_silhouette
-      user.facebook = auth.uid if user.facebook.blank?
-
-      identity.user = user
-      identity.save
-    end
+  def self.from_oauth(auth, password)
+    user = User.new(
+      email: auth.info.email,
+      provider: auth.provider,
+      uid: auth.uid,
+      facebook: auth.uid,
+      password: password,
+      password_confirmation: password
+    )
+    user.build_person(name: auth.info.name)
+    user.save
     user
   end
 
-  def self.new_with_session(params, session)
-    if auth = session['devise.user_attributes']
-      super.tap do |user|
-        user.identity = Identity.find_for_oauth(auth)
-
-        user.email = auth.info.email
-        user.name = auth.info.name
-        user.profile_image = open(auth.info.image) unless auth.extra.raw_info.picture.data.is_silhouette
-        user.facebook = auth.uid
-
-        user.valid?
-      end
-    else
-      super
-    end
+  def without_plan?
+    membership == nil
   end
 
   def basic?
@@ -85,7 +61,7 @@ class User < ActiveRecord::Base
   end
 
   def payed_subscriber?
-    membership != 'basic'
+    !without_plan? && (membership != 'basic')
   end
 
   def silver?
@@ -102,6 +78,26 @@ class User < ActiveRecord::Base
 
   def host?
     PersonPodcast.exists?(person_id: person_id, position: 'Host', approved: true)
+  end
+
+  def select_basic_plan
+    if without_plan?
+      self.membership = 'basic'
+      self.save!
+    else
+      raise Errors::User::HasPlanAlready
+    end
+  end
+
+  def select_silver_plan(card_token)
+    if without_plan?
+      self.membership = 'silver'
+      self.card_token = card_token
+      self.create_stripe_customer
+      self.save!
+    else
+      raise Errors::User::HasPlanAlready
+    end
   end
 
   def create_stripe_customer

@@ -1,4 +1,4 @@
-class UserController < ApplicationController
+class UserController < UserAccessController
   autocomplete :user, :username, :full => true
 
   def follow

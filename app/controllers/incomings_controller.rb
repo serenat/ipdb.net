@@ -1,4 +1,4 @@
-class IncomingsController < ApplicationController
+class IncomingsController < UserAccessController
 
   def show
     load_incoming

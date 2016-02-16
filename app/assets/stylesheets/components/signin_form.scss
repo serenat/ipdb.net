@@ -1,0 +1,41 @@
+.signin .wrapper {
+  padding: 20px 7px 20px 7px;
+  @media (min-width: 768px) {
+    padding: 30px 30px 20px 30px;
+  }
+}
+
+.signin .wrapper.has-hr {
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.signin .signin-form {
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  background: #fff;
+  border: 1px solid #d5dadf;
+}
+
+.signin .header {
+  background: #f9f9f9;
+  padding: 20px 30px;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.signin .header h2 {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  float: left;
+  -webkit-transition: 0.3s ease all;
+  -moz-transition: 0.3s ease all;
+  -o-transition: 0.3s ease all;
+  transition: 0.3s ease all;
+}
+
+.signin .btn-primary {
+  margin: 0 0 20px 0;
+}

@@ -3,6 +3,12 @@ Ipdb::Application.routes.draw do
   ActiveAdmin.routes(self)
   post '/rate' => 'rater#create', :as => 'rate'
 
+  devise_scope :user do
+    get 'users/select_plan', to: 'users/registrations#select_plan', as: 'select_plan'
+    get 'users/select_silver', to: 'users/registrations#select_silver', as: 'select_silver'
+    post 'users/finish', to: 'users/registrations#finish', as: 'finish'
+  end
+
   devise_for :users, controllers: {
     registrations: "users/registrations",
     omniauth_callbacks: "omniauth_callbacks"

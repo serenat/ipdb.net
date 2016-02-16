@@ -26,14 +26,12 @@
                     <% end %>
                   </div>
 
-                  <% if f.object.password_required? %>
-                    <div class="form-group form-group-lg">
-                      <%= f.password_field :password, class: "form-control", required: true, placeholder: 'Password' %>
-                    </div>
-                    <div class="form-group form-group-lg">
-                      <%= f.password_field :password_confirmation, class: "form-control", required: true, placeholder: 'Confirm password' %>
-                    </div>
-                  <% end %>
+                  <div class="form-group form-group-lg">
+                    <%= f.password_field :password, class: "form-control", required: true, placeholder: 'Password' %>
+                  </div>
+                  <div class="form-group form-group-lg">
+                    <%= f.password_field :password_confirmation, class: "form-control", required: true, placeholder: 'Confirm password' %>
+                  </div>
                   <%= f.text_field :membership, hidden: true, value: @plan.name %>
                   <!-- ######################################## -->
                 </div>

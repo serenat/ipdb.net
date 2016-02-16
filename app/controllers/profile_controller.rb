@@ -1,4 +1,4 @@
-class ProfileController < ApplicationController
+class ProfileController < UserAccessController
   before_action :authorize, :set_unread_count
 
   def overview

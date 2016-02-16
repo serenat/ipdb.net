@@ -1,20 +1,40 @@
-<div class="container">
-<h2>Sign in</h2>
+<div class="container signin">
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <div class="row">
+          <div class="col-sm-10 col-sm-offset-1">
+            <div class="signin-form">
+              <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+                <div class="header">
+                  <h2>Sign in</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="wrapper has-hr">
+                  <div class="form-group form-group-lg">
+                    <%= f.label :email %><br />
+                    <%= f.email_field :email, autofocus: true, class: "form-control", required: true %>
+                  </div>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+                  <div class="form-group form-group-lg">
+                    <%= f.label :password %><br />
+                    <%= f.password_field :password, class: "form-control", required: true %>
+                  </div>
 
-  <div class="form-group"><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true, :class => "form-control" %></div>
+                  <% if devise_mapping.rememberable? %>
+                    <div>
+                      <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+                    </div>
+                  <% end %>
+                </div>
 
-  <div class="form-group"><%= f.label :password %><br />
-  <%= f.password_field :password, :class => "form-control" %></div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
-
-  <div><%= f.submit "Sign in" , :class => "btn btn-primary" %></div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+                <div class="wrapper">
+                  <%= f.submit "Sign in", class: "btn btn-lg btn-primary btn-block" %>
+                  <%= render "devise/shared/links" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
 </div>
