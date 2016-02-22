@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160215074026) do
+ActiveRecord::Schema.define(version: 20160218092029) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -326,6 +326,20 @@ ActiveRecord::Schema.define(version: 20160215074026) do
   end
 
   add_index "rating_caches", ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type", using: :btree
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer  "user_id",     limit: 4
+    t.integer  "plan_id",     limit: 4
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "trial_start"
+    t.datetime "trial_end"
+    t.string   "status",      limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
 
   create_table "user_podcasts", force: :cascade do |t|
     t.integer  "podcast_id", limit: 4

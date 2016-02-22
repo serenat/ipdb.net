@@ -59,9 +59,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def finish
     plan = Plan.find_by!(name: params[:plan])
     case plan.name
-    when 'basic'
+    when Plan.basic.name
       current_user.select_basic_plan
-    when 'silver'
+    when Plan.silver.name
       current_user.select_silver_plan(params[:user][:card_token])
     end
     respond_to do |format|

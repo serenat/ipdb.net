@@ -10,4 +10,10 @@ module PagesHelper
 	def devise_mapping
 	  @devise_mapping ||= Devise.mappings[:user]
 	end
+
+  def ldate(datetime, hash = {})
+    if datetime
+      l(datetime, hash)
+    end
+  end
 end

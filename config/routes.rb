@@ -60,7 +60,14 @@ Ipdb::Application.routes.draw do
   delete 'profile/messages/incomings/:id', to: 'incomings#destroy'
   delete 'incomings/delete_bunch', to: 'incomings#delete_bunch'
   get 'profile/messages/sent/:id', to: 'messages#show', as: 'sent'
+  get 'profile/subscription', to: 'profile#subscription'
 
   resources :messages, only: :create
+
+  post 'stripe/webhook', to: 'stripe#webhook'
+  post 'subscription/upgrade', to: 'subscriptions#upgrade'
+  post 'subscription/downgrade', to: 'subscriptions#downgrade'
+  post 'subscription/create', to: 'subscriptions#create'
+
 
 end

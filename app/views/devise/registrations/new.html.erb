@@ -14,7 +14,7 @@
                   <%= devise_error_messages! %>
                   <!-- Should be reviewed-->
                   <div class="form-group form-group-lg">
-                    <%= f.email_field :email, class: "form-control", required: true, placeholder: 'Email' %>
+                    <%= f.email_field :email, class: "form-control", autofocus: true, required: true, placeholder: 'Email' %>
                   </div>
                   <div class="form-group form-group-lg">
                     <% if @person_id %>

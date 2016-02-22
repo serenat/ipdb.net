@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :incoming_messages, through: :incomings, source: :message
   has_many :sent_messages, class_name: 'Message',
                            foreign_key: :sender_id
+  has_many :stripe_subscriptions, class_name: 'Subscription', dependent: :destroy
 
   has_attached_file :profile_image, styles: { medium: '256x256>', thumb: '128x128', small: '64x64' },
     default_url: ':user_placeholder'
@@ -23,12 +24,14 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :person
 
+  before_create :create_stripe_customer, if: :payed_subscriber?
+  after_create :create_subscription, if: :payed_subscriber?
+
   letsrate_rater
   acts_as_commontator
   acts_as_follower
   acts_as_voter
 
-  before_create :create_stripe_customer
 
   def email_required?
     false
@@ -94,7 +97,7 @@ class User < ActiveRecord::Base
 
   def select_basic_plan
     if without_plan?
-      self.membership = 'basic'
+      self.membership = Plan.basic.name
       self.save!
     else
       raise Errors::User::HasPlanAlready
@@ -103,9 +106,10 @@ class User < ActiveRecord::Base
 
   def select_silver_plan(card_token)
     if without_plan?
-      self.membership = 'silver'
+      self.membership = Plan.silver.name
       self.card_token = card_token
       self.create_stripe_customer
+      self.create_subscription
       self.save!
     else
       raise Errors::User::HasPlanAlready
@@ -113,12 +117,24 @@ class User < ActiveRecord::Base
   end
 
   def create_stripe_customer
-    if membership && membership != 'basic'
-      customer_data = {email: email, source: card_token, plan: membership}
-      customer = Stripe::Customer.create customer_data
-      self.customer_id = customer.id
-      self.active_until = 15.days.from_now
-    end
+    plan = Plan.find_by!(name: membership)
+    customer_data = {email: email, source: card_token, plan: plan.stripe_id}
+    customer = Stripe::Customer.create customer_data
+
+    self.customer_id = customer.id
+    self.active_until = Time.at(customer.subscriptions.data[0].current_period_end)
+  end
+
+  def create_subscription
+    Subscription.new(user: self).sync
+  end
+
+  def allowed_to_silver_trial?
+    Subscription.where(user: self, plan: Plan.silver).empty?
+  end
+
+  def current_subscription
+    stripe_subscriptions.order(created_at: :desc).first
   end
 
 end

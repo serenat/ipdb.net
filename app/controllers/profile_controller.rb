@@ -31,6 +31,10 @@ class ProfileController < UserAccessController
     end
   end
 
+  def subscription
+    @subscription = current_user.current_subscription
+  end
+
   private
 
   def set_unread_count
