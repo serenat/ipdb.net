@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <%= image_tag attachments['ipdb-logo.png'].url, width: '150', alt: 'IPD logo' %>
+    <p style="font-size:16px;">
+      <strong><%= @person.name %></strong>, thank you for signing up! Your registration flow is almost completed.
+      You have to <%= link_to 'choose a plan', select_plan_url %> to finish registration.
+      Your email is <strong><%= @user.email %></strong>, and your password is <strong><%= @password %></strong>.
+      You can change the password on <%= link_to 'profile page', edit_user_registration_url(@user) %> or <%= link_to 'forgot password page', new_user_password_url %>.
+    </p>
+  </body>
+</html>

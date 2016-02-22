@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202122402) do
+ActiveRecord::Schema.define(version: 20160218092029) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -167,18 +167,6 @@ ActiveRecord::Schema.define(version: 20151202122402) do
   add_index "follows", ["followable_id", "followable_type"], name: "fk_followables", using: :btree
   add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
 
-  create_table "identities", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4
-    t.string   "provider",    limit: 255
-    t.string   "uid",         limit: 255
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.string   "oauth_token", limit: 255
-    t.boolean  "shared",                  default: false
-  end
-
-  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
-
   create_table "incomings", force: :cascade do |t|
     t.integer  "message_id",   limit: 4
     t.integer  "recipient_id", limit: 4
@@ -239,6 +227,13 @@ ActiveRecord::Schema.define(version: 20151202122402) do
     t.string   "searchable_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.string  "name",      limit: 255
+    t.string  "stripe_id", limit: 255
+    t.decimal "price",                 precision: 5, scale: 2
+    t.string  "interval",  limit: 255
   end
 
   create_table "podcast_events", force: :cascade do |t|
@@ -332,6 +327,20 @@ ActiveRecord::Schema.define(version: 20151202122402) do
 
   add_index "rating_caches", ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type", using: :btree
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer  "user_id",     limit: 4
+    t.integer  "plan_id",     limit: 4
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "trial_start"
+    t.datetime "trial_end"
+    t.string   "status",      limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
+
   create_table "user_podcasts", force: :cascade do |t|
     t.integer  "podcast_id", limit: 4
     t.integer  "user_id",    limit: 4
@@ -373,6 +382,12 @@ ActiveRecord::Schema.define(version: 20151202122402) do
     t.string   "membership",                 limit: 255
     t.string   "imdb",                       limit: 255
     t.integer  "person_id",                  limit: 4
+    t.string   "customer_id",                limit: 255
+    t.string   "card_token",                 limit: 255
+    t.datetime "active_until"
+    t.string   "provider",                   limit: 255
+    t.string   "uid",                        limit: 255
+    t.string   "oauth_token",                limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -398,7 +413,6 @@ ActiveRecord::Schema.define(version: 20151202122402) do
   add_foreign_key "companies_people", "people"
   add_foreign_key "companies_podcasts", "companies"
   add_foreign_key "companies_podcasts", "podcasts"
-  add_foreign_key "identities", "users"
   add_foreign_key "incomings", "messages"
   add_foreign_key "incomings", "users", column: "recipient_id"
   add_foreign_key "messages", "podcasts"

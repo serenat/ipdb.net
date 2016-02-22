@@ -1,4 +1,4 @@
-class PeoplePodcastsController < ApplicationController
+class PeoplePodcastsController < UserAccessController
   before_action :authorize, :set_podcast
 
   def new

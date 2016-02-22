@@ -1,0 +1,140 @@
+.container.pricing {
+  background-color: #ebeae8;
+  margin: 0px;
+  width: 100%;
+  @media screen and (min-width: 1025px) {
+    padding: 60px 0 1px;
+  }
+}
+.pricing-table-wrapper {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: 0px 0px 1px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0px 0px 1px rgba(0,0,0,0.5);
+  box-shadow: 0px 0px 1px rgba(0,0,0,0.5);
+  background: #fff;
+  overflow: visible;
+  padding-top: 50px !important;
+  padding-bottom: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+  @media screen and (min-width: 1025px) {
+    margin-bottom: 50px;
+  }
+}
+
+.pricing-table .card {
+  margin-bottom: 30px;
+}
+
+.pricing-table .card header.card-header {
+  padding: 20px 0px 10px 0px;
+  -moz-border-radius: 3px 3px 0 0;
+  -webkit-border-radius: 3px;
+  border-radius: 3px 3px 0 0;
+  text-align: center;
+}
+
+.pricing-table .basic .card-header {
+  background-color: #27ae60;
+}
+.pricing-table .silver .card-header {
+  background-color: #fa824f;
+}
+.pricing-table .card header.card-header h3 {
+  font-size: 24px;
+  line-height: 24px;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.pricing-table .card header.card-header span.monthly-price {
+  font-size: 52px;
+  color: #fff;
+}
+.pricing-table .card header.card-header span.monthly-price small {
+  font-size: 18px;
+  vertical-align: top;
+  position: relative;
+  top: 8px;
+  right: 6px;
+}
+.pricing-table .card header.card-header span.trial-period {
+  display: inline-block;
+  margin-top: 5px;
+  color:#fff;
+  font-size:18px;
+}
+.pricing-table .card header.card-header span.trial-period--invisible {
+  display: inline-block;
+  margin-top: 5px;
+  color:#fff;
+  font-size:18px;
+  visibility: hidden;
+}
+.pricing-table .card header.card-header span.monthly-price span {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.075em;
+  font-weight: 600;
+}
+
+.pricing-table .card header.card-header a.btn {
+  width: inherit;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -o-background-clip: padding-box;
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+  background-color: #fff;
+  -moz-box-shadow: 0 2px 0 rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.22);
+  -webkit-box-shadow: 0 2px 0 rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.22);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.22);
+  margin: 12px 40px 0;
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+
+.pricing-table .basic .card-header a.btn {
+  color: #27ae60;
+}
+.pricing-table .silver .card-header a.btn {
+  color: #fa824f;
+}
+
+.pricing-table .card ul.card-content {
+  text-align: center;
+  padding: 30px 20px;
+  border: 1px solid #d8d8d8;
+  -moz-border-radius: 0 0 4px 4px;
+  -webkit-border-radius: 0;
+  border-radius: 0 0 4px 4px;
+  -moz-background-clip: padding;
+  -o-background-clip: padding-box;
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+  background-color: #fcfcfc;
+  background-color: #fff;
+  margin-bottom: 0px;
+}
+
+.pricing-table .card ul.card-content li {
+  list-style-type: none;
+  font-size: 14px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.pricing-table hgroup {
+  text-align: center;
+  margin-bottom: 50px;
+}

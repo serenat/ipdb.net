@@ -28,9 +28,9 @@ class Company < ActiveRecord::Base
 
   # ABILITY
   # Monkey patch can_rate? method for Letsrate gem.
-  # Regular user (not payed subscriber) can't rate. As well as guest(handled by super)
+  # Basic user (not payed subscriber) can't rate. As well as guest(handled by super)
   def can_rate?(user, dimension=nil)
-    return false if user && user.regular?
+    return false if user && user.basic?
     super
   end
 

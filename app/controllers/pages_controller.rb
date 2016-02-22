@@ -18,4 +18,9 @@ class PagesController < ApplicationController
 
   def privacy
   end
+
+  def pricing
+    @basic = Plan.find_by!(name: 'basic')
+    @silver = Plan.find_by!(name: 'silver')
+  end
 end

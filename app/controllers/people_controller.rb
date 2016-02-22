@@ -1,4 +1,4 @@
-class PeopleController < ApplicationController
+class PeopleController < UserAccessController
   autocomplete :person, :name, scopes: :uniq_name
 
   def search

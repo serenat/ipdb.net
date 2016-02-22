@@ -1,54 +1,58 @@
-<div class="container">
-  <div class="col-md-12">
-    <h2>Sign up</h2>
+<div class="container signup">
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <div class="row">
+          <div class="col-sm-10 col-sm-offset-1">
+            <div class="signup-form">
+              <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+                <div class="plan-changer">
+                  <h2><span>Your plan:</span> <%= @plan.name.capitalize %></h2>
+                  <a class="plans" href="<%= pricing_path %>">Change</a>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="wrapper has-hr">
+                  <%= devise_error_messages! %>
+                  <!-- Should be reviewed-->
+                  <div class="form-group form-group-lg">
+                    <%= f.email_field :email, class: "form-control", autofocus: true, required: true, placeholder: 'Email' %>
+                  </div>
+                  <div class="form-group form-group-lg">
+                    <% if @person_id %>
+                      <%= f.text_field :person_id, value: @person_id, hidden: true %>
+                    <% else %>
+                      <%= f.fields_for :person do |fp| %>
+                        <%= fp.text_field :name, class: "form-control", required: true, placeholder: 'Name' %>
+                      <% end %>
+                    <% end %>
+                  </div>
 
-    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-      <%= devise_error_messages! %>
-      <div class="form-group">
-        <% if @person_id %>
-          <%= f.text_field :person_id, value: @person_id, hidden: true %>
-        <% else %>
-          <%= f.label :name %>
-          <%= f.fields_for :person do |fp| %>
-            <%= fp.text_field :name, :class => "form-control", required: true %>
-          <% end %>
-        <% end %>
+                  <div class="form-group form-group-lg">
+                    <%= f.password_field :password, class: "form-control", required: true, placeholder: 'Password' %>
+                  </div>
+                  <div class="form-group form-group-lg">
+                    <%= f.password_field :password_confirmation, class: "form-control", required: true, placeholder: 'Confirm password' %>
+                  </div>
+                  <%= f.text_field :membership, hidden: true, value: @plan.name %>
+                  <!-- ######################################## -->
+                </div>
+
+                <!-- Credit card fields -->
+                <% if @plan.name != 'basic' %>
+                  <%= render partial: 'devise/registrations/billing' %>
+                <% end %>
+
+                <div class="wrapper">
+                  <%= f.submit 'Create my Account', class: 'btn btn-lg btn-primary btn-block' %>
+                  <p>
+                    By clicking “Create my Account” you agree to the
+                    <%= link_to 'Terms of Service', terms_path, target: :_blank %>,
+                    <%= link_to 'Privacy Policy', privacy_path, target: :_blank %>.
+                  </p>
+                </div>
+              <% end %>
+            </div>
+          </div>
       </div>
-      <div class="form-group">
-        <%= f.label :email %>
-        <br>
-        <%= f.email_field :email, :class => "form-control", required: true %>
-      </div>
-
-      <% if f.object.password_required? %>
-        <div class="form-group">
-          <%= f.label :password %>
-          <br>
-          <%= f.password_field :password, :class => "form-control", required: true %>
-        </div>
-        <div class="form-group">
-          <%= f.label :password_confirmation %>
-          <br>
-          <%= f.password_field :password_confirmation, :class => "form-control", required: true %>
-        </div>
-      <% end %>
-
-      <div class="form-group">
-        <%= f.label :membership%>
-        <br>
-        <%= f.select(:membership,
-                     {'Basic - Free' => nil, 'Silver - $13/month' => 'Silver'},
-                     { prompt: true },
-                     { :class => 'form-control', required: true }) %>
-      </div>
-
-      <br><br>
-
-      <div class="form-group">
-        <%= f.submit "Sign up", :class => "btn btn-primary" %>
-      </div>
-    <% end %>
-
-    <%= render "devise/shared/links" %>
+    </div>
   </div>
 </div>

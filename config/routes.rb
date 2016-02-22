@@ -3,6 +3,12 @@ Ipdb::Application.routes.draw do
   ActiveAdmin.routes(self)
   post '/rate' => 'rater#create', :as => 'rate'
 
+  devise_scope :user do
+    get 'users/select_plan', to: 'users/registrations#select_plan', as: 'select_plan'
+    get 'users/select_silver', to: 'users/registrations#select_silver', as: 'select_silver'
+    post 'users/finish', to: 'users/registrations#finish', as: 'finish'
+  end
+
   devise_for :users, controllers: {
     registrations: "users/registrations",
     omniauth_callbacks: "omniauth_callbacks"
@@ -18,6 +24,7 @@ Ipdb::Application.routes.draw do
   get "terms" => "pages#terms"
   get "ppff" => "pages#ppff"
   get "faq" => "pages#faq"
+  get "pricing" => "pages#pricing"
 
   resources :user, :path => "users" do
     get :autocomplete_user_username, :on => :collection
@@ -53,7 +60,14 @@ Ipdb::Application.routes.draw do
   delete 'profile/messages/incomings/:id', to: 'incomings#destroy'
   delete 'incomings/delete_bunch', to: 'incomings#delete_bunch'
   get 'profile/messages/sent/:id', to: 'messages#show', as: 'sent'
+  get 'profile/subscription', to: 'profile#subscription'
 
   resources :messages, only: :create
+
+  post 'stripe/webhook', to: 'stripe#webhook'
+  post 'subscription/upgrade', to: 'subscriptions#upgrade'
+  post 'subscription/downgrade', to: 'subscriptions#downgrade'
+  post 'subscription/create', to: 'subscriptions#create'
+
 
 end

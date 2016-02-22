@@ -7,7 +7,7 @@ $(document).ready ->
           $.notify 'Your message has been sent.'
       else
         $.notify 'Your message has been sent.'
-     ).on "ajax:error", (e, xhr, status, error) ->
+     ).on 'ajax:error', '#new_message', (e, xhr, status, error) ->
         $.notify {message: 'Something went wrong. Please try again.'}, {type: 'danger'}
 
   # Delete btn triger enabled/disabled

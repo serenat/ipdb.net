@@ -28,7 +28,7 @@ class Ability
     if user.nil?
       cannot :set_episodes_count, Podcast
       can :index, Company, approved: true
-    elsif user.regular?
+    elsif user.basic?
       cannot :set_episodes_count, Podcast
       can :index, Company, approved: true
     elsif user.silver?

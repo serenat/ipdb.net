@@ -1,0 +1,30 @@
+<div class="container signup">
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <div class="row">
+          <div class="col-sm-10 col-sm-offset-1">
+            <div class="signup-form">
+              <%= form_tag(finish_path(plan: 'silver'), id: 'select-silver-billing') do %>
+                <div class="plan-changer">
+                  <h2><span>Your plan:</span> Silver</h2>
+                  <a class="plans" href="<%= select_plan_path %>">Change</a>
+                  <div class="clearfix"></div>
+                </div>
+
+                <%= render partial: 'devise/registrations/billing' %>
+
+                <div class="wrapper">
+                  <%= submit_tag 'Submit', class: 'btn btn-lg btn-primary btn-block' %>
+                  <p>
+                    By clicking “Submit” you agree to the
+                    <%= link_to 'Terms of Service', terms_path, target: :_blank %>,
+                    <%= link_to 'Privacy Policy', privacy_path, target: :_blank %>.
+                  </p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

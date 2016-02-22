@@ -20,4 +20,14 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              taken: '%{value} has already been taken.'
+  time:
+    formats:
+      long: "%-m/%-e/%Y %I:%M%P"
+      short: "%B %e, %Y"

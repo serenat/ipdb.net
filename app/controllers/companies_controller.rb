@@ -1,4 +1,4 @@
-class CompaniesController < ApplicationController
+class CompaniesController < UserAccessController
   before_action :set_company, only: [:show, :edit, :update]
   authorize_resource
 

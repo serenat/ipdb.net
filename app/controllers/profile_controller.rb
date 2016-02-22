@@ -1,4 +1,4 @@
-class ProfileController < ApplicationController
+class ProfileController < UserAccessController
   before_action :authorize, :set_unread_count
 
   def overview
@@ -29,6 +29,10 @@ class ProfileController < ApplicationController
       format.html { render 'messages' }
       format.js
     end
+  end
+
+  def subscription
+    @subscription = current_user.current_subscription
   end
 
   private

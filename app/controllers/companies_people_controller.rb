@@ -1,4 +1,4 @@
-class CompaniesPeopleController < ApplicationController
+class CompaniesPeopleController < UserAccessController
   before_action :set_company, :set_company_person
   authorize_resource
 

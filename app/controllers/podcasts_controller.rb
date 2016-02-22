@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'httparty'
 
-class PodcastsController < ApplicationController
+class PodcastsController < UserAccessController
   before_action :set_podcast, except: [:index, :new, :create, :autocomplete_podcast_name]
   autocomplete :podcast, :name, full: true
 
@@ -128,7 +128,7 @@ class PodcastsController < ApplicationController
   end
 
   def podcast_params
-    if current_user.nil? || current_user.regular?
+    if current_user.nil? || current_user.basic?
       params.require(:podcast).permit(:name, :description, :image, :episodes_url, :video,
         :explicit, :category, :start_date)
     else
