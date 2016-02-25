@@ -8,10 +8,11 @@ class PodcastsController < UserAccessController
 
   def index
     if params[:search].present?
-      @podcasts = Podcast.search(params[:search]).with_people.with_awards.by_score
-      @people = Person.search(params[:search])
-      @companies = Company.search(params[:search]).approved
-      @paginate = Kaminari.paginate_array(@podcasts).page(params[:page])
+      search = Search.new(params[:search])
+      @podcasts  = search.podcasts.try(:page, params[:page])
+      @people    = search.people
+      @companies = search.companies
+      @paginate = @podcasts
     else
       @podcasts = Podcast.with_people.with_awards.by_score.page(params[:page])
       @paginate = @podcasts

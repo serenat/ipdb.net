@@ -29,7 +29,7 @@
     <% if @people.any? || @companies.any? %>
       <br /><br /><br /><br />
     <% end %>
-    <%= link_to 'Add New Podcast', new_podcast_path, class: "btn btn-primary btn-lg pull-right" %>
+    <%= link_to 'Submit Podcast to IPDb', new_podcast_path, class: "btn btn-primary btn-lg pull-right" %>
     <h1>Listing podcasts</h1>
     <%= paginate @paginate %>
     <hr />

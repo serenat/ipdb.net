@@ -1,0 +1,26 @@
+.search-box {
+  padding-top:13%;
+  padding-bottom:40%;
+  text-align:center;
+  background-size:cover;
+  min-height:480px;
+}
+
+.search-box button[type=submit] {
+  box-shadow:none;
+}
+
+@media (min-width: 768px) {
+  .search-box input[name='search[query]'] {
+    width:50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-box select[name='search[type]'] {
+    display:none;
+  }
+  .search-box button[type=submit] {
+    margin-top:5px;
+  }
+}

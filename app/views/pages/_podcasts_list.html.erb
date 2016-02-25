@@ -1,0 +1,43 @@
+<div class="podcasts-list">
+  <h1>Listing podcasts</h1>
+  <hr />
+  <div class="row">
+    <% @podcasts.each_with_index do |podcast, i| %>
+    <div class="col-sm-4 col-md-2-4 thumb">
+      <div class="thumbnail">
+        <% if podcast.user_approved? %>
+          <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end, class: 'podcast-art') + '', podcast, title: podcast.name %>
+        <% else %>
+          <%= link_to image_tag('microphone.png', class: 'podcast-art') + '', podcast, title: podcast.name %>
+        <% end %>
+
+        <div class="caption">
+          <div class="rating-box">
+            <span class="rank label label-primary"><%= rank(@paginate.prev_page, i) %></span>
+            <%= rating_for podcast %>
+          </div>
+
+          <header>
+            <h4><%= link_to truncate(podcast.name, length: 37), podcast, title: podcast.name %></h4>
+          </header>
+
+          <% if podcast.category %>
+            <span class="label label-success"><%= podcast.category.html_safe %></span>
+          <% end %>
+          <% if podcast.explicit %>
+            <span class="label label-danger">explict</span>
+            <br>
+          <% end %>
+          <% if podcast.video %>
+            <span class="label label-info">video</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+  <!-- End strip 3 -->
+<div class="row nopadding">
+  <%= paginate @paginate, :params => { :anchor => 'podcasts' }%>
+</div>

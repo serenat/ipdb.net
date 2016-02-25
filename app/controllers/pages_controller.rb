@@ -4,6 +4,8 @@ class PagesController < ApplicationController
     @share = params[:shared] == 'false'
     @resource = User.new
     @resource.build_person
+    @podcasts = Podcast.with_people.with_awards.by_score.page(params[:page])
+    @paginate = @podcasts
   end
 
   def dashboard

@@ -56,21 +56,16 @@
             <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
           </ul>
         </li>
-        <%= form_tag(podcasts_path, :method => "get", id: "search-form", class: "navbar-form navbar-right") do %>
-          <div class="form-group">
-            <%= text_field_tag :search, params[:search], placeholder: "Search Podcasts", class: "form-control" %>
-          </div>
-          <%= submit_tag "Search", :name => nil, class: "btn btn-default" %>
-        <% end %>
       <% else %>
         <li><%= link_to "Sign in", new_user_session_path %></li>
         <li><%= link_to "Pricing", pricing_path %></li>
-        <%= form_tag(podcasts_path, :method => "get", id: "search-form", class: "navbar-form navbar-right") do %>
-          <div class="form-group">
-            <%= text_field_tag :search, params[:search], placeholder: "People & Podcasts", class: "form-control" %>
-          </div>
-          <%= submit_tag "Search", :name => nil, class: "btn btn-default" %>
-        <% end %>
+      <% end %>
+      <%= form_tag(podcasts_path, :method => "get", id: "search-form", class: "navbar-form navbar-right") do %>
+        <div class="form-group">
+          <%= text_field_tag 'search[query]', params[:search].try(:[],:query), placeholder: "People & Podcasts", class: "form-control" %>
+          <%= text_field_tag 'search[type]', 'All', hidden: true %>
+        </div>
+        <%= submit_tag "Search", :name => nil, class: "btn btn-default" %>
       <% end %>
     </ul>
   </div><!-- /.navbar-collapse -->

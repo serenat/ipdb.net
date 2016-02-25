@@ -1,0 +1,41 @@
+@media (min-width: 768px) {
+  .podcasts-list .thumb {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.podcasts-list .thumbnail {
+  background-color: #fff;
+  border-radius: 0;
+  padding: 15px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
+  min-height: 360px;
+}
+
+.podcasts-list .thumbnail img.podcast-art {
+  width: 100%;
+}
+
+.podcasts-list .thumbnail .caption {
+  padding: 0;
+  position:relative;
+}
+
+.podcasts-list .thumbnail .caption .rating-box {
+  text-align:center;
+}
+
+.podcasts-list .thumbnail .caption .rating-box .rank {
+  position:absolute;
+  left:0;
+}
+
+.podcasts-list .thumbnail .caption header {
+  height: 50px;
+}
+
+.podcasts-list .thumbnail .caption header h4 {
+  font-weight: 300;
+}
+
