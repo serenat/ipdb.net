@@ -14,6 +14,12 @@ ActiveAdmin.register User  do
   index do
     column :email
     column :person
+    column :membership
+    column :last_subscription do |user|
+      if sub = user.current_subscription
+        link_to sub.status, admin_subscription_path(sub)
+      end
+    end
     actions
   end
 
