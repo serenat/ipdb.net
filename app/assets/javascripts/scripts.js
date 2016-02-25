@@ -47,3 +47,14 @@ jQuery(document).ready(function($) {
 $(document).ajaxComplete(function() {
   initializePluguins();
 });
+
+$(document).ready(function(){
+
+  setTimeout(function(){
+    $('.flash-msg').fadeOut("normal", function() { $(this).remove(); });
+  }, 5000);
+
+  $('.flash-msg').on('click', function(){
+    $(this).fadeOut("normal", function() { $(this).remove(); });
+  });
+});
