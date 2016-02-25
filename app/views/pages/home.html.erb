@@ -1,310 +1,128 @@
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
 <style>
-.body-overlay, .strip-highlight, .form-row input.btn, .form-row input.btn:hover, .form-row input.btn:focus, #header ul li.active a, .info a.btn, .pricing .blocks .inner ul li h2,#footer{
-  background-color:#6D2F85;
-}
+  .body-overlay,
+  .strip-highlight,
+  .form-row input.btn,
+  .form-row input.btn:hover,
+  .form-row input.btn:focus,
+  #header ul li.active a,
+  .info a.btn,
+  .pricing .blocks .inner ul li h2,
+  #footer{
+    background-color:#6D2F85;
+  }
 
-      h2.title span, .mega{
-        color:#6D2F85;
-      }
+  h2.title span, .mega{
+    color:#6D2F85;
+  }
 
-      a.btn{
-        background-color:#6D2F85;
-        color:#fff;
-      }
-      .mega{
-        background:transparent;
-      }
+  a.btn{
+    background-color:#6D2F85;
+    color:#fff;
+  }
+  .mega{
+    background:transparent;
+  }
 
-      .glyph-item.icon-check{
-        color:#000;
-      }
+  .glyph-item.icon-check{
+    color:#000;
+  }
 </style>
-<body class="loading">
 
 <%= render 'share_modal' if @share %>
 
-  <a id="home"></a>
-  <div class="body-overlay"></div>
+<a class="anchor" id="home"></a>
 
-  <!-- Start Slider -->
+<% if user_signed_in? %>
+  <%= render partial: 'search_box' %>
+<% else %>
+  <%= render partial: 'slider' %>
+<% end %>
 
-  <div class="flexslider">
-    <ul class="slides">
+<div class="strip strip-alt strip-highlight overview-box">
+  <div class="container">
+    <a class="anchor" id="overview"></a>
 
-      <li style="background: url('<%= asset_path 'microphone-dark.jpg' %>');">
-        <div class="container">
-
-          <div class="row row-padded">
-
-            <div class="span6 pullright">
-              <div class="inner">
-                <div class="info info-padded">
-                  <h1>IPDb® Linking People Through Podcasts.</h1>
-                  <p>The only comprehensive database that brings people together through the podcasts they create and share.</p>
-                  <a href="/users/sign_up" class="btn btn-alt">See features</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="span2 form-box-special-graphic">
-              <%= image_tag('homepage/iphone5c.png') %>
-            </div>
-
-            <div class="span4">
-              <div class="inner">
-                <div class="form-box form-box-special">
-                  <div class="top">
-                    <h2>Signup now!</h2>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="bottom">
-                    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-                      <div class="form-row">
-                        <%= link_to user_omniauth_authorize_path(provider: :facebook), class: 'btn btn-block btn-social btn-facebook btn-connect' do %>
-                          <i class="fa fa-facebook"></i>Connect with Facebook
-                        <% end %>
-                      </div>
-                      <div class="form-row" style="text-align:center;">
-                        <span>or</span>
-                      </div>
-                      <div class="form-row">
-                      <%= f.fields_for :person do |fp| %>
-                        <%= fp.text_field :name, :class => "text login_input", :placeholder => "Name", :required => true %>
-                      <% end %>
-                        <div class="clearfix"></div>
-                      </div>
-                      <div class="form-row">
-                        <%= f.text_field :email, :class => "text login_input", :type => :email, :placeholder => "Email", :required => true %>
-                        <div class="clearfix"></div>
-                      </div>
-                      <div class="form-row">
-                        <%= f.password_field :password, :class => "text login_input", :placeholder => "Password", :required => true %>
-                      <div class="clearfix"></div>
-                      </div>
-                      <div class="form-row">
-                        <label><input type="checkbox" name="vehicle" value="Bike" required> Agree to terms &amp; conditions</label>
-                        <div class="clearfix"></div>
-                      </div>
-                      <div class="form-row form-row-last">
-                        <input type="submit" name="register" value="Finished, sign me up!" class="btn" data-loading-text="Loading..." />
-                        <div class="clearfix"></div>
-                      </div>
-                    <% end %>
-                    <div class="clearfix"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-
+    <!-- Start strip 1 -->
+    <div class="row animatedParent animateOnce" data-appear-top-offset='-100'>
+      <div class="span3">
+        <div class="inner align-center animated bounceInUp">
+          <div style="text-align: center;">
+            <span aria-hidden="true" class="glyph-item mega icon-badge"></span>
           </div>
+          <h2 class="label">PROFILE</h2>
+          <p>
+          Craft your personal profile, highlight your podcast, and all the work that goes on
+          behind the scenes.
+          </p>
+          <div class="clearfix"></div>
         </div>
-        <div class="clearfix"></div>
-      </li>
-      <!-- Slide 4 -->
-      <li style="background:#000;">
-        <div class="container">
-          <div class="row">
-
-            <div class="span5 pullright">
-              <div class="">
-                <div class="info info-padded">
-                  <h1>Power to the Podcaster!</h1>
-                  <p>IPDb is a database and social media platform that connects people with podcasts they love and podcasters with the audience that loves them. Join today, see what you’ve been missing.</p>
-                  <a href="/users/sign_up" class="btn btn-alt">See features</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="span7">
-              <div class="inner align-right">
-                <%= image_tag('macbook.png') %>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-
-          </div>
-        </div>
-        <div class="clearfix"></div>
-      </li>
-      <!-- Slide 5 -->
-      <li style="background: url(<%= asset_path 'studio.jpg' %>);">
-        <div class="container">
-          <div class="row">
-
-            <div class="span4">&nbsp;</div>
-
-            <div class="span4">
-              <div class="inner">
-                <div class="form-box info-center">
-                  <h1>Signup</h1>
-                  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-                    <div class="form-row">
-                      <%= f.fields_for :person do |fp| %>
-                        <%= fp.text_field :name, :class => "text login_input", :placeholder => "Name", :required => true %>
-                      <% end %>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="form-row">
-                      <%= f.text_field :email, :class => "text login_input", :type => :email, :placeholder => "Email", :required => true %>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="form-row">
-                      <%= f.password_field :password, :class => "text login_input", :placeholder => "Password", :required => true %>
-                    <div class="clearfix"></div>
-                    </div>
-                    <div class="form-row">
-                      <div class="item">
-                        <label><input type="checkbox" name="vehicle" value="Bike" required> Agree to terms &amp; conditions</label>
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="form-row form-row-last">
-                      <input type="submit" name="register" value="Finished, sign me up!" class="btn" data-loading-text="Loading..." />
-                      <div class="clearfix"></div>
-                    </div> 
-                  <% end %>
-                  <div class="clearfix"></div>
-                </div>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-
-          </div>
-        </div>
-      </li>
-    </ul>
-    <div class="clearfix"></div>
-  </div>   
-  <div class="clearfix"></div>
-  <!-- End Slider -->
-
-  <div class="strip strip-alt strip-highlight">
-
-    <div class="container">
-
-      <a id="overview"></a>
-
-      <!-- Start strip 1 -->
-
-      <div class="row animatedParent animateOnce" data-appear-top-offset='-100'>
-
-        <div class="span3">
-          <div class="inner align-center animated bounceInUp">
-            <div style="text-align: center;">
-              <span aria-hidden="true" class="glyph-item mega icon-badge"></span>
-            </div>
-            <h2 class="label">PROFILE</h2>
-            <p>
-            Craft your personal profile, highlight your podcast, and all the work that goes on
-            behind the scenes.
-            </p>
-            <div class="clearfix"></div>
-          </div>  
-        </div> 
-
-        <div class="span3">
-          <div class="inner align-center animated bounceInUp">
-            <div style="text-align: center;">
-              <span aria-hidden="true" class="glyph-item mega icon-directions"></span>
-            </div>
-            <h2 class="label">FOLLOW</h2>
-            <p>
-            Follow your favorite podcasts and explore new podcasts.
-            </p>
-            <div class="clearfix"></div>
-          </div>  
-        </div> 
-
-        <div class="span3">
-          <div class="inner align-center animated bounceInUp">
-            <div style="text-align: center;">
-              <span aria-hidden="true" class="glyph-item mega icon-cursor-move"></span>
-            </div>
-            <h2 class="label">SHARE</h2>
-            <p>
-            Invite your friends to view your profile, listen to a podcast, or interact in other
-ways.
-            </p>
-            <div class="clearfix"></div>
-          </div>  
-        </div> 
-
-        <div class="span3">
-          <div class="inner align-center animated bounceInUp">
-            <div style="text-align: center;">
-              <span aria-hidden="true" class="glyph-item mega icon-star"></span>
-            </div>
-            <h2 class="label">RATE</h2>
-            <p>
-            Rate and review podcasts. Respond to reviews.
-            </p>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-
-        <div class="clearfix"></div>
-
-      </div>	
-
-      <!-- End strip 1 -->	
-
-    </div>
-
-  </div>
-
-
-  <div class="strip">
-
-    <div class="container">
-
-      <a id="features"></a>
-
-      <!-- Start strip 3 -->
-
-      <div class="row feature-blocks animatedParent animateOnce"> 
-
-        <div class="span12">
-
-          <div class=" align-center">
-            <h2 class="title">Submit your podcast to IPDB</span></h2>
-            <%= link_to 'Join our podcast database', new_podcast_path, class: "btn btn-primary btn-lg" %>
-            <div class="divider"><span></span></div>
-          </div>  
-
-        </div>
-
-        <div class="clearfix"></div>
-
-
-
-        <div class="clearfix"></div>
-
       </div>
 
-      <!-- End strip 3 -->
+      <div class="span3">
+        <div class="inner align-center animated bounceInUp">
+          <div style="text-align: center;">
+            <span aria-hidden="true" class="glyph-item mega icon-directions"></span>
+          </div>
+          <h2 class="label">FOLLOW</h2>
+          <p>
+          Follow your favorite podcasts and explore new podcasts.
+          </p>
+          <div class="clearfix"></div>
+        </div>
+      </div>
 
+      <div class="span3">
+        <div class="inner align-center animated bounceInUp">
+          <div style="text-align: center;">
+            <span aria-hidden="true" class="glyph-item mega icon-cursor-move"></span>
+          </div>
+          <h2 class="label">SHARE</h2>
+          <p>
+          Invite your friends to view your profile, listen to a podcast, or interact in other
+ways.
+          </p>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+
+      <div class="span3">
+        <div class="inner align-center animated bounceInUp">
+          <div style="text-align: center;">
+            <span aria-hidden="true" class="glyph-item mega icon-star"></span>
+          </div>
+          <h2 class="label">RATE</h2>
+          <p>
+          Rate and review podcasts. Respond to reviews.
+          </p>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
     </div>
-
+    <!-- End strip 1 -->
   </div>
+</div>
 
 
-  <!-- Start footer -->
-
-  <div id="footer" class="strip animatedParent ">
+<div class="strip">
+  <div class="container">
+    <a class="anchor" id="podcasts"></a>
+    <!-- Start strip 3 -->
+    <%= render partial: 'podcasts_list' %>
   </div>
+</div>
 
+<!-- Start footer -->
+<div id="footer" class="strip animatedParent ">
+</div>
 
-
-</body>
 <script src="http://masonry.desandro.com/masonry.pkgd.js"></script>
 <script>
-$(function(){
-  $('.facebook').masonry({
-    itemSelector: '.fb'
+  $(function(){
+    $('.facebook').masonry({
+      itemSelector: '.fb'
+    });
   });
-});
 </script>
-</html>

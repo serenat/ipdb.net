@@ -1,0 +1,152 @@
+<div class="body-overlay"></div>
+<!-- Start Slider -->
+<div class="flexslider">
+  <ul class="slides">
+
+    <li style="background: url('<%= asset_path 'microphone-dark.jpg' %>');">
+      <div class="container">
+
+        <div class="row row-padded">
+
+          <div class="span6 pullright">
+            <div class="inner">
+              <div class="info info-padded">
+                <h1>IPDb® Linking People Through Podcasts.</h1>
+                <p>The only comprehensive database that brings people together through the podcasts they create and share.</p>
+                <%= link_to 'See features', pricing_path, class: 'btn btn-alt' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="span2 form-box-special-graphic">
+            <%= image_tag('homepage/iphone5c.png') %>
+          </div>
+
+          <div class="span4">
+            <div class="inner">
+              <div class="form-box form-box-special">
+                <div class="top">
+                  <h2>Signup now!</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="bottom">
+                  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+                    <div class="form-row">
+                      <%= link_to user_omniauth_authorize_path(provider: :facebook), class: 'btn btn-block btn-social btn-facebook btn-connect' do %>
+                        <i class="fa fa-facebook"></i>Connect with Facebook
+                      <% end %>
+                    </div>
+                    <div class="form-row" style="text-align:center;">
+                      <span>or</span>
+                    </div>
+                    <div class="form-row">
+                    <%= f.fields_for :person do |fp| %>
+                      <%= fp.text_field :name, :class => "text login_input", :placeholder => "Name", :required => true %>
+                    <% end %>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="form-row">
+                      <%= f.text_field :email, :class => "text login_input", :type => :email, :placeholder => "Email", :required => true %>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="form-row">
+                      <%= f.password_field :password, :class => "text login_input", :placeholder => "Password", :required => true %>
+                    <div class="clearfix"></div>
+                    </div>
+                    <div class="form-row">
+                      <label><input type="checkbox" name="vehicle" value="Bike" required> Agree to terms &amp; conditions</label>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="form-row form-row-last">
+                      <input type="submit" name="register" value="Finished, sign me up!" class="btn" data-loading-text="Loading..." />
+                      <div class="clearfix"></div>
+                    </div>
+                  <% end %>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </li>
+    <!-- Slide 4 -->
+    <li style="background:#000;">
+      <div class="container">
+        <div class="row">
+
+          <div class="span5 pullright">
+            <div class="">
+              <div class="info info-padded">
+                <h1>Power to the Podcaster!</h1>
+                <p>IPDb is a database and social media platform that connects people with podcasts they love and podcasters with the audience that loves them. Join today, see what you’ve been missing.</p>
+                <%= link_to 'See features', pricing_path, class: 'btn btn-alt' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="span7">
+            <div class="inner align-right">
+              <%= image_tag('macbook.png') %>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </li>
+    <!-- Slide 5 -->
+    <li style="background: url(<%= asset_path 'studio.jpg' %>);">
+      <div class="container">
+        <div class="row">
+
+          <div class="span4">&nbsp;</div>
+
+          <div class="span4">
+            <div class="inner">
+              <div class="form-box info-center">
+                <h1>Signup</h1>
+                <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+                  <div class="form-row">
+                    <%= f.fields_for :person do |fp| %>
+                      <%= fp.text_field :name, :class => "text login_input", :placeholder => "Name", :required => true %>
+                    <% end %>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="form-row">
+                    <%= f.text_field :email, :class => "text login_input", :type => :email, :placeholder => "Email", :required => true %>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="form-row">
+                    <%= f.password_field :password, :class => "text login_input", :placeholder => "Password", :required => true %>
+                  <div class="clearfix"></div>
+                  </div>
+                  <div class="form-row">
+                    <div class="item">
+                      <label><input type="checkbox" name="vehicle" value="Bike" required> Agree to terms &amp; conditions</label>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="form-row form-row-last">
+                    <input type="submit" name="register" value="Finished, sign me up!" class="btn" data-loading-text="Loading..." />
+                    <div class="clearfix"></div>
+                  </div>
+                <% end %>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
+<!-- End Slider -->
