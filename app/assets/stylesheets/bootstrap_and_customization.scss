@@ -98,6 +98,9 @@ form.new_user .form-row input.text, .form-row textarea {
 
 .flash-msg {
   margin-bottom: 0px;
+  z-index:999;
+  position:fixed;
+  width:100%;
 }
 
 .row.actions{
