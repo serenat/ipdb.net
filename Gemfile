@@ -36,8 +36,10 @@ gem 'friendly_id', '~> 5.1'
 gem 'country_select', '~> 2.5', '>= 2.5.1'
 gem 'activeadmin_addons', '~> 0.2.8'
 gem 'stripe', '~> 1.35'
+gem 'emojimmy'
 
 gem 'sidekiq', '~> 3.5.0'
+gem 'sinatra', :require => nil
 gem 'whenever', '~> 0.9.4', require: false
 gem 'omniauth-facebook'
 gem 'active_model_serializers', '~> 0.10.0.rc3'

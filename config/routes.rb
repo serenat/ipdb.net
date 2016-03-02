@@ -1,6 +1,13 @@
+require 'sidekiq/web'
+
 Ipdb::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  authenticate :admin_user do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   post '/rate' => 'rater#create', :as => 'rate'
 
   devise_scope :user do
