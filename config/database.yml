@@ -8,12 +8,15 @@ default: &default
   username: root
 development:
   <<: *default
-  database: ipdb_development_seeded
+  database: ipdb_development
 test:
   <<: *default
   database: ipdb_development_test
 production:
   adapter: mysql2
+  reconnect: true
+  pool: 10
+  encoding: utf8
   database: <%= ENV['DATABASE_NAME'] %>
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
