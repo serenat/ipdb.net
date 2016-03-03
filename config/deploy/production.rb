@@ -1,7 +1,7 @@
 set :stage, :production
 set :branch, 'production'
 set :rails_env, 'production'
-set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
+set :sidekiq_queue, ['default', 'mailers']
 # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary
