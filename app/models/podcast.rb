@@ -9,6 +9,7 @@ class Podcast < ActiveRecord::Base
   has_many :companies_podcasts, dependent: :destroy
   has_many :companies, through: :companies_podcasts
   has_many :messages
+  has_many :itunes_reviews
 
   accepts_nested_attributes_for :nominations, allow_destroy: true
 
@@ -59,5 +60,9 @@ class Podcast < ActiveRecord::Base
       .pluck(:position)
       .sort_by { |position| PersonPodcast::POSITIONS.index(position).to_i }
       .reject(&:empty?)
+  end
+
+  def last_itunes_review
+    itunes_reviews.order(commented_at: :desc).first
   end
 end
