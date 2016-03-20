@@ -9,7 +9,7 @@ class Podcast < ActiveRecord::Base
   has_many :companies_podcasts, dependent: :destroy
   has_many :companies, through: :companies_podcasts
   has_many :messages
-  has_many :itunes_reviews
+  has_many :reviews
 
   accepts_nested_attributes_for :nominations, allow_destroy: true
 
@@ -63,6 +63,6 @@ class Podcast < ActiveRecord::Base
   end
 
   def last_itunes_review
-    itunes_reviews.order(commented_at: :desc).first
+    reviews.where(itunes: true).order(commented_at: :desc).first
   end
 end

@@ -31,3 +31,4 @@ en:
     formats:
       long: "%-m/%-e/%Y %I:%M%P"
       short: "%B %e, %Y"
+      medium: "%B %-d at %l:%M%P"

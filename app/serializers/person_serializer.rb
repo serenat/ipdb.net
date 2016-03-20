@@ -1,5 +1,4 @@
-class PersonSerializer < ActiveModel::Serializer
-  include Rails.application.routes.url_helpers
+class PersonSerializer < BaseSerializer
   attributes :name, :id, :profile_path, :profile_image
 
   has_many :podcasts

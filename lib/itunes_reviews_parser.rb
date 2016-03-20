@@ -20,7 +20,8 @@ class ItunesReviewsParser
       title:        entry.at_css('title').text,
       commented_at: to_time(entry.at_css('updated').text),
       content:      entry.at_css('content[type=text]').text,
-      rating:       entry.at_css('im|rating').text
+      rating:       entry.at_css('im|rating').text,
+      itunes:       true
     }
   end
 

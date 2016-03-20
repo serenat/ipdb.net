@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :sent_messages, class_name: 'Message',
                            foreign_key: :sender_id
   has_many :stripe_subscriptions, class_name: 'Subscription', dependent: :destroy
+  has_many :reviews
 
   has_attached_file :profile_image, styles: { medium: '256x256>', thumb: '128x128', small: '64x64' },
     default_url: ':user_placeholder'
