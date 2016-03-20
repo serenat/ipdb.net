@@ -1,0 +1,174 @@
+.itunes-review-list__ad {
+  margin-bottom:15px;
+}
+
+.itunes-review-list .review-filters {
+  margin-bottom:30px;
+}
+
+.itunes-review-box {
+  /*min-height: 20px;*/
+  margin-bottom: 20px;
+  border: 1px solid #e3e3e3;
+}
+
+.itunes-review-box__footer {
+  margin: 0px 12px;
+  padding: 4px 0px 6px;
+  border-top: 1px solid #e3e3e3;
+}
+
+.itunes-review-box__footer a {
+  color:#7f7f7f;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.itunes-review {
+  min-height: 20px;
+  padding: 16px 12px 12px 12px;
+}
+
+.itunes-review__header {
+}
+
+h4.itunes-review__header__title {
+  display: inline-block;
+  font-size: 1.15em;
+  line-height: 1.3em;
+  font-weight: 300;
+  margin-bottom: 0px;
+}
+
+.itunes-review__header .right-side {
+  float:right;
+  font-size:12px;
+}
+
+.itunes-review__header .right-side .label {
+  float:right;
+}
+
+.itunes-review__header__rating {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 0.9em;
+}
+
+.itunes-review__header__rating i {
+  margin-right:2px;
+}
+
+.itunes-review__author {
+  margin: 3px 0 12px;
+}
+
+.itunes-review__content {
+  white-space:pre-wrap;
+
+  -ms-word-break: break-all;
+  word-break: break-all;
+
+  /* Non standard for webkit */
+  word-break: break-word;
+  -webkit-hyphens: auto;
+     -moz-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
+}
+
+/* Review form */
+
+.review-form {
+  border: 1px solid #e3e3e3;
+  overflow: auto;
+  margin-bottom:30px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
+}
+
+.review-form__header {
+  border-bottom: 1px solid #e3e3e3;
+  padding: 8px 12px 8px;
+}
+
+.review-form__header h3 {
+  margin:0;
+}
+
+.review-form__body {
+  padding: 12px;
+  min-height: 64px;
+}
+
+.review-form__body .title input {
+  width:284px;
+}
+
+.review-form__body .required-asterisk {
+  color:red;
+  margin: 0px 4px;
+}
+
+.review-form__body .alert {
+  word-break: break-word;
+}
+
+.input-rating-box input[type=radio] {
+  visibility:hidden;
+}
+
+.input-rating-box label {
+  font-size:1.2em;
+  margin-right: 4px;
+  cursor: pointer;
+}
+
+.input-rating-box .fa-star:hover {
+  color:goldenrod;
+}
+
+.input-rating-box input[type=radio] {
+  display:none;
+}
+
+.review-form__footer {
+  border-top: 1px solid #e3e3e3;
+  height:40px;
+  padding: 8px 12px;
+  background-color: #f6f7f8;
+}
+
+.review-form__footer button {
+  height:24px;
+  width: 64px;
+  float: right;
+  margin-left:4px;
+  box-shadow: none;
+}
+
+.review-form__footer button:hover {
+  box-shadow: none;
+}
+.review-form-show-btn {
+  float:right;
+  margin-bottom:0px;
+}
+.review-transition-enter {
+  opacity: 0.01;
+  background-color: rgba(255,0,0,0.3);
+}
+
+.review-transition-enter.review-transition-enter-active {
+  opacity: 1;
+  background-color: transparent;
+  transition: all 700ms ease-out 200ms;
+}
+
+.review-transition-leave {
+  opacity: 1;
+}
+
+.review-transition-leave.review-transition-leave-active {
+  opacity: 0.01;
+  transition: opacity 200ms linear;
+}

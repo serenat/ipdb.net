@@ -77,6 +77,10 @@ GEM
     aws-sdk-v1 (1.64.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
+    babel-source (5.8.35)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -358,6 +362,13 @@ GEM
     rb-fsevent (0.9.6)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
+    react-rails (1.6.2)
+      babel-transpiler (>= 0.7.0)
+      coffee-script-source (~> 1.8)
+      connection_pool
+      execjs
+      rails (>= 3.2)
+      tilt
     redis (3.2.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
@@ -415,6 +426,7 @@ GEM
     stripe (1.35.0)
       json (~> 1.8.1)
       rest-client (~> 1.4)
+    switch_user (1.2.1)
     textacular (3.2.2)
       activerecord (>= 3.0, < 5.0)
     therubyracer (0.12.2)
@@ -500,11 +512,13 @@ DEPENDENCIES
   quiet_assets
   rails (~> 4.2.0)
   rails4-autocomplete
+  react-rails (~> 1.6, >= 1.6.2)
   sass-rails
   shoulda (~> 3.5)
   sidekiq (~> 3.5.0)
   sinatra
   stripe (~> 1.35)
+  switch_user
   textacular
   therubyracer
   turbolinks

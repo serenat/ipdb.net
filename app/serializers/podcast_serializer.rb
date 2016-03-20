@@ -1,6 +1,4 @@
-class PodcastSerializer < ActiveModel::Serializer
-  include Rails.application.routes.url_helpers
-
+class PodcastSerializer < BaseSerializer
   attributes :name, :url, :id
 
   def url

@@ -48,7 +48,14 @@ Ipdb::Application.routes.draw do
       put "like", to: "podcasts#upvote"
       post :count
     end
+
+    resources :reviews, only: [:index, :new, :create, :update, :destroy]
   end
+
+  resources :reviews, only: [:show] do
+    resource :comment, only: [:create, :update, :destroy], controller: :review_comment
+  end
+
   resources :people do
     get :autocomplete_person_name, :on => :collection
     post :search, :on => :collection
@@ -75,6 +82,4 @@ Ipdb::Application.routes.draw do
   post 'subscription/upgrade', to: 'subscriptions#upgrade'
   post 'subscription/downgrade', to: 'subscriptions#downgrade'
   post 'subscription/create', to: 'subscriptions#create'
-
-
 end

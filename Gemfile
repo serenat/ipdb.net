@@ -37,6 +37,7 @@ gem 'country_select', '~> 2.5', '>= 2.5.1'
 gem 'activeadmin_addons', '~> 0.2.8'
 gem 'stripe', '~> 1.35'
 gem 'emojimmy'
+gem 'react-rails', '~> 1.6', '>= 1.6.2'
 
 gem 'sidekiq', '~> 3.5.0'
 gem 'sinatra', :require => nil

@@ -20,4 +20,8 @@
 //= require underscore
 //= require trix
 //= require bootstrap-notify.min
+//= require react
+//= require react_ujs
+//= require components
+//= require moment.min
 //= require_tree .

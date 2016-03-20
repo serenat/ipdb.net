@@ -26,10 +26,6 @@ a, a:visited{
   color: #3E454A;
 }
 
-a.btn {
-  color: #FFFFFF;
-}
-
 .navbar-header {
   width: 100%;
 }
@@ -440,4 +436,8 @@ a.anchor {
   position: relative;
   top: -150px;
   visibility: hidden;
+}
+
+span.label.label-ipdb {
+  background-color: $brand-primary;
 }

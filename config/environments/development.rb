@@ -48,5 +48,4 @@ Ipdb::Application.configure do
       :bucket => 'ipdbdevelopment'
     }
   }
-
 end

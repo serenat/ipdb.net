@@ -28,14 +28,14 @@ class PodcastsController < UserAccessController
     @itunes = doc.at_css('body')
     @episodesdata = doc.css('tr.podcast-episode')
     @feed = get_rss(@podcast.episodes_url)
-    #@podcast = Podcast.find(params[:id])
-    #@commentable = @podcast
-    #@comments = @commentable.comments
-    #@comment = Comment.new
-    #@data = Rate.all
+
     @message = @podcast.messages.build
-    response = HTTParty.get('http://itunes.apple.com/rss/customerreviews/id=' + @podcast.itunes_id.to_s + '/json')
-    @id = JSON.parse(response)
+
+    if current_user
+      @user = ActiveModel::SerializableResource.new(current_user).as_json
+      @user[:host] = Relations.new(current_user, @podcast).kind_of_host?
+    end
+
     add_to_recently_viewed_podcasts @podcast.id
     @recently_viewed_podcasts = Podcast.where(id: session[:recently_viewed_podcasts])
   end

@@ -152,19 +152,10 @@
           </div>
 
           <div class="tab-pane" id="reviews">
-            <% if @podcast.itunes_id && @id['feed']['entry'] %>
-              <% @id['feed']['entry'].drop(1).each do |review| %>
-                <h3><%= review['author']['name']['label'] %></h3>
-                <%= review['content']['label'] %><br>
-                <% if review['im:rating']['label'] == '5' %>
-                  <%= fa_icon 'star 15x' %>
-                  <%= fa_icon 'star 15x' %>
-                  <%= fa_icon 'star 15x' %>
-                  <%= fa_icon 'star 15x' %>
-                <% end %>
-              <% end %>
-            <% end %>
+            <br>
+            <%= react_component 'ReviewList', {url: podcast_reviews_path(@podcast), user: @user} %>
           </div>
+
           <div class="tab-pane" id="awards">
             <br>
             <li class="well" style="list-style:none;">

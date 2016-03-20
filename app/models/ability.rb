@@ -23,6 +23,13 @@ class Ability
       can [:create, :read], Message do |msg|
         can_create_message(msg, user)
       end
+      can :create, Comment do |comment|
+        can_create_comment(comment, user)
+      end
+      can [:update, :destroy], Comment, user_id: user.id
+      can :create, Review do |review|
+        can_create_review(review.podcast, user)
+      end
     end
 
     if user.nil?
@@ -31,6 +38,9 @@ class Ability
     elsif user.basic?
       cannot :set_episodes_count, Podcast
       can :index, Company, approved: true
+      can :create, Review do |review|
+        can_create_review(review.podcast, user)
+      end
     elsif user.silver?
       payed_user_abilities.call
     elsif user.gold?
@@ -85,5 +95,17 @@ class Ability
       person_id: user.person_id,
       position: 'Host'
     )
+  end
+
+  def can_create_comment(comment, user)
+    PersonPodcast.exists?(
+      podcast_id: comment.commentable.podcast_id,
+      person_id: user.person_id,
+      position: ['Host', 'Co-Host']
+    )
+  end
+
+  def can_create_review(podcast, user)
+    !Relations.new(user, podcast).kind_of_host? && !Review.exists?(user: user, podcast: podcast)
   end
 end
