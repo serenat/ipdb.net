@@ -426,7 +426,6 @@ GEM
     stripe (1.35.0)
       json (~> 1.8.1)
       rest-client (~> 1.4)
-    switch_user (1.2.1)
     textacular (3.2.2)
       activerecord (>= 3.0, < 5.0)
     therubyracer (0.12.2)
@@ -518,7 +517,6 @@ DEPENDENCIES
   sidekiq (~> 3.5.0)
   sinatra
   stripe (~> 1.35)
-  switch_user
   textacular
   therubyracer
   turbolinks
