@@ -9,9 +9,9 @@ class Review < ActiveRecord::Base
   validates :title, presence: true, length: {maximum: 35}, unless: :itunes
   validates :content, presence: true, length: {maximum: 300}, unless: :itunes
   validates :user, uniqueness: {scope: :podcast}, unless: :itunes
-  validate :created_within_fifteen_minutes?, if: :persisted?
 
   before_create :set_commented_at, unless: :itunes
+  before_create :truncate_title, if: :itunes
 
   stores_emoji_characters :content, :author, :title
 
@@ -19,5 +19,9 @@ class Review < ActiveRecord::Base
 
   def set_commented_at
     self.commented_at = created_at
+  end
+
+  def truncate_title
+    self.title = title[0,35]
   end
 end
