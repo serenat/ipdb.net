@@ -4,10 +4,10 @@ class Review < ActiveRecord::Base
   has_one :comment, as: :commentable, dependent: :destroy
 
   validates :podcast, presence: true
-  validates :title, presence: true, length: {maximum: 35}
   validates :rating, presence: true,
     numericality: {only_integer: true, greater_than: 0, less_than_or_equal_to: 5}
-  validates :content, presence: true, length: {maximum: 300}
+  validates :title, presence: true, length: {maximum: 35}, unless: :itunes
+  validates :content, presence: true, length: {maximum: 300}, unless: :itunes
   validates :user, uniqueness: {scope: :podcast}, unless: :itunes
   validate :created_within_fifteen_minutes?, if: :persisted?
 

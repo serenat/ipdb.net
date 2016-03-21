@@ -60,7 +60,7 @@ var ReviewList = React.createClass({
   handleFilterChange: function (filterValue) {
     this.setState({filter: filterValue});
     var quantity = this.state.reviews.length;
-    if (quantity == 0) { quantity = 10 };
+    if (quantity < 10) { quantity = 10 };
     this.loadReviewsFromServer({quantity: quantity, filter: filterValue});
   },
   render: function () {
@@ -102,7 +102,7 @@ var ReviewList = React.createClass({
         : <div className="no-reviews"><span>No reviews published yet</span></div>
         }
 
-        {reviewNodes.length >= 10 &&
+        {(reviewNodes.length > 0) && (reviewNodes.length % 10 == 0) &&
           <button
             className="btn btn-lg btn-default center-block load-more"
             onClick={this.loadMore}>
