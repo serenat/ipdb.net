@@ -8,7 +8,7 @@ class Review < ActiveRecord::Base
   validates :rating, presence: true,
     numericality: {only_integer: true, greater_than: 0, less_than_or_equal_to: 5}
   validates :content, presence: true, length: {maximum: 300}
-  validates :user, uniqueness: {scope: :podcast}
+  validates :user, uniqueness: {scope: :podcast}, unless: :itunes
   validate :created_within_fifteen_minutes?, if: :persisted?
 
   before_create :set_commented_at, unless: :itunes

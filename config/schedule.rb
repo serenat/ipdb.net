@@ -6,5 +6,5 @@ every 1.day, :at => Time.zone.parse('12:00pm') do
 end
 
 every :monday, :at => Time.zone.parse('2:00am') do
-  rake 'fetch:itunes_reviews'
+  runner 'FetchItunesReviewsJob.perform_later'
 end
