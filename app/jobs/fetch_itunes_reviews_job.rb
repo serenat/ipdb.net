@@ -2,34 +2,38 @@ class FetchItunesReviewsJob < ActiveJob::Base
   queue_as :default
 
   around_perform do |job, block|
-    log_helper(job.arguments.first, job.arguments.last, "is started")
+    log_helper "=========================================="
+    log_helper "Starting Itunes reviews fetching session."
+    log_helper "Time: #{DateTime.now}"
+    log_helper "=========================================="
 
     block.call
 
-    log_helper(job.arguments.first, job.arguments.last, "is done")
+    log_helper "=========================================="
+    log_helper "Itunes reviews fetching session finished."
+    log_helper "Time: #{DateTime.now}"
+    log_helper "=========================================="
   end
 
-  def perform(start, finish)
+  def perform
     fetched = 0
-    Podcast.find_in_batches(start: start).with_index do |podcasts, index|
-      log_helper(start, finish, "start fetch #{index + 1} batch")
+    Podcast.find_in_batches.with_index do |podcasts, index|
+      log_helper("start fetch #{index + 1} batch")
 
       podcasts.each do |podcast|
-        return if podcast.id > finish
-
         grabber = ItunesReviewsGrabber.new(podcast.itunes_id)
         until_date = podcast.last_itunes_review.try(:commented_at)
         reviews = grabber.last_reviews(until_date)
-        podcast.itunes_reviews.create(reviews)
+        podcast.reviews.create(reviews)
       end
 
-      log_helper(start, finish, "#{fetched += podcasts.length} podcasts was fetched")
+      log_helper("#{fetched += podcasts.length} podcasts was fetched")
     end
   end
 
   private
 
-  def log_helper(start, finish, message)
-    Loggers::Monitoring.info("FetchReviewsJob(#{start},#{finish}): #{message}")
+  def log_helper(message)
+    Loggers::Monitoring.info(message)
   end
 end
