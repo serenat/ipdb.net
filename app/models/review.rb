@@ -11,7 +11,6 @@ class Review < ActiveRecord::Base
   validates :user, uniqueness: {scope: :podcast}, unless: :itunes
 
   before_create :set_commented_at, unless: :itunes
-  before_create :truncate_title, if: :itunes
 
   stores_emoji_characters :content, :author, :title
 
@@ -21,7 +20,4 @@ class Review < ActiveRecord::Base
     self.commented_at = created_at
   end
 
-  def truncate_title
-    self.title = title[0,35]
-  end
 end
