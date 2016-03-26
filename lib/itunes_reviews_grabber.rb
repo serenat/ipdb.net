@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class ItunesReviewsGrabber
   MAX_PAGE_NUMBER  = 10
   REVIEWS_PER_PAGE = 50
@@ -32,9 +34,8 @@ class ItunesReviewsGrabber
   def get_page(page_number)
     tries = 3
     begin
-      response = HTTParty.get url(page_number)
-      response.body
-    rescue HTTParty::ResponseError => e
+      open url(page_number)
+    rescue StandardError => e
       tries -= 1
       if tries > 0
         retry
