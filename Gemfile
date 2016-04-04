@@ -39,7 +39,7 @@ gem 'stripe', '~> 1.35'
 gem 'emojimmy'
 gem 'react-rails', '~> 1.6', '>= 1.6.2'
 
-gem 'sidekiq', '~> 3.5.0'
+gem 'sidekiq', '~> 3.5.1'
 gem 'sinatra', :require => nil
 gem 'whenever', '~> 0.9.4', require: false
 gem 'omniauth-facebook'
