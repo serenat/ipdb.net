@@ -120,7 +120,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    celluloid (0.17.2)
+    celluloid (0.17.3)
       celluloid-essentials
       celluloid-extras
       celluloid-fsm
@@ -369,7 +369,7 @@ GEM
       execjs
       rails (>= 3.2)
       tilt
-    redis (3.2.1)
+    redis (3.2.2)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
     ref (2.0.0)
@@ -399,8 +399,8 @@ GEM
     shoulda-context (1.2.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
-    sidekiq (3.5.0)
-      celluloid (~> 0.17.0)
+    sidekiq (3.5.4)
+      celluloid (~> 0.17.2)
       connection_pool (~> 2.2, >= 2.2.0)
       json (~> 1.0)
       redis (~> 3.2, >= 3.2.1)
@@ -514,7 +514,7 @@ DEPENDENCIES
   react-rails (~> 1.6, >= 1.6.2)
   sass-rails
   shoulda (~> 3.5)
-  sidekiq (~> 3.5.0)
+  sidekiq (~> 3.5.1)
   sinatra
   stripe (~> 1.35)
   textacular
