@@ -1,7 +1,7 @@
 @media (min-width: 768px) {
-  .podcasts-list .thumb {
-    padding-left: 10px;
-    padding-right: 10px;
+  .podcast-thumb {
+    margin-left: -5px;
+    margin-right: -5px;
   }
 }
 
@@ -14,7 +14,7 @@
 }
 
 .podcasts-list .thumbnail img.podcast-art {
-  width: 100%;
+  width: 182px;
 }
 
 .podcasts-list .thumbnail .caption {
@@ -24,11 +24,14 @@
 
 .podcasts-list .thumbnail .caption .rating-box {
   text-align:center;
+  margin-top: 8px;
+  margin-bottom: 6px;
 }
 
 .podcasts-list .thumbnail .caption .rating-box .rank {
   position:absolute;
   left:0;
+  margin-top: 4px;
 }
 
 .podcasts-list .thumbnail .caption header {
@@ -39,3 +42,9 @@
   font-weight: 300;
 }
 
+.podcasts-list .thumbnail .caption .host-list {
+  margin-top: 6px;
+  font-size: 13px;
+  max-height: 36px;
+  overflow: hidden;
+}
