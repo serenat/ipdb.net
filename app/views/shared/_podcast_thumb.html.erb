@@ -1,0 +1,39 @@
+<div class="podcast-thumb thumbnail">
+  <% if podcast.user_approved? %>
+    <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end, class: 'podcast-art') + '', podcast, title: podcast.name %>
+  <% else %>
+    <%= link_to image_tag('microphone.png', class: 'podcast-art') + '', podcast, title: podcast.name %>
+  <% end %>
+
+  <div class="caption">
+    <div class="rating-box">
+      <span class="rank label label-primary"><%= rank %></span>
+      <%= rating_for podcast %>
+    </div>
+
+    <header>
+      <h4><%= link_to truncate(podcast.name, length: 37), podcast, title: podcast.name %></h4>
+    </header>
+
+    <% if podcast.category %>
+      <span class="label label-success"><%= podcast.category.html_safe %></span>
+    <% end %>
+    <% if podcast.explicit %>
+      <span class="label label-danger">explict</span>
+      <br>
+    <% end %>
+    <% if podcast.video %>
+      <span class="label label-info">video</span>
+    <% end %>
+
+    <div class="host-list">
+      <% podcast.people_podcasts.approved.each do |person_podcast| %>
+        <% if person_podcast.position == 'Host' || person_podcast.position == 'Co-Host' %>
+          By: <%= link_to person_podcast.person.name, person_podcast.person %>
+          <br>
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
+</div>

@@ -225,46 +225,15 @@
     </div>
   </div>
 
-  <div class="row recently-viewed podcast">
-      <h3>Recently Viewed</h3>
+  <div class="row recently-viewed podcasts-list">
+    <h3>Recently Viewed</h3>
+    <div class="row">
       <% @recently_viewed_podcasts.each do |podcast| %>
-        <li class="well col-xs-5 col-md-2">
-          <% if podcast.user_approved? %>
-            <%= link_to image_tag(if podcast.image_url.blank? then podcast.image else podcast.image_url end, class: 'podcast-art') + '', podcast, :class => "podcast-img" %><br>
-          <% else %>
-            <%= link_to image_tag('microphone.png', class: 'ward') + '', podcast, :class => "podcast-img" %><br>
-          <% end %>
-
-          <h4><%= link_to podcast.name, podcast %></h4>
-          <%= rating_for podcast %>
-
-          <br>
-          <% podcast.awards.each do |award| %>
-            <%= award_icon award.name %>
-          <% end %>
-
-          <br>
-          <% if podcast.category %>
-            <span class="label label-success"><%= podcast.category.html_safe %></span>
-          <% end %>
-          <% if podcast.explicit %>
-            <span class="label label-danger">explict</span>
-            <br>
-          <% end %>
-          <% if podcast.video %>
-            <span class="label label-info">video</span>
-          <% end %>
-          <br>
-
-          <% podcast.people_podcasts.approved.each do |pp| %>
-            <% if pp.position == 'Host' || pp.position == 'Co-Host' %>
-              By: <%= link_to pp.person.name, pp.person %>
-              <br>
-            <% end %>
-          <% end %>
-        </li>
-
+        <div class="col-sm-4 col-md-2-4">
+          <%= render partial: 'shared/podcast_thumb', locals: {podcast: podcast, rank: nil} %>
+        </div>
       <% end %>
+    </div>
   </div>
 </div>
 
