@@ -31,15 +31,10 @@ Ipdb::Application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_options = {from: 'info@ipdb.net'}
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    user_name:            Rails.application.secrets.smtp['username'],
-    password:             Rails.application.secrets.smtp['password'],
-    domain:               'mandrillapp.com',
-    address:              'smtp.mandrillapp.com',
-    port:                 587,
-    authentication:       'plain',
-    enable_starttls_auto: true
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_key: Rails.application.secrets.mailgun['api_key'],
+    domain: Rails.application.secrets.mailgun['domain']
   }
 
   config.paperclip_defaults = {
