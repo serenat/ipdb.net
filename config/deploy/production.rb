@@ -1,6 +1,7 @@
 set :stage, :production
 set :branch, 'production'
 set :rails_env, 'production'
+set :sidekiq_env, 'production'
 set :sidekiq_queue, ['default', 'mailers']
 # Simple Role Syntax
 # ==================
