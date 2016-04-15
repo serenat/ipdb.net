@@ -4,8 +4,9 @@ class ItunesReviewsGrabber
   MAX_PAGE_NUMBER  = 10
   REVIEWS_PER_PAGE = 50
 
-  def initialize(itunes_id)
-    @itunes_id = itunes_id
+  def initialize(podcast)
+    @podcast_id = podcast.id
+    @itunes_id = podcast.itunes_id
   end
 
   def last_reviews(until_date = nil)
@@ -24,7 +25,7 @@ class ItunesReviewsGrabber
 
   private
 
-  attr_reader :itunes_id
+  attr_reader :itunes_id, :podcast_id
 
   def get_reviews_from_page(page_number)
     page = get_page(page_number)
@@ -38,13 +39,13 @@ class ItunesReviewsGrabber
     rescue StandardError => e
       tries -= 1
       if tries > 0
+        sleep (3 - tries)
         retry
       else
         Loggers::Monitoring.info(
-          "Page fetching failed; itunes_id: #{itunes_id}; " +
-          "page number: #{page_number}; " +
-          "Error message: #{e.message};"
+          "Fail; id: #{podcast_id}; page: #{page_number}; error: #{e.message};"
         )
+        nil
       end
     end
   end

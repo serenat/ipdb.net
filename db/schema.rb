@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309111310) do
+ActiveRecord::Schema.define(version: 20160415093648) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -333,15 +333,15 @@ ActiveRecord::Schema.define(version: 20160309111310) do
   create_table "reviews", force: :cascade do |t|
     t.integer  "podcast_id",   limit: 4
     t.string   "itunes_id",    limit: 255
-    t.string   "author",       limit: 255
-    t.string   "title",        limit: 255
-    t.text     "content",      limit: 16777215
+    t.string   "author",       limit: 191
+    t.string   "title",        limit: 191
+    t.text     "content",      limit: 65535
     t.integer  "rating",       limit: 4
     t.datetime "commented_at"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "user_id",      limit: 4
-    t.boolean  "itunes",                        default: false
+    t.boolean  "itunes",                     default: false
   end
 
   add_index "reviews", ["podcast_id"], name: "index_reviews_on_podcast_id", using: :btree

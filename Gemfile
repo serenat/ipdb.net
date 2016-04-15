@@ -36,7 +36,6 @@ gem 'friendly_id', '~> 5.1'
 gem 'country_select', '~> 2.5', '>= 2.5.1'
 gem 'activeadmin_addons', '~> 0.2.8'
 gem 'stripe', '~> 1.35'
-gem 'emojimmy'
 gem 'react-rails', '~> 1.6', '>= 1.6.2'
 gem 'mailgun_rails', '~> 0.8.0'
 
