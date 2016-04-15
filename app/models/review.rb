@@ -12,8 +12,6 @@ class Review < ActiveRecord::Base
 
   before_create :set_commented_at, unless: :itunes
 
-  stores_emoji_characters :content, :author, :title
-
   private
 
   def set_commented_at

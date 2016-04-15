@@ -16,8 +16,8 @@ class ItunesReviewsParser
   def parse_entry(entry)
     {
       itunes_id:    entry.at_css('id').text,
-      author:       entry.at_css('author name').text,
-      title:        entry.at_css('title').text[0,255],
+      author:       entry.at_css('author name').text[0,191],
+      title:        entry.at_css('title').text[0,191],
       commented_at: to_time(entry.at_css('updated').text),
       content:      entry.at_css('content[type=text]').text,
       rating:       entry.at_css('im|rating').text,
