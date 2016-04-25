@@ -1,0 +1,63 @@
+.episode {
+  margin-bottom: 20px;
+  padding: 16px 12px 12px 12px;
+  border: 1px solid #e3e3e3;
+}
+
+.episode__header {
+  margin-bottom: 10px;
+  white-space: nowrap;
+}
+
+.episode__title {
+  font-size: 15px;
+  color:  #060606;
+}
+
+.episode__date {
+  font-size: 12px;
+  float: right;
+}
+
+.episode__description {
+  margin-bottom:10px;
+}
+
+.episode__download {
+  height: 20px;
+  margin-top: 7px;
+  color: #8D319C;
+}
+
+.episode__download a {
+  color: #8D319C;
+}
+
+.episode-list ul.pagination {
+  display: block;
+  text-align:center;
+}
+
+.episode-list ul.pagination li {
+  display: inline-block;
+}
+
+.episode-transition-enter {
+  opacity: 0.01;
+  background-color: rgba(255,0,0,0.3);
+}
+
+.episode-transition-enter.episode-transition-enter-active {
+  opacity: 1;
+  background-color: transparent;
+  transition: all 700ms ease-out 200ms;
+}
+
+.episode-transition-leave {
+  opacity: 1;
+}
+
+.episode-transition-leave.episode-transition-leave-active {
+  opacity: 0.01;
+  transition: opacity 200ms linear;
+}

@@ -25,11 +25,8 @@ class PodcastsController < UserAccessController
   end
 
   def show
-    doc = Nokogiri::HTML(open(@podcast.episodes_url))
-    @itunes = doc.at_css('body')
-    @episodesdata = doc.css('tr.podcast-episode')
-    @feed = get_rss(@podcast.episodes_url)
-
+    @podcast = PodcastDecorator.new(@podcast)
+    @episodes = @podcast.episodes_as_json
     @message = @podcast.messages.build
 
     if current_user

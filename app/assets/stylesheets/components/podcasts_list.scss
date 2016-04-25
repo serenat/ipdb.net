@@ -13,8 +13,13 @@
   min-height: 360px;
 }
 
-.podcasts-list .thumbnail img.podcast-art {
+.podcasts-list .thumbnail a {
+  display:block;
   width: 182px;
+  height: 182px;
+}
+.podcasts-list .thumbnail img.podcast-art {
+  width: 100%;
 }
 
 .podcasts-list .thumbnail .caption {

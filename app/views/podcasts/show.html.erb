@@ -1,15 +1,15 @@
 <% content_for :og_meta_tags do %>
   <meta property="og:url" content="<%= podcast_url @podcast %>" />
-  <meta property="og:title" content="<%= @itunes.css(".left h1").text.blank? ? @podcast.name : @itunes.css(".left h1").text %>" />
-  <meta property="og:description" content="<%= @podcast.description || @itunes.css('.product-review p').text %>" />
+  <meta property="og:title" content="<%= @podcast.title %>" />
+  <meta property="og:description" content="<%= @podcast.description %>" />
 <% end %>
 
 <div id="podcast-show-page"></div>
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <h3><%= @itunes.css(".left h1").text.blank? ? @podcast.name : @itunes.css(".left h1").text %></h3>
-      <img src=<%= @podcast.image_url.blank? ? @podcast.image : @podcast.image_url %> style="width:100%;" class="podcast-art">
+      <h3><%= @podcast.title %></h3>
+      <img src=<%= @podcast.art %> style="width:100%;" class="podcast-art">
 
       <%= rating_for @podcast %><br>
       <div class="titles">
@@ -22,10 +22,9 @@
           <% end %>
         <% end %>
       </div>
-      <% num_eps = @episodesdata.empty? ? @feed.entries.count : @episodesdata.count %>
-      <h4>Number of Episodes : <%= @podcast.episodes_count + num_eps.to_i  %></h4>
+
+      <h4>Number of Episodes : <%= @podcast.number_of_episodes  %></h4>
       <p><%= @podcast.description %></p>
-      <p><%= @itunes.css('.product-review p').text %></p>
 
       <a
         id="share-podcast"
@@ -93,61 +92,12 @@
           <div class="tab-pane active" id="episodes">
             <br>
             <% if @podcast.user_approved? %>
-              <!-- itunes feed -->
-              <% unless @episodesdata.empty? %>
-                <% @episodesdata.first([@episodesdata.count, 15].min).each do |episode| %>
-                  <li class="well">
-                    <h5><%= episode.css('td.name span[itemprop="name"]').text.strip %></h5>
-                    <p><%= episode.css('td.description span.text').text.strip %></p>
-                    <audio controls>
-                      <source src=<%= episode["audio-preview-url"] %>>
-                    </audio>
-                    <div class="row actions">
-                      <div class="col-md-4"></div>
-                      <div class="col-md-4"></div>
-                      <div class="col-md-4">
-                        <%= link_to episode["audio-preview-url"], class: 'pull-right episode-download', target: :_blank do %>
-                          <%= fa_icon 'download' %> Download
-                        <% end %>
-                      </div>
-                    </div>
-                  </li>
-                <% end %>
-              <% end %>
-
               <!-- rss feeds -->
-              <% @feed && @feed.entries.first(15).each do |t| %>
-                <li class="well">
-                  <h5><%= link_to t.title, t.url %></h5>
-
-                  <%= t.author %>
-                  <% if @podcast.video %>
-                    <video width="100%" controls poster="/images/ipdb.png">
-                      <source src=<%= defined?(t.enclosure_url) ? t.enclosure_url : t.image %>>
-                        Your browser does not support the audio element.
-                    </video>
-                    <p><%= sanitize t.summary.to_s %></p>
-                  <% else %>
-                    <p><%=sanitize t.summary %></p>
-                    <audio controls>
-                      <source src=<%= defined?(t.enclosure_url) ? t.enclosure_url : t.image %> type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                  <% end %>
-                  <div class="row actions">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
-                      <a href=<%= defined?(t.enclosure_url) ? t.enclosure_url : t.image %> class="pull-right episode-download" target="_blank" download>
-                        <%= fa_icon 'download' %> Download
-                      </a>
-                    </div>
-                  </div>
-                </li>
-              <% end %>
+              <%= react_component 'EpisodeList', {episodes: @episodes} %>
             <% else %>
-              <li class="well" style="list-style:none;"><p><%= link_to(image_tag('contact.jpg'), 'mailto:info@ipdb.net') %></p>
-            </li>
+              <li class="well" style="list-style:none;">
+                <p><%= link_to(image_tag('contact.jpg'), 'mailto:info@ipdb.net') %></p>
+              </li>
             <% end %>
           </div>
 
@@ -179,7 +129,6 @@
     <div class="col-md-3">
       <% if @podcast.user_approved? %>
         <hr />
-        <%= commontator_thread(@podcast) %>
         <!--
           <hr />
           <%= link_to(image_tag('http://podcastanswerman.com/wp-content/uploads/2011/10/AtoZRegister.jpg'), 'http://podcastanswerman.com/atoz/', target: '_blank') %>

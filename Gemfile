@@ -28,7 +28,7 @@ gem 'mysql2'
 gem 'newrelic_rpm'
 gem 'acts_as_follower'
 gem 'passenger'
-gem 'feedjira', '1.3.0'
+gem 'feedjira', '2.0.0'
 gem 'httparty'
 gem 'rails4-autocomplete'
 gem 'underscore-rails'
@@ -56,6 +56,7 @@ group :development do
   gem 'capistrano3-puma'
   gem 'capistrano-rbenv'
   gem 'capistrano-sidekiq'
+  gem 'browserify-rails', '~> 3.0', '>= 3.0.1'
 end
 
 group :development, :test do

@@ -32,4 +32,15 @@ namespace :populate do
       end
     end
   end
+
+  task :feed_url => :environment do
+    CSV.foreach(Rails.root.join('lib/data', 'feeds.csv')) do |row|
+      if podcast = Podcast.find_by(itunes_id: row[0])
+        podcast.update_attribute(:feed_url, row[1])
+        print '.'
+      else
+        puts "Podcast with itunes_id: #{row[0]} is not found"
+      end
+    end
+  end
 end
