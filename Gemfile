@@ -56,7 +56,6 @@ group :development do
   gem 'capistrano3-puma'
   gem 'capistrano-rbenv'
   gem 'capistrano-sidekiq'
-  gem 'browserify-rails', '~> 3.0', '>= 3.0.1'
 end
 
 group :development, :test do
