@@ -35,3 +35,6 @@ pickle-email-*.html
 # Ignore application configuration
 /config/application.yml
 /config/aws.yml
+
+# Ignore nodejs modules
+/node_modules

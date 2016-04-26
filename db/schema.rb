@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160415093648) do
+ActiveRecord::Schema.define(version: 20160421134537) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -298,6 +298,7 @@ ActiveRecord::Schema.define(version: 20160415093648) do
     t.integer  "episodes_count",     limit: 4,                             default: 0
     t.date     "start_date"
     t.string   "slug",               limit: 255
+    t.string   "feed_url",           limit: 255
   end
 
   add_index "podcasts", ["cohost_id"], name: "index_podcasts_on_cohost_id", using: :btree
