@@ -22,7 +22,6 @@
 //= require bootstrap-notify.min
 //= require react
 //= require react_ujs
-//= require react-pagination
 //= require components
 //= require moment.min
 //= require_tree .

@@ -35,7 +35,7 @@ class PodcastDecorator
         entry_id: episode.entry_id,
         title: episode.title,
         published: episode.published,
-        description: (episode.itunes_subtitle || episode.itunes_summary || episode.summary).truncate(300),
+        description: get_description(episode),
         source: episode.enclosure_url,
         source_type: episode.enclosure_type
       }
@@ -53,5 +53,13 @@ class PodcastDecorator
     Feedjira::Feed.parse_with Feedjira::Parser::ITunesRSS, xml
   rescue StandardError => e
     nil
+  end
+
+  def get_description(episode)
+    (
+      episode.itunes_subtitle ||
+      episode.itunes_summary ||
+      episode.summary
+    ).try(:truncate, 300)
   end
 end
