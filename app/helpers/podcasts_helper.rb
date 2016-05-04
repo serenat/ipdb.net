@@ -50,7 +50,7 @@ module PodcastsHelper
 
   def podcast_genres_dropdown
     arr = []
-    PodcastGenresList::LIST.each do |group, childs|
+    PodcastGenresList::RANKED_LIST.each do |group, childs|
       arr << content_tag(:li) do
         content_tag(:a, group, class: 'opt-group', href: podcasts_path(category: group))
       end

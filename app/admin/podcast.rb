@@ -1,5 +1,5 @@
 ActiveAdmin.register Podcast do
-  permit_params :description, :name, :image_file_name,:image_url, :episodes_url, :episodes_count,
+  permit_params :description, :name, :image_file_name,:image_url, :episodes_url, :feed_url, :episodes_count,
     :user_id, :explicit, :category, :approved,:user_approved, :itunes_id, :video, :start_date, :image,
     nominations_attributes: [:id, :award_id, :name, :year, :_destroy]
 
@@ -64,7 +64,13 @@ ActiveAdmin.register Podcast do
       end
       row :score
       row :approved
-      row :episodes_url
+      row 'episodes_url (itunes_url)' do |podcast|
+        podcast.episodes_url
+      end
+      row 'itunes id' do |podcast|
+        podcast.itunes_id
+      end
+      row :feed_url
       row :episodes_count
       row :user
       row :user_approved
@@ -72,7 +78,6 @@ ActiveAdmin.register Podcast do
       row :cohost
       row :ppff
       row :hideplayer
-      row :itunes
       row :video
       row :start_date
       row :image do |podcast|
@@ -87,10 +92,11 @@ ActiveAdmin.register Podcast do
     f.inputs "Podcast Details", multipart: true do
       f.input :name
       f.input :explicit, :label => "Explict?"
-      f.input :episodes_url
+      f.input :episodes_url, label: 'Episodes url (Itunes url)'
+      f.input :itunes_id, label: 'Itunes id'
+      f.input :feed_url
       f.input :episodes_count
       f.input :description
-      f.input :itunes_id
       f.input :category, :as => :select, :collection => categories_list
       f.input :approved
       f.input :user_approved
