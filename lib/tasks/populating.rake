@@ -43,4 +43,17 @@ namespace :populate do
       end
     end
   end
+
+  task :genres => :environment do
+    CSV.foreach(Rails.root.join('lib/data', 'itunes_lookup_table.csv')) do |row|
+      if podcast = Podcast.find_by(itunes_id: row[0])
+        h = JSON.parse(row[1])
+        genres = h['genres'].select {|genre| genre != 'Podcasts'}
+        podcast.update_columns(genres: ",#{genres.join(',')},", primary_genre: h['primaryGenreName'])
+        print '.'
+      else
+        puts "Podcast with itunes_id: #{row[0]} is not found"
+      end
+    end
+  end
 end

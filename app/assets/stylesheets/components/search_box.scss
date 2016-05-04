@@ -11,13 +11,13 @@
 }
 
 @media (min-width: 768px) {
-  .search-box input[name='search[query]'] {
+  .search-box input[name='query'] {
     width:50%;
   }
 }
 
 @media (max-width: 768px) {
-  .search-box select[name='search[type]'] {
+  .search-box select[name='type'] {
     display:none;
   }
   .search-box button[type=submit] {

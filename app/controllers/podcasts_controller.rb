@@ -7,20 +7,13 @@ class PodcastsController < UserAccessController
   autocomplete :podcast, :name, full: true
 
   def index
-    if params[:search] && params[:search][:query].present?
-      search = Search.new(params[:search])
-      @podcasts  = search.podcasts.try(:page, params[:page])
-      @people    = search.people
-      @companies = search.companies
+    if params[:category].present?
+      @podcasts  = Podcast.where("genres like ?", "%,#{params[:category]},%").by_score.try(:page, params[:page])
       @paginate = @podcasts
     else
-      params.delete :search
       @podcasts = Podcast.with_people.with_awards.by_score.page(params[:page])
       @paginate = @podcasts
-      @people = Person.none
-      @companies = Company.none
     end
-    #@users= User.all
     @comments = Comment.all
   end
 

@@ -1,9 +1,9 @@
 <div class="strip search-box" style="background: url(<%= asset_path 'microphone-dark.jpg' %>);">
   <div class="container">
     <a id="search"></a>
-    <%= form_tag(podcasts_path, :method => "get", class: "form-inline") do %>
-      <input type="search" name="search[query]" class="form-control input-lg" placeholder="Find Podcasts, Companies and People">
-      <select class="form-control input-lg" name="search[type]">
+    <%= form_tag(search_path, :method => "get", class: "form-inline") do %>
+      <input type="search" name="query" class="form-control input-lg" placeholder="Find Podcasts, Companies and People">
+      <select class="form-control input-lg" name="type">
         <option>All</option>
         <option>Podcasts</option>
         <option>People</option>

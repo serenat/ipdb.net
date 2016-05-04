@@ -1,0 +1,21 @@
+.category-filter .dropdown button {
+  width:160px;
+}
+
+.category-filter .dropdown .dropdown-menu {
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.category-filter .dropdown .dropdown-menu li a {
+  padding-left: 30px;
+}
+
+.category-filter .dropdown .dropdown-menu li a.opt-group {
+  padding-left: 20px;
+  font-weight: bold;
+}
+
+.category-filter .dropdown .dropdown-menu .divider {
+  width: 100%;
+}

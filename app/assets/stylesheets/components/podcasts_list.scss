@@ -1,7 +1,27 @@
+.podcasts-list__submit-podcast-btn {
+  float: right;
+  box-shadow: none;
+}
+
+.podcasts-list__submit-podcast-btn:hover {
+  box-shadow: none;
+}
+
 @media (min-width: 768px) {
   .podcast-thumb {
     margin-left: -5px;
     margin-right: -5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .podcasts-list__submit-podcast-btn {
+    float: none;
+    width: 100%;
+  }
+  .podcasts-list h1 {
+    font-size: 2.4em;
+    margin-top: 20px;
   }
 }
 
@@ -13,11 +33,6 @@
   min-height: 360px;
 }
 
-.podcasts-list .thumbnail a {
-  display:block;
-  width: 182px;
-  height: 182px;
-}
 .podcasts-list .thumbnail img.podcast-art {
   width: 100%;
 }
@@ -40,11 +55,17 @@
 }
 
 .podcasts-list .thumbnail .caption header {
-  height: 50px;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  height: 2.7em;
+  margin-bottom:5px;
 }
 
 .podcasts-list .thumbnail .caption header h4 {
   font-weight: 300;
+  font-size: 1.1em;
+  line-height: 1.3em;
 }
 
 .podcasts-list .thumbnail .caption .host-list {

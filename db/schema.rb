@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421134537) do
+ActiveRecord::Schema.define(version: 20160428140237) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -299,10 +299,13 @@ ActiveRecord::Schema.define(version: 20160421134537) do
     t.date     "start_date"
     t.string   "slug",               limit: 255
     t.string   "feed_url",           limit: 255
+    t.string   "primary_genre",      limit: 255
+    t.text     "genres",             limit: 65535
   end
 
   add_index "podcasts", ["cohost_id"], name: "index_podcasts_on_cohost_id", using: :btree
   add_index "podcasts", ["guest_id"], name: "index_podcasts_on_guest_id", using: :btree
+  add_index "podcasts", ["itunes_id"], name: "index_podcasts_on_itunes_id", using: :btree
   add_index "podcasts", ["slug"], name: "index_podcasts_on_slug", using: :btree
   add_index "podcasts", ["user_id"], name: "index_podcasts_on_user_id", using: :btree
 
