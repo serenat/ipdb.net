@@ -37,6 +37,10 @@ class Podcast < ActiveRecord::Base
   }
   scope :approved, -> { where(approved: true) }
   scope :by_score, -> { order(score: :desc) }
+  scope :filtered_by_category, ->(category) {
+    where('genres like ?', "%,#{category},%")
+      .order("FIELD(primary_genre,'#{category}') DESC")
+  }
 
   def hideplayer
     self[:hideplayer] || false

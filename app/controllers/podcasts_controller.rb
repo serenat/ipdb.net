@@ -7,11 +7,18 @@ class PodcastsController < UserAccessController
   autocomplete :podcast, :name, full: true
 
   def index
-    if params[:category].present?
-      @podcasts  = Podcast.where("genres like ?", "%,#{params[:category]},%").by_score.try(:page, params[:page])
+    if category_present_and_correct?
+      @podcasts = Podcast.filtered_by_category(params[:category])
+        .with_people
+        .with_awards
+        .by_score
+        .try(:page, params[:page])
       @paginate = @podcasts
     else
-      @podcasts = Podcast.with_people.with_awards.by_score.page(params[:page])
+      @podcasts = Podcast.with_people
+        .with_awards
+        .by_score
+        .page(params[:page])
       @paginate = @podcasts
     end
     @comments = Comment.all
@@ -121,11 +128,11 @@ class PodcastsController < UserAccessController
 
   def podcast_params
     if current_user.nil? || current_user.basic?
-      params.require(:podcast).permit(:name, :description, :image, :episodes_url, :video,
+      params.require(:podcast).permit(:name, :description, :image, :feed_url, :video,
         :explicit, :category, :start_date)
     else
       # Only Sliver, Gold or Platinum users can create/update episodes count
-      params.require(:podcast).permit(:name, :description, :image, :episodes_url, :video,
+      params.require(:podcast).permit(:name, :description, :image, :feed_url, :video,
         :explicit, :category, :start_date, :episodes_count)
     end
   end
@@ -140,5 +147,9 @@ class PodcastsController < UserAccessController
     session[:recently_viewed_podcasts] ||= []
     session[:recently_viewed_podcasts].unshift(id) unless session[:recently_viewed_podcasts].include?(id)
     session[:recently_viewed_podcasts] = session[:recently_viewed_podcasts][0, 5]
+  end
+
+  def category_present_and_correct?
+    params[:category].present? && PodcastGenresList::FLAT_LIST.include?(params[:category])
   end
 end
