@@ -65,6 +65,7 @@ Ipdb::Application.routes.draw do
     resources :companies_podcasts, :path => :connections, only: [:new, :create]
   end
 
+  resource :search, only: :show, controller: :search
   #profile
   get 'profile/overview',  to: 'profile#overview'
   get 'profile/podcasts',  to: 'profile#podcasts'

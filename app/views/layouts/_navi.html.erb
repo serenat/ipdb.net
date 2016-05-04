@@ -60,10 +60,10 @@
         <li><%= link_to "Sign in", new_user_session_path %></li>
         <li><%= link_to "Pricing", pricing_path %></li>
       <% end %>
-      <%= form_tag(podcasts_path, :method => "get", id: "search-form", class: "navbar-form navbar-right") do %>
+      <%= form_tag(search_path, :method => "get", id: "search-form", class: "navbar-form navbar-right") do %>
         <div class="form-group">
-          <%= text_field_tag 'search[query]', params[:search].try(:[],:query), placeholder: "People & Podcasts", class: "form-control" %>
-          <%= text_field_tag 'search[type]', 'All', hidden: true %>
+          <%= text_field_tag 'query', params[:query], placeholder: "People & Podcasts", class: "form-control" %>
+          <%= text_field_tag 'type', 'All', hidden: true %>
         </div>
         <%= submit_tag "Search", :name => nil, class: "btn btn-default" %>
       <% end %>

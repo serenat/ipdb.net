@@ -1,38 +1,14 @@
 <div class="container">
-  <div class="row">
-    <% @people.each do |person| %>
-      <div class="col-sm-3 col-md-2">
-        <div class="person-thumb">
-          <%= image_tag person.profile_image, class: "avatar img-circle center-block", style: 'width:150px; height:150px;' %>
-          <h4 class="username"><%= link_to person.name, person %></h4>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="row">
-    <% if @people.any? && @companies.any? %>
-      <br /><br />
-      <hr />
-    <% end %>
-    <% @companies.each do |company| %>
-      <div class="col-md-2">
-        <h4 class="username"><%= link_to company.name, company %></h4>
-        <%= image_tag company.image, class: "company-logo center-block", style: 'width:150px; height:150px;' %>
-        <br/>
-      </div>
-    <% end %>
-  </div>
-
-  <% if @people.any? || @companies.any? %>
-    <br /><br /><br /><br />
-  <% end %>
-
   <div class="podcasts-list">
-    <%= link_to 'Submit Podcast to IPDb', new_podcast_path, class: "btn btn-primary btn-lg pull-right" %>
+
+    <%= link_to 'Submit Podcast to IPDb', new_podcast_path, class: "btn btn-primary btn-lg podcasts-list__submit-podcast-btn" %>
     <h1>Listing podcasts</h1>
-    <%= paginate @paginate %>
+
+    <%= render partial: 'category_filter' %>
+
     <hr />
+
+    <%= podcasts_breadcrumb %>
     <div class="row">
       <% @podcasts.each_with_index do |podcast, i| %>
         <div class="col-sm-4 col-md-2-4">

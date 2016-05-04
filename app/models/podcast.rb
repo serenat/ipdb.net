@@ -65,4 +65,13 @@ class Podcast < ActiveRecord::Base
   def last_itunes_review
     reviews.where(itunes: true).order(commented_at: :desc).first
   end
+
+  def genres=(genres_array)
+    genres_string = genres_array.join(',')
+    super(",#{genres_string},")
+  end
+
+  def genres
+    super && super[1..-1].split(',')
+  end
 end

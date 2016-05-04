@@ -1,0 +1,54 @@
+<div class="container">
+  <% if @people.any? %>
+    <h2>People</h2>
+    <hr>
+    <div class="row">
+      <% @people.first(12).each do |person| %>
+        <div class="col-sm-3 col-md-2">
+          <div class="person-thumb">
+            <%= image_tag person.profile_image, class: "avatar img-circle center-block", style: 'width:150px; height:150px;' %>
+            <h4 class="username"><%= link_to person.name, person %></h4>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @companies.any? %>
+    <h2>Companies</h2>
+    <hr>
+    <div class="row">
+      <% @companies.first(10).each do |company| %>
+        <div class="col-md-2">
+          <h4 class="username"><%= link_to company.name, company %></h4>
+          <%= image_tag company.image, class: "company-logo center-block", style: 'width:150px; height:150px;' %>
+          <br/>
+        </div>
+      <% end %>
+    </div>
+    <br/>
+  <% end %>
+
+  <% if @podcasts.any? %>
+    <h2>Podcasts</h2>
+    <hr />
+    <div class="podcasts-list">
+      <div class="row">
+        <% @podcasts.each_with_index do |podcast, i| %>
+          <div class="col-sm-4 col-md-2-4">
+            <%= render partial: 'shared/podcast_thumb', locals: {podcast: podcast, rank: rank(@paginate.prev_page, i)} %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="row nopadding">
+      <%= paginate @paginate %>
+    </div>
+  <% else %>
+    <% if @people.empty? && @companies.empty? %>
+      <div style="padding: 100px 0px;margin-left:auto;margin-right:auto;width:100%;text-align:center;">
+        <h3>Nothing found.</h3>
+      </div>
+    <% end %>
+  <% end %>
+</div>

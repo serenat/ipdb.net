@@ -47,4 +47,57 @@ module PodcastsHelper
       podcast.image_url
     end
   end
+
+  def podcast_genres_dropdown
+    arr = []
+    PodcastGenresList::LIST.each do |group, childs|
+      arr << content_tag(:li) do
+        content_tag(:a, group, class: 'opt-group', href: podcasts_path(category: group))
+      end
+      childs && childs.collect do |child|
+        arr << content_tag(:li) do
+          content_tag(:a, child, href: podcasts_path(category: child))
+        end
+      end
+      arr << content_tag(:li, nil, class: 'divider', role: 'separator')
+    end
+    arr.pop
+    arr.join.html_safe
+  end
+
+  def podcasts_breadcrumb
+    category, subcategory = parse_params_genre
+    if category
+      content_tag :ol, class: 'breadcrumb' do
+        concat (
+          content_tag :li do
+            content_tag :a, 'Podcasts', href: podcasts_path
+          end
+        )
+        if subcategory
+          concat (
+            content_tag :li do
+              content_tag :a, category, href: podcasts_path(category: category)
+            end
+          )
+          concat content_tag :li, subcategory, class: 'active'
+        else
+          concat content_tag :li, category, class: 'active'
+        end
+      end
+    end
+  end
+
+  def parse_params_genre
+    if params[:category]
+      genre = PodcastGenresList::LOOKUP[params[:category]]
+      if genre
+        [genre, params[:category]]
+      else
+        [params[:category], nil]
+      end
+    else
+      [nil, nil]
+    end
+  end
 end

@@ -62,4 +62,8 @@ class PodcastDecorator
       episode.summary
     ).try(:truncate, 300)
   end
+
+  def method_missing(*args, &block)
+    @podcast.send(*args, &block)
+  end
 end
