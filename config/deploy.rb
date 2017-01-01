@@ -19,6 +19,7 @@ set :rbenv_ruby, '2.2.2'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 
+set :puma_workers, 2
 set :puma_init_active_record, true
 set :puma_monit_conf_dir, -> { "/etc/monit/conf.d/#{puma_monit_service_name}.monitrc" }
 

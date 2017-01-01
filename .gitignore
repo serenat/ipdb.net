@@ -32,6 +32,10 @@ rerun.txt
 pickle-email-*.html
 .elasticbeanstalk/
 
+.ruby-version
+.rbenv-gemsets
+.gems/
+
 # Ignore application configuration
 /config/application.yml
 /config/aws.yml

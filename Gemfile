@@ -47,6 +47,7 @@ gem 'active_model_serializers', '~> 0.10.0.rc3'
 gem 'cancancan', '~> 1.13', '>= 1.13.1'
 
 gem 'puma'
+gem 'puma_worker_killer'
 gem 'figaro'
 
 group :development do
