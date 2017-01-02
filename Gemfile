@@ -46,7 +46,7 @@ gem 'omniauth-facebook'
 gem 'active_model_serializers', '~> 0.10.0.rc3'
 gem 'cancancan', '~> 1.13', '>= 1.13.1'
 
-gem 'puma'
+gem 'puma', '~> 2.16'
 gem 'puma_worker_killer'
 gem 'figaro'
 
