@@ -1,7 +1,7 @@
 ActiveAdmin.register PersonPodcast do
   menu parent: 'Connections', label: 'Person <~> Podcast'
 	filter :person
-  permit_params :podast_id, :person_id, :position, :doc_url, :approved
+  permit_params :podcast_id, :person_id, :position, :doc_url, :approved
   active_admin_importable
 
     batch_action :flag do |selection|
