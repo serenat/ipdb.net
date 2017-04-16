@@ -525,5 +525,8 @@ DEPENDENCIES
   underscore-rails
   whenever (~> 0.9.4)
 
+RUBY VERSION
+   ruby 2.2.2p95
+
 BUNDLED WITH
-   1.10.6
+   1.13.6

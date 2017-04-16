@@ -38,3 +38,7 @@ pickle-email-*.html
 
 # Ignore nodejs modules
 /node_modules
+
+.rbenv-gemsets
+.ruby-version
+.gems/
