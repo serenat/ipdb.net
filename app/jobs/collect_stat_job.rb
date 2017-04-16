@@ -1,8 +1,9 @@
 class CollectStatJob < ActiveJob::Base
   queue_as :default
 
-  def perform(podcast, event, ip_address)
-    podcast_stat = PodcastStat.where(podcast_id: podcast.id).first_or_initialize
+  def perform(podcast_id, event, ip_address)
+    podcast = Podcast.find(podcast_id)
+    podcast_stat = PodcastStat.where(podcast_id: podcast_id).first_or_initialize
 
     podcast_event = PodcastEvent.new(
       podcast_id: podcast.id,

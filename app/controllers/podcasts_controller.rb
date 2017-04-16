@@ -116,7 +116,7 @@ class PodcastsController < UserAccessController
   end
 
   def count
-    CollectStatJob.perform_later @podcast, params[:event], request.remote_ip
+    CollectStatJob.perform_later @podcast.id, params[:event], request.remote_ip
     head :ok
   end
 
